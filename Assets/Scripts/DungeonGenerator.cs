@@ -87,8 +87,6 @@ public class DungeonGenerator : MonoBehaviour {
                 }
             }
 
-            // TODO: check whether this placement closes connectors (i.e. part connects to multiple other parts/connectors)
-
             openOutbound.Remove(outboundConnector);
         }
     }
@@ -147,6 +145,23 @@ public class DungeonGenerator : MonoBehaviour {
 
         var nextOutboundConnectors = partInstance.OutboundConnectors();
         nextOutboundConnectors.Remove(inboundConnector);
+        openOutbound.Remove(outboundConnector);
+
+        // check whether this part makes additional connections to other open connectors
+        for (var i = nextOutboundConnectors.Count - 1; i > 0; i--) {
+            var connA = nextOutboundConnectors[i];
+            for (var j = openOutbound.Count - 1; j > 0; j--) {
+                var connB = openOutbound[j];
+                if (connA.CanConnectTo(connB)) {
+                    if ((connA.transform.position - connB.transform.position).sqrMagnitude < 0.001f) {
+                        nextOutboundConnectors.RemoveAt(i);
+                        openOutbound.RemoveAt(j);
+                        //Debug.Log($"Detected additional connection between {connA.gameObject.name} and {connB.gameObject.name}, closing both.");
+                    }
+                }
+            }
+        }
+
         openOutbound.AddRange(nextOutboundConnectors);
 
         return true;

@@ -13,6 +13,8 @@ public class DungeonConnector : MonoBehaviour {
     public int ConnectorId;
 
     public bool CanConnectTo(DungeonConnector other) {
-        return ConnectionTag == other.ConnectionTag && ((AllowOutbound && other.AllowInbound) || (AllowInbound && other.AllowOutbound));
+        return other != this
+                && (ConnectionTag == other.ConnectionTag)
+                && ((AllowOutbound && other.AllowInbound) || (AllowInbound && other.AllowOutbound));
     }
 }
