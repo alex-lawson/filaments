@@ -8,6 +8,7 @@ public class DungeonPart : MonoBehaviour {
     public string PartName;
     public bool CanBeStart;
     public bool CanBeEnd;
+    public bool SkipBoundsCheck = false;
 
     // auto populated, don't mess with 'em
     public List<DungeonConnector> Connectors;

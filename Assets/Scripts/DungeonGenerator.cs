@@ -106,15 +106,19 @@ public class DungeonGenerator : MonoBehaviour {
             targetOrientation = Quaternion.AngleAxis(180, outboundConnector.transform.up) * outboundConnector.transform.rotation * Quaternion.Inverse(prefabIC.transform.localRotation);
             targetPosition = outboundConnector.transform.position - targetOrientation * prefabIC.transform.localPosition;
 
-            // check bounding box to see whether it can be placed
-            Vector3 boundsCheckPosition = targetPosition + targetOrientation * partPrefab.PartBounds.center;
-            bool collides = Physics.CheckBox(boundsCheckPosition, partPrefab.PartBounds.extents, targetOrientation);
+            bool canPlace = partPrefab.SkipBoundsCheck;
 
-            if (collides) {
-                //Debug.Log($"Bounds check failed! Can't connect {outboundConnector.gameObject.name} (outbound) to {prefabIC.gameObject.name} (inbound)");
-            } else {
+            if (!canPlace) {
+                // check bounding box to see whether it can be placed
+                Vector3 boundsCheckPosition = targetPosition + targetOrientation * partPrefab.PartBounds.center;
+                canPlace = !Physics.CheckBox(boundsCheckPosition, partPrefab.PartBounds.extents, targetOrientation);
+            }
+
+            if (canPlace) {
                 inboundConnectorId = prefabIC.ConnectorId;
                 break;
+            } else {
+                //Debug.Log($"Bounds check failed! Can't connect {outboundConnector.gameObject.name} (outbound) to {prefabIC.gameObject.name} (inbound)");
             }
         }
 
