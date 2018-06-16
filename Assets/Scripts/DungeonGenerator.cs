@@ -15,17 +15,22 @@ public class DungeonGenerator : MonoBehaviour {
     private class DungeonGenerationPhaseStatus {
         public DungeonGenerationPhaseConfig Config;
         public int RemainingPartCount;
+        public List<DungeonPart> PartPool;
         public List<DungeonConnector> OpenOutbound;
         public List<DungeonConnector> FailedOutbound;
 
         public DungeonGenerationPhaseStatus(DungeonGenerationPhaseConfig config) {
             Config = config;
             RemainingPartCount = config.PartLimit;
+            // copy the part pool so that we can safely shuffle without disrupting static randomization
+            PartPool = new List<DungeonPart>(config.PartPool);
             OpenOutbound = new List<DungeonConnector>();
             FailedOutbound = new List<DungeonConnector>();
         }
     }
 
+    public int Seed;
+    public bool UseRandomSeed = true;
     public List<DungeonPart> StartParts;
     public DungeonGenerationPhaseConfig[] Phases;
     public UnityEvent OnGenerationComplete;
@@ -33,6 +38,7 @@ public class DungeonGenerator : MonoBehaviour {
 
     private List<DungeonPart> currentDungeonPartInstances = new List<DungeonPart>();
     private DungeonGenerationPhaseStatus currentPhaseStatus;
+    private Random.State randomState;
 
     private void Awake() {
         OnGenerationComplete = new UnityEvent();
@@ -58,25 +64,31 @@ public class DungeonGenerator : MonoBehaviour {
     /// calls to StepGeneration (until StepGeneration returns false)
     /// </summary>
     public void Generate(bool synchronous = true) {
-        Generating = true;
-
         if (StartParts.Count == 0) {
-            Debug.LogError("Generation failed: StartParts list is empty!");
-            Generating = false;
+            Debug.LogError("Generation failed: no Start Parts configured!");
+            return;
+        } else if (Phases.Length == 0) {
+            Debug.LogError("Generation failed: no Phases configured!");
             return;
         }
+
+        Generating = true;
+
+        if (UseRandomSeed)
+            Seed = Random.Range(int.MinValue, int.MaxValue);
+
+        var oldRandomState = Random.state;
+        Random.InitState(Seed);
 
         DungeonPart startPart = StartParts.RandomElement();
         var startPartInstance = Instantiate(startPart.gameObject, transform).GetComponent<DungeonPart>();
         currentDungeonPartInstances.Add(startPartInstance);
 
-        if (Phases.Length == 0) {
-            Generating = false;
-            return;
-        }
-
         currentPhaseStatus = new DungeonGenerationPhaseStatus(Phases[0]);
         currentPhaseStatus.OpenOutbound.AddRange(startPartInstance.OutboundConnectors());
+
+        randomState = Random.state;
+        Random.state = oldRandomState;
 
         if (synchronous) {
             while (Generating)
@@ -90,13 +102,16 @@ public class DungeonGenerator : MonoBehaviour {
     /// </summary>
     public bool StepGeneration() {
         if (Generating) {
+            var oldRandomState = Random.state;
+            Random.state = randomState;
+
             if (currentPhaseStatus.RemainingPartCount > 0 && currentPhaseStatus.OpenOutbound.Count > 0) {
                 DungeonConnector outboundConnector = currentPhaseStatus.OpenOutbound.RandomElement();
 
                 // Try to place each potentially connectable part (in random order)
-                currentPhaseStatus.Config.PartPool.Shuffle();
+                currentPhaseStatus.PartPool.Shuffle();
 
-                foreach (var candPart in currentPhaseStatus.Config.PartPool) {
+                foreach (var candPart in currentPhaseStatus.PartPool) {
                     if (candPart.HasInboundConnector(outboundConnector.ConnectionTag)) {
                         if (TryPlacePart(candPart, outboundConnector)) {
                             currentPhaseStatus.RemainingPartCount--;
@@ -109,12 +124,15 @@ public class DungeonGenerator : MonoBehaviour {
                 if (currentPhaseStatus.OpenOutbound.Remove(outboundConnector))
                     currentPhaseStatus.FailedOutbound.Add(outboundConnector);
             } else {
-                var placedPhaseParts = currentPhaseStatus.Config.PartLimit - currentPhaseStatus.RemainingPartCount;
-                Debug.Log($"Phase '{currentPhaseStatus.Config.PhaseName}' complete: {placedPhaseParts} parts placed, " +
-                    $"{currentPhaseStatus.FailedOutbound.Count + currentPhaseStatus.OpenOutbound.Count} open connectors");
+                //var placedPhaseParts = currentPhaseStatus.Config.PartLimit - currentPhaseStatus.RemainingPartCount;
+                //Debug.Log($"Phase '{currentPhaseStatus.Config.PhaseName}' complete: {placedPhaseParts} parts placed, " +
+                //    $"{currentPhaseStatus.FailedOutbound.Count + currentPhaseStatus.OpenOutbound.Count} open connectors");
 
                 Generating = AdvanceGenerationPhase();
             }
+
+            randomState = Random.state;
+            Random.state = oldRandomState;
 
             if (!Generating && OnGenerationComplete != null)
                 OnGenerationComplete.Invoke();

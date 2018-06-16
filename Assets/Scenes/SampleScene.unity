@@ -882,6 +882,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 072cda891748d4d439c830781d9f8a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Seed: 1234
+  UseRandomSeed: 1
   StartParts:
   - {fileID: 114605712244445390, guid: 9b104acd252881b44a3f821cae95ba10, type: 2}
   Phases:
