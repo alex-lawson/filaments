@@ -61,6 +61,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1458052787093664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4462212212522300}
+  - component: {fileID: 114560962262884312}
+  m_Layer: 0
+  m_Name: TabletopItemConnector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1492826744542252
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,9 +147,23 @@ Transform:
   - {fileID: 4109113010389506}
   - {fileID: 4268449183258958}
   - {fileID: 4105190642534918}
+  - {fileID: 4462212212522300}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4462212212522300
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1458052787093664}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.384, y: 0.7, z: -0.382}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4347975302422408}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!23 &23122671388633314
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -254,10 +284,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartName: DecoTable
-  CanBeStart: 0
-  CanBeEnd: 1
+  PlaceInStartPhase: 0
+  PlaceInMainPhase: 0
+  PlaceInEndPhase: 1
+  SkipBoundsCheck: 0
   Connectors:
   - {fileID: 114183026989045854}
+  - {fileID: 114560962262884312}
   PartBounds:
     m_Center: {x: 0, y: 0.100000024, z: 0}
     m_Extent: {x: 0.745, y: 0.595, z: 0.745}
@@ -277,3 +310,19 @@ MonoBehaviour:
   AllowInbound: 1
   RandomRotation: 0
   ConnectorId: 0
+--- !u!114 &114560962262884312
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1458052787093664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110ec76b530d3a245926d2d1d1158af5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConnectionTag: TableItem
+  AllowOutbound: 1
+  AllowInbound: 0
+  RandomRotation: 0
+  ConnectorId: 1

@@ -184,8 +184,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartName: DoorBlocker
-  CanBeStart: 0
-  CanBeEnd: 1
+  PlaceInStartPhase: 0
+  PlaceInMainPhase: 0
+  PlaceInEndPhase: 1
   SkipBoundsCheck: 1
   Connectors:
   - {fileID: 114301315832196858}

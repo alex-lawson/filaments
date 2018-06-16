@@ -1054,8 +1054,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartName: PlusRoom
-  CanBeStart: 1
-  CanBeEnd: 0
+  PlaceInStartPhase: 1
+  PlaceInMainPhase: 1
+  PlaceInEndPhase: 0
+  SkipBoundsCheck: 0
   Connectors:
   - {fileID: 114952008080705498}
   - {fileID: 114829718277797936}

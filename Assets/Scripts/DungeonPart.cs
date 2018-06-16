@@ -6,34 +6,47 @@ using UnityEngine;
 public class DungeonPart : MonoBehaviour {
 
     public string PartName;
-    public bool CanBeStart;
-    public bool CanBeEnd;
+    public bool PlaceInStartPhase = true;
+    public bool PlaceInMainPhase = true;
+    public bool PlaceInEndPhase = true;
     public bool SkipBoundsCheck = false;
 
-    // auto populated, don't mess with 'em
-    public List<DungeonConnector> Connectors;
-    public Bounds PartBounds;
+    [SerializeField] public Bounds Bounds { get; private set; }
+
+    [SerializeField] private HashSet<string> inboundConnectorTags;
+    [SerializeField] private List<DungeonConnector> connectors;
+
+    public bool HasInboundConnector(string connectorTag) {
+        return inboundConnectorTags.Contains(connectorTag);
+    }
 
     public List<DungeonConnector> InboundConnectorsFor(DungeonConnector outboundConnector) {
-        return Connectors.Where(c => c.AllowInbound && c.CanConnectTo(outboundConnector)).ToList();
+        return connectors.Where(c => c.AllowInbound && c.CanConnectTo(outboundConnector)).ToList();
     }
 
     public List<DungeonConnector> InboundConnectors() {
-        return Connectors.Where(c => c.AllowInbound).ToList();
+        return connectors.Where(c => c.AllowInbound).ToList();
     }
 
     public List<DungeonConnector> OutboundConnectors() {
-        return Connectors.Where(c => c.AllowOutbound).ToList();
+        return connectors.Where(c => c.AllowOutbound).ToList();
     }
 
     public DungeonConnector GetConnector(int connectorId) {
-        return Connectors[connectorId];
+        return connectors[connectorId];
     }
 
+    // When part is changed in the editor, compute and cache a set of connectable inbound tags,
+    // a list of connectors, and the combined bounds of the object group
     private void OnValidate() {
-        Connectors = new List<DungeonConnector>(GetComponentsInChildren<DungeonConnector>());
-        for (var i = 0; i < Connectors.Count; i++)
-            Connectors[i].ConnectorId = i;
+        inboundConnectorTags = new HashSet<string>();
+        connectors = new List<DungeonConnector>(GetComponentsInChildren<DungeonConnector>());
+        for (var i = 0; i < connectors.Count; i++) {
+            connectors[i].ConnectorId = i;
+            if (connectors[i].AllowInbound)
+                inboundConnectorTags.Add(connectors[i].ConnectionTag);
+        }
+            
         ComputeBounds();
     }
 
@@ -49,6 +62,6 @@ public class DungeonPart : MonoBehaviour {
         // shrink slightly to allow tight packing
         newBounds.Expand(-0.01f); 
 
-        PartBounds = newBounds;
+        Bounds = newBounds;
     }
 }

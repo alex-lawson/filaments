@@ -714,8 +714,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartName: LRoom
-  CanBeStart: 0
-  CanBeEnd: 0
+  PlaceInStartPhase: 0
+  PlaceInMainPhase: 1
+  PlaceInEndPhase: 0
+  SkipBoundsCheck: 0
   Connectors:
   - {fileID: 114222968509779738}
   - {fileID: 114285350497380884}

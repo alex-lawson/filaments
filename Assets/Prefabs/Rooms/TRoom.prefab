@@ -860,8 +860,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartName: TRoom
-  CanBeStart: 0
-  CanBeEnd: 0
+  PlaceInStartPhase: 1
+  PlaceInMainPhase: 1
+  PlaceInEndPhase: 0
+  SkipBoundsCheck: 0
   Connectors:
   - {fileID: 114981707802754738}
   - {fileID: 114437005768077664}
