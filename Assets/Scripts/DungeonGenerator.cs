@@ -214,7 +214,7 @@ public class DungeonGenerator : MonoBehaviour {
         }
 
         partInstance.transform.localRotation = targetOrientation;
-        partInstance.transform.localPosition = targetPosition;
+        partInstance.transform.position = targetPosition;
 
         //Debug.Log($"Connected {outboundConnector.gameObject.name} (outbound) to {inboundConnector.gameObject.name} (inbound)");
 
