@@ -860,18 +860,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartName: TRoom
-  PlaceInStartPhase: 1
-  PlaceInMainPhase: 1
-  PlaceInEndPhase: 0
   SkipBoundsCheck: 0
-  Connectors:
+  ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
+  connectors:
   - {fileID: 114981707802754738}
   - {fileID: 114437005768077664}
   - {fileID: 114724434708902748}
   - {fileID: 114628511080870718}
-  PartBounds:
-    m_Center: {x: 0, y: 1, z: 0}
-    m_Extent: {x: 4.995, y: 1.995, z: 4.995}
+  bounds:
+  - m_Center: {x: 0, y: 1, z: 5.000001}
+    m_Extent: {x: 4.995001, y: 1.995, z: 4.995001}
+  - m_Center: {x: 0.00000047683716, y: 1, z: 4.9999976}
+    m_Extent: {x: 4.9949985, y: 1.995, z: 4.994998}
+  - m_Center: {x: 0.0000009536743, y: 1, z: 5.0000005}
+    m_Extent: {x: 4.9950013, y: 1.995, z: 4.9950013}
+  - m_Center: {x: -0.00000047683716, y: 3, z: -1.0000005}
+    m_Extent: {x: 4.995, y: 4.995001, z: 1.9950019}
 --- !u!114 &114437005768077664
 MonoBehaviour:
   m_ObjectHideFlags: 1

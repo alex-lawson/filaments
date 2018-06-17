@@ -27,6 +27,12 @@ public class TestController : MonoBehaviour {
 
             StartCoroutine(DoBenchmark(BenchmarkIterations));
         }
+
+        if (Input.GetKeyDown(KeyCode.C)) {
+            StopAllCoroutines();
+
+            Dungeon.Clear();
+        }
     }
 
     private IEnumerator DoRegenerate(bool sync = true) {

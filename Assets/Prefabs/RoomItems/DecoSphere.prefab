@@ -172,15 +172,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartName: DecoSphere
-  PlaceInStartPhase: 0
-  PlaceInMainPhase: 0
-  PlaceInEndPhase: 1
   SkipBoundsCheck: 0
-  Connectors:
+  ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
+  connectors:
   - {fileID: 114361019832730548}
-  PartBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.495, y: 0.495, z: 0.495}
+  bounds:
+  - m_Center: {x: 0.000000029802322, y: -0.00000011920929, z: 0.50000006}
+    m_Extent: {x: 0.495, y: 0.495, z: 0.49500006}
 --- !u!135 &135439111230147048
 SphereCollider:
   m_ObjectHideFlags: 1

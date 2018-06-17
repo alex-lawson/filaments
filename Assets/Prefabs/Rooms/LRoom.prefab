@@ -714,16 +714,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartName: LRoom
-  PlaceInStartPhase: 0
-  PlaceInMainPhase: 1
-  PlaceInEndPhase: 0
   SkipBoundsCheck: 0
-  Connectors:
+  ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
+  connectors:
   - {fileID: 114222968509779738}
   - {fileID: 114285350497380884}
-  PartBounds:
-    m_Center: {x: 0, y: 1, z: 0}
-    m_Extent: {x: 4.995, y: 1.995, z: 4.995}
+  bounds:
+  - m_Center: {x: 0, y: 1, z: 5.000001}
+    m_Extent: {x: 4.995001, y: 1.995, z: 4.995001}
+  - m_Center: {x: 0.00000047683716, y: 1, z: 4.9999976}
+    m_Extent: {x: 4.9949985, y: 1.995, z: 4.994998}
 --- !u!114 &114222968509779738
 MonoBehaviour:
   m_ObjectHideFlags: 1

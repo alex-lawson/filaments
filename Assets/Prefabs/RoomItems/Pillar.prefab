@@ -168,15 +168,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartName: DecoPillar
-  PlaceInStartPhase: 0
-  PlaceInMainPhase: 0
-  PlaceInEndPhase: 1
   SkipBoundsCheck: 0
-  Connectors:
+  ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
+  connectors:
   - {fileID: 114557176039975926}
-  PartBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.245, y: 0.995, z: 0.245}
+  bounds:
+  - m_Center: {x: 0.00000008940697, y: -0.00000011920929, z: 1.0000001}
+    m_Extent: {x: 0.2450001, y: 0.24500012, z: 0.9950001}
 --- !u!114 &114557176039975926
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -284,16 +284,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartName: DecoTable
-  PlaceInStartPhase: 0
-  PlaceInMainPhase: 0
-  PlaceInEndPhase: 1
   SkipBoundsCheck: 0
-  Connectors:
+  ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
+  connectors:
   - {fileID: 114183026989045854}
   - {fileID: 114560962262884312}
-  PartBounds:
-    m_Center: {x: 0, y: 0.100000024, z: 0}
-    m_Extent: {x: 0.745, y: 0.595, z: 0.745}
+  bounds:
+  - m_Center: {x: 0.000000059604645, y: -0.00000011920929, z: 0.6000002}
+    m_Extent: {x: 0.745, y: 0.7450001, z: 0.5950002}
+  - m_Center: {x: 0.384, y: -0.3820001, z: 0.6000001}
+    m_Extent: {x: 0.745, y: 0.7450001, z: 0.59500027}
 --- !u!114 &114183026989045854
 MonoBehaviour:
   m_ObjectHideFlags: 1

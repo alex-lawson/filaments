@@ -660,13 +660,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartName: EndRoom
-  PlaceInStartPhase: 0
-  PlaceInMainPhase: 0
-  PlaceInEndPhase: 1
   SkipBoundsCheck: 0
-  Connectors:
+  ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
+  connectors:
   - {fileID: 114202476667104786}
   - {fileID: 114511990325797156}
-  PartBounds:
-    m_Center: {x: 0, y: 1, z: 0}
-    m_Extent: {x: 4.995, y: 1.995, z: 4.995}
+  bounds:
+  - m_Center: {x: 0, y: 1, z: 5.000001}
+    m_Extent: {x: 4.9950004, y: 1.995, z: 4.995001}
+  - m_Center: {x: -0.00000047683716, y: 0, z: -1.0000002}
+    m_Extent: {x: 4.995, y: 4.995001, z: 1.9950012}

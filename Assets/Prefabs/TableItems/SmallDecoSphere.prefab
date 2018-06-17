@@ -156,15 +156,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartName: SmallDecoSphere
-  PlaceInStartPhase: 0
-  PlaceInMainPhase: 0
-  PlaceInEndPhase: 1
   SkipBoundsCheck: 0
-  Connectors:
+  ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
+  connectors:
   - {fileID: 114479589790339358}
-  PartBounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.095, y: 0.095, z: 0.095}
+  bounds:
+  - m_Center: {x: 0.000000007450581, y: -0.000000014901161, z: 0.10000002}
+    m_Extent: {x: 0.095, y: 0.09500001, z: 0.09500001}
 --- !u!114 &114479589790339358
 MonoBehaviour:
   m_ObjectHideFlags: 1
