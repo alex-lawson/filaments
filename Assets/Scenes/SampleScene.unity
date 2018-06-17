@@ -532,6 +532,8 @@ MonoBehaviour:
     - {fileID: 114526426063364460, guid: 21e1a1cddbd1f2c43854f0481a3cf6d3, type: 2}
     - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
     - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
+    - {fileID: 114734477128249530, guid: c17909b5d86efd648b61c5926f0f99d5, type: 2}
+    - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
   - PhaseName: Endcaps
     PartLimit: 1000
     PartPool:
