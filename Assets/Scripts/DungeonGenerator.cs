@@ -124,9 +124,9 @@ public class DungeonGenerator : MonoBehaviour {
                 if (currentPhaseStatus.OpenOutbound.Remove(outboundConnector))
                     currentPhaseStatus.FailedOutbound.Add(outboundConnector);
             } else {
-                var placedPhaseParts = currentPhaseStatus.Config.PartLimit - currentPhaseStatus.RemainingPartCount;
-                Debug.Log($"Phase '{currentPhaseStatus.Config.PhaseName}' complete: {placedPhaseParts} parts placed, " +
-                    $"{currentPhaseStatus.FailedOutbound.Count + currentPhaseStatus.OpenOutbound.Count} open connectors");
+                //var placedPhaseParts = currentPhaseStatus.Config.PartLimit - currentPhaseStatus.RemainingPartCount;
+                //Debug.Log($"Phase '{currentPhaseStatus.Config.PhaseName}' complete: {placedPhaseParts} parts placed, " +
+                //    $"{currentPhaseStatus.FailedOutbound.Count + currentPhaseStatus.OpenOutbound.Count} open connectors");
 
                 Generating = AdvanceGenerationPhase();
             }
@@ -185,7 +185,7 @@ public class DungeonGenerator : MonoBehaviour {
                 inboundConnectorId = prefabIC.ConnectorId;
                 break;
             } else {
-                Debug.Log($"Bounds check failed! Can't connect {outboundConnector.gameObject.name} (outbound) to {partPrefab.PartName} {prefabIC.gameObject.name} (inbound)");
+                //Debug.Log($"Bounds check failed! Can't connect {outboundConnector.gameObject.name} (outbound) to {partPrefab.PartName} {prefabIC.gameObject.name} (inbound)");
             }
         }
 
@@ -210,7 +210,7 @@ public class DungeonGenerator : MonoBehaviour {
         partInstance.transform.localRotation = targetOrientation;
         partInstance.transform.position = targetPosition;
 
-        Debug.Log($"Connected {outboundConnector.gameObject.name} (outbound) to {partPrefab.PartName} {inboundConnector.gameObject.name} (inbound)");
+        //Debug.Log($"Connected {outboundConnector.gameObject.name} (outbound) to {partPrefab.PartName} {inboundConnector.gameObject.name} (inbound)");
 
         var nextOutboundConnectors = partInstance.OutboundConnectors();
         nextOutboundConnectors.Remove(inboundConnector);
@@ -225,7 +225,7 @@ public class DungeonGenerator : MonoBehaviour {
                     if ((connA.transform.position - connB.transform.position).sqrMagnitude < 0.01f) {
                         nextOutboundConnectors.RemoveAt(i);
                         currentPhaseStatus.OpenOutbound.RemoveAt(j);
-                        Debug.Log($"Detected additional connection at {connA.transform.position} between {connA.gameObject.name} and {connB.gameObject.name}, closing both.");
+                        //Debug.Log($"Detected additional connection at {connA.transform.position} between {connA.gameObject.name} and {connB.gameObject.name}, closing both.");
                     }
                 }
             }
