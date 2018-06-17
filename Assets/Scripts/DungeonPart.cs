@@ -6,9 +6,6 @@ using UnityEngine;
 public class DungeonPart : MonoBehaviour {
 
     public string PartName;
-    public bool PlaceInStartPhase = true;
-    public bool PlaceInMainPhase = true;
-    public bool PlaceInEndPhase = true;
     public bool SkipBoundsCheck = false;
 
     [SerializeField] public Bounds Bounds { get; private set; }
