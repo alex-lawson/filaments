@@ -704,6 +704,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Dungeon: {fileID: 1574954115}
+  GenerationRate: 150
+  BenchmarkIterations: 60
 --- !u!1 &1139963053
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,7 +890,7 @@ MonoBehaviour:
   - {fileID: 114605712244445390, guid: 9b104acd252881b44a3f821cae95ba10, type: 2}
   Phases:
   - PhaseName: Rooms
-    PartLimit: 50
+    PartLimit: 30
     PartPool:
     - {fileID: 114605712244445390, guid: 9b104acd252881b44a3f821cae95ba10, type: 2}
     - {fileID: 114056647576342318, guid: 90e5695c4942bfd488cafce17451df1e, type: 2}

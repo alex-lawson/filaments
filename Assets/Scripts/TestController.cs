@@ -5,6 +5,8 @@ using UnityEngine.Events;
 public class TestController : MonoBehaviour {
 
     public DungeonGenerator Dungeon;
+    public float GenerationRate;
+    public int BenchmarkIterations;
 
 	void Start () {
         Dungeon.OnGenerationComplete.AddListener(new UnityAction(PlacePlayerInDungeon));
@@ -16,38 +18,40 @@ public class TestController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Return)) {
             StopAllCoroutines();
 
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-                StartCoroutine(DoRegenerateOverTime(0.03f));
-            else
-                StartCoroutine(DoRegenerate());
+            bool sync = !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
+            StartCoroutine(DoRegenerate(sync));
         }
 
         if (Input.GetKeyDown(KeyCode.B)) {
             StopAllCoroutines();
 
-            StartCoroutine(DoBenchmark(100));
+            StartCoroutine(DoBenchmark(BenchmarkIterations));
         }
     }
 
-    private IEnumerator DoRegenerate() {
+    private IEnumerator DoRegenerate(bool sync = true) {
+        var wfeof = new WaitForEndOfFrame();
+
         Dungeon.Clear();
 
-        yield return new WaitForEndOfFrame();
+        yield return wfeof;
 
-        Dungeon.Generate(true);
-    }
+        Dungeon.Generate(sync);
 
-    private IEnumerator DoRegenerateOverTime(float placeInterval) {
-        Dungeon.Clear();
+        if (!sync) {
+            float elapsed = 0;
+            int steps = 0;
+            while (Dungeon.Generating) {
+                yield return wfeof;
 
-        yield return new WaitForEndOfFrame();
+                elapsed += Time.deltaTime;
+                int targetSteps = Mathf.CeilToInt(elapsed * GenerationRate);
 
-        Dungeon.Generate(false);
-
-        var waitForInterval = new WaitForSeconds(placeInterval);
-        while (Dungeon.Generating) {
-            yield return waitForInterval;
-            Dungeon.StepGeneration();
+                while (steps < targetSteps) {
+                    Dungeon.StepGeneration();
+                    steps++;
+                }
+            }
         }
     }
 
