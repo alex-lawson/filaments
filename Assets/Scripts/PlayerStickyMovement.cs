@@ -11,27 +11,14 @@ public class PlayerStickyMovement : MonoBehaviour {
     public float AirAcceleration;
     public float JumpHeight;
     public float Gravity;
-    public Transform[] GroundChecks;
     public float AlignMaxAngle;
     public float AlignMinAngle;
-    public float AlignPFactor;
-    public float AlignIFactor;
-    public float AlignDFactor;
     public float AlignGroundFactor;
     public float AlignLerp;
-
-    //public float AlignRateLimit;
-    //public float AlignTime;
-    //public float AlignBaseRate;
-    //public float AlignDistanceFactor;
 
     private Rigidbody body;
     private bool onGround;
     private Vector3 targetNormal;
-    private Vector3 lastUpDirection;
-    private float alignIntegral;
-    //private float lastAlignDistance;
-    //private float lastAlignVelocity;
 
     private void Awake () {
         body = GetComponent<Rigidbody>();
@@ -50,9 +37,6 @@ public class PlayerStickyMovement : MonoBehaviour {
         targetNormal = transform.up;
         onGround = false;
         body.velocity = Vector3.zero;
-        alignIntegral = 0;
-        //lastAlignDistance = 0;
-        //lastAlignVelocity = 0;
     }
 
     private void AlignToGround() {
@@ -60,14 +44,12 @@ public class PlayerStickyMovement : MonoBehaviour {
         RaycastHit groundCheck;
         if (Physics.Raycast(transform.position, -transform.up, out groundCheck, 0.5f)) {
             groundNormal = groundCheck.normal;
+            onGround = true;
         } else {
             // not on ground; don't align
+            onGround = false;
             return;
         }
-
-        // all ground checks failed; don't align
-        if (groundNormal.sqrMagnitude == 0)
-            return;
 
         Vector3 lastTN = targetNormal;
 
@@ -83,35 +65,10 @@ public class PlayerStickyMovement : MonoBehaviour {
         if (angleBetween > 0 && angleBetween <= AlignMaxAngle) {
             Quaternion targetRotation = Quaternion.FromToRotation(transform.up, targetNormal) * transform.rotation;
 
-
-            //// compute P
-            //float pTerm = AlignPFactor * angleBetween;
-
-            //// compute I
-            //alignIntegral += AlignIFactor * angleBetween * Time.deltaTime;
-            //alignIntegral = Mathf.Clamp(alignIntegral, 0, AlignMaxAngle);
-
-            //// compute D
-            //float lastDelta = Vector3.Angle(transform.up, lastUpDirection);
-            //float dTerm = AlignDFactor * (lastDelta / Time.deltaTime);
-
-            //lastUpDirection = transform.up;
-
-            //float angleToRotate = pTerm + alignIntegral - dTerm;
-            //float alignLerp = angleToRotate / angleBetween;
-
-            //Debug.Log($"angleBetween {angleBetween:F2}, angleChange {angleToRotate:F2}, p {pTerm}, i {alignIntegral}, d {dTerm}");
-
-            //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, AlignLerp);
-
-            //Debug.Log($"tnc {tnc:F2}, align change {angleBetween * AlignLerp:F2}");
-
             if (angleBetween < AlignMinAngle)
                 transform.rotation = targetRotation;
             else
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, AlignLerp);
-        } else {
-            alignIntegral = 0;
         }
     }
 
@@ -158,15 +115,6 @@ public class PlayerStickyMovement : MonoBehaviour {
         body.AddForce(gravityForce);
 
         onGround = false;
-    }
-
-    void OnCollisionStay() {
-        onGround = true;
-
-        //RaycastHit groundCheck;
-        //if (Physics.Raycast(transform.position, -transform.up, out groundCheck, 0.5f)) {
-        //    targetNormal = groundCheck.normal;
-        //}
     }
 
     float JumpSpeed() {
