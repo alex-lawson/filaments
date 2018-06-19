@@ -286,6 +286,8 @@ MonoBehaviour:
   PartName: DecoTable
   SkipBoundsCheck: 0
   ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
+  inboundConnectorTags:
+  - RoomItem
   connectors:
   - {fileID: 114183026989045854}
   - {fileID: 114560962262884312}

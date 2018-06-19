@@ -169,8 +169,8 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1837904447561662}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -279,15 +279,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PartName: Fork
   SkipBoundsCheck: 0
-  ExtraBoundsExpansion: {x: 5, y: 0, z: 5}
+  ExtraBoundsExpansion: {x: 5, y: 3, z: 5}
+  inboundConnectorTags:
+  - FloatingPath
+  - FloatingPath
+  - FloatingPath
   connectors:
   - {fileID: 114112316405665416}
   - {fileID: 114243613098421746}
   - {fileID: 114316913989034194}
   bounds:
   - m_Center: {x: -0.8365164, y: -0.998816, z: 4.62132}
-    m_Extent: {x: 4.74573, y: 0.993816, z: 4.61632}
+    m_Extent: {x: 4.74573, y: 2.493816, z: 4.61632}
   - m_Center: {x: -0.103553295, y: -0.998816, z: 4.433013}
-    m_Extent: {x: 5.0985537, y: 0.993816, z: 4.428013}
+    m_Extent: {x: 5.0985537, y: 2.493816, z: 4.428013}
   - m_Center: {x: 0.08037186, y: -0.998816, z: 4.7150135}
-    m_Extent: {x: 4.6734476, y: 0.993816, z: 4.710014}
+    m_Extent: {x: 4.6734476, y: 2.493816, z: 4.710014}

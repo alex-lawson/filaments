@@ -106,7 +106,7 @@ public class DungeonGenerator : MonoBehaviour {
             Random.state = randomState;
 
             if (currentPhaseStatus.RemainingPartCount > 0 && currentPhaseStatus.OpenOutbound.Count > 0) {
-                DungeonConnector outboundConnector = currentPhaseStatus.OpenOutbound.RandomElement();
+                DungeonConnector outboundConnector = currentPhaseStatus.OpenOutbound[0];
 
                 // Try to place each potentially connectable part (in random order)
                 currentPhaseStatus.PartPool.Shuffle();
@@ -151,8 +151,8 @@ public class DungeonGenerator : MonoBehaviour {
 
         if (phaseIndex > 0 && phaseIndex < Phases.Length) {
             var newPhaseStatus = new DungeonGenerationPhaseStatus(Phases[phaseIndex]);
-            newPhaseStatus.OpenOutbound.AddRange(currentPhaseStatus.OpenOutbound);
             newPhaseStatus.OpenOutbound.AddRange(currentPhaseStatus.FailedOutbound);
+            newPhaseStatus.OpenOutbound.AddRange(currentPhaseStatus.OpenOutbound);
             currentPhaseStatus = newPhaseStatus;
 
             return true;

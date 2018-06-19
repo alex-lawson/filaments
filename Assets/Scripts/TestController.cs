@@ -33,6 +33,9 @@ public class TestController : MonoBehaviour {
 
             Dungeon.Clear();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
     }
 
     private IEnumerator DoRegenerate(bool sync = true) {
@@ -104,6 +107,8 @@ public class TestController : MonoBehaviour {
         if (player != null) {
             player.transform.position = Dungeon.transform.position;
             player.transform.Translate(new Vector3(0, 0.5f, 0));
+
+            player.GetComponent<PlayerStickyMovement>()?.Reset();
         }
     }
 }

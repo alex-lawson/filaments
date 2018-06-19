@@ -170,6 +170,8 @@ MonoBehaviour:
   PartName: DecoPillar
   SkipBoundsCheck: 0
   ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
+  inboundConnectorTags:
+  - RoomItem
   connectors:
   - {fileID: 114557176039975926}
   bounds:

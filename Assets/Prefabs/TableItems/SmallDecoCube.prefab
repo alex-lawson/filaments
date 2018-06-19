@@ -186,6 +186,8 @@ MonoBehaviour:
   PartName: SmallDecoSphere
   SkipBoundsCheck: 0
   ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
+  inboundConnectorTags:
+  - TableItem
   connectors:
   - {fileID: 114192901507136448}
   bounds:

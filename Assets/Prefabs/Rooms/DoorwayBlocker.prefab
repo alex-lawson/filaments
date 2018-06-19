@@ -186,6 +186,8 @@ MonoBehaviour:
   PartName: DoorBlocker
   SkipBoundsCheck: 1
   ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
+  inboundConnectorTags:
+  - Doorway
   connectors:
   - {fileID: 114301315832196858}
   bounds:

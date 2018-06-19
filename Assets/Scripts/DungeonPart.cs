@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 [ExecuteInEditMode]
 public class DungeonPart : MonoBehaviour {
@@ -9,7 +11,7 @@ public class DungeonPart : MonoBehaviour {
     public bool SkipBoundsCheck = false;
     public Vector3 ExtraBoundsExpansion;
 
-    [SerializeField] private HashSet<string> inboundConnectorTags;
+    [SerializeField] private List<string> inboundConnectorTags;
     [SerializeField] private DungeonConnector[] connectors;
     [SerializeField] private Bounds[] bounds;
 
@@ -39,18 +41,25 @@ public class DungeonPart : MonoBehaviour {
         return !Physics.CheckBox(boundsCheckPosition, connectorBounds.extents, outboundConnector.rotation);
     }
 
+#if UNITY_EDITOR
     // When part is changed in the editor, compute and cache a set of connectable inbound tags,
     // a list of connectors, and the combined bounds of the object group
     private void OnValidate() {
-        inboundConnectorTags = new HashSet<string>();
+        //Debug.Log($"validating part {PartName}");
+        CacheConnectors();
+        ComputeBounds();
+        EditorUtility.SetDirty(this);
+    }
+#endif
+
+    private void CacheConnectors() {
+        inboundConnectorTags = new List<string>();
         connectors = GetComponentsInChildren<DungeonConnector>().ToArray();
         for (int i = 0; i < connectors.Length; i++) {
             connectors[i].ConnectorId = i;
             if (connectors[i].AllowInbound)
                 inboundConnectorTags.Add(connectors[i].ConnectionTag);
         }
-            
-        ComputeBounds();
     }
 
     private void ComputeBounds() {

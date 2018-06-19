@@ -662,6 +662,8 @@ MonoBehaviour:
   PartName: EndRoom
   SkipBoundsCheck: 0
   ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
+  inboundConnectorTags:
+  - Doorway
   connectors:
   - {fileID: 114202476667104786}
   - {fileID: 114511990325797156}

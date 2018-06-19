@@ -38,8 +38,9 @@ public class PlayerMovement : MonoBehaviour {
             movement.z = hControlDir.z;
 
             // handle jumps
-            if (characterController.isGrounded && Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
                 movement.y += JumpSpeed;
+
         } else {
             // if in air, apply control over time, clamped to maximum horizontal move speed
             hControlDir *= AirControl * Time.deltaTime;

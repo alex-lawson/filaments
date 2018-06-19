@@ -862,6 +862,10 @@ MonoBehaviour:
   PartName: TRoom
   SkipBoundsCheck: 0
   ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
+  inboundConnectorTags:
+  - Doorway
+  - Doorway
+  - Doorway
   connectors:
   - {fileID: 114981707802754738}
   - {fileID: 114437005768077664}

@@ -139,8 +139,8 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1593540512022812}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -233,12 +233,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PartName: SlopeToFlat
   SkipBoundsCheck: 0
-  ExtraBoundsExpansion: {x: 5, y: 0, z: 3}
+  ExtraBoundsExpansion: {x: 5, y: 3, z: 3}
+  inboundConnectorTags:
+  - FloatingPath
+  - FloatingPath
   connectors:
   - {fileID: 114385621453975960}
   - {fileID: 114341940988872672}
   bounds:
   - m_Center: {x: -0.019845843, y: -1.2119187, z: 3.482051}
-    m_Extent: {x: 3.5942318, y: 1.2160945, z: 3.4770508}
+    m_Extent: {x: 3.5942318, y: 2.7160945, z: 3.4770508}
   - m_Center: {x: 0.019846201, y: -1.149519, z: 3.5}
-    m_Extent: {x: 3.5942318, y: 1.144519, z: 3.495}
+    m_Extent: {x: 3.5942318, y: 2.6445189, z: 3.495}

@@ -716,6 +716,9 @@ MonoBehaviour:
   PartName: IRoom
   SkipBoundsCheck: 0
   ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
+  inboundConnectorTags:
+  - Doorway
+  - Doorway
   connectors:
   - {fileID: 114630786736737036}
   - {fileID: 114752890498806438}
