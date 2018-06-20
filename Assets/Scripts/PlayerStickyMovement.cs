@@ -11,6 +11,7 @@ public class PlayerStickyMovement : MonoBehaviour {
     public float AirAcceleration;
     public float JumpHeight;
     public float Gravity;
+    public Transform GroundSensor;
     public float AlignMaxAngle;
     public float AlignMinAngle;
     public float AlignGroundFactor;
@@ -42,7 +43,7 @@ public class PlayerStickyMovement : MonoBehaviour {
     private void AlignToGround() {
         Vector3 groundNormal = Vector3.zero;
         RaycastHit groundCheck;
-        if (Physics.Raycast(transform.position, -transform.up, out groundCheck, 0.5f)) {
+        if (Physics.Raycast(GroundSensor.position, -GroundSensor.up, out groundCheck, 0.3f)) {
             groundNormal = groundCheck.normal;
             onGround = true;
         } else {

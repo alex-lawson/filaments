@@ -1,14 +1,23 @@
 fileFormatVersion: 2
-guid: 91dc33dd8284aa345abc7e74fa7c41c2
+guid: 721f5c9986c359047ad1908d18b339ba
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
+    100000: Cylinder_001
+    100002: Disc
+    100004: //RootNode
+    400000: Cylinder_001
+    400002: Disc
+    400004: //RootNode
     2100000: unnamed
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: PathSegment
+    2300000: Cylinder_001
+    2300002: Disc
+    2300004: //RootNode
+    3300000: Cylinder_001
+    3300002: Disc
+    3300004: //RootNode
+    4300000: Cylinder_001
+    4300002: Disc
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
