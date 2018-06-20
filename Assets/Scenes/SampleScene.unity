@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.0489503, g: 0.08508284, b: 0.056945875, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -574,14 +574,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27dda60b09a10f444a9171740205574c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sun: {fileID: 170076735}
-  Moon: {fileID: 134005044}
+  Sun: {fileID: 170076734}
+  Moon: {fileID: 134005043}
   Player: {fileID: 383292560}
-  SMin: 0.3
-  SMax: 0.7
-  VMin: 0.5
+  SkyMaterial: {fileID: 2100000, guid: a513a3b96f0952f41b1cfab4b228a70b, type: 2}
+  SMin: 0.2
+  SMax: 0.8
+  VMin: 0.7
   VMax: 0.9
   HVariance: 0.3
+  MoonVFactor: 0.6
+  SkyVFactor: 0.2
 --- !u!4 &1650761481
 Transform:
   m_ObjectHideFlags: 0

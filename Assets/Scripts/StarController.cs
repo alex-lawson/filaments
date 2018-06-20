@@ -7,11 +7,14 @@ public class StarController : MonoBehaviour {
     public Light Sun;
     public Light Moon;
     public Transform Player;
+    public Material SkyMaterial;
     public float SMin;
     public float SMax;
     public float VMin;
     public float VMax;
     public float HVariance;
+    public float MoonVFactor;
+    public float SkyVFactor;
 
     private void Update () {
         AlignStars();
@@ -26,17 +29,21 @@ public class StarController : MonoBehaviour {
         float sunH = Random.Range(0, 1.0f);
 
         float moonS = Random.Range(SMin, SMax);
-        float moonV = Random.Range(VMin, VMax);
+        float moonV = sunV * MoonVFactor;
         float moonH = (sunH + 0.5f) % 1;
         moonH += (Random.value - 0.5f) * HVariance;
 
+        float skyV = moonV * SkyVFactor;
+
         Color sunColor = Color.HSVToRGB(sunH, sunS, sunV);
         Color moonColor = Color.HSVToRGB(moonH, moonS, moonV);
+        Color skyColor = Color.HSVToRGB(moonH, moonS, skyV);
 
         Sun.color = sunColor;
         Moon.color = moonColor;
+        SkyMaterial.SetColor("_Tint", skyColor);
 
-        //Debug.Log($"sunH {sunH} moonH {moonH} sunColor {sunColor} moonColor {moonColor}");
+        //Debug.Log($"sunH {sunH} moonH {moonH} sunColor {sunColor} moonColor {moonColor} skyColor {skyColor}");
 
         Random.state = oldRandomState;
     }
