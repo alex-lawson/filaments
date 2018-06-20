@@ -7,12 +7,14 @@ public class TestController : MonoBehaviour {
     public DungeonGenerator Dungeon;
     public float GenerationRate;
     public int BenchmarkIterations;
+    public StarController Stars;
 
 	void Start () {
         Dungeon.OnGenerationComplete.AddListener(new UnityAction(PlacePlayerInDungeon));
 
         Dungeon.Generate();
-	}
+        Stars.RandomizeStarColors(Dungeon.Seed);
+    }
 	
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Return)) {
@@ -46,6 +48,8 @@ public class TestController : MonoBehaviour {
         yield return wfeof;
 
         Dungeon.Generate(sync);
+
+        Stars.RandomizeStarColors(Dungeon.Seed);
 
         if (!sync) {
             float elapsed = 0;
