@@ -7,7 +7,7 @@ public class StarController : MonoBehaviour {
     public Light Sun;
     public Light Moon;
     public Transform Player;
-    public Material SkyMaterial;
+    public SkyController Sky;
     public float SMin;
     public float SMax;
     public float VMin;
@@ -41,7 +41,7 @@ public class StarController : MonoBehaviour {
 
         Sun.color = sunColor;
         Moon.color = moonColor;
-        SkyMaterial.SetColor("_Tint", skyColor);
+        Sky.SetColor(skyColor);
 
         //Debug.Log($"sunH {sunH} moonH {moonH} sunColor {sunColor} moonColor {moonColor} skyColor {skyColor}");
 

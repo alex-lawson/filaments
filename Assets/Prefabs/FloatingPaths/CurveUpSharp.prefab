@@ -201,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PartName: CurveUpSharp
   SkipBoundsCheck: 0
-  ExtraBoundsExpansion: {x: 5, y: 3, z: 3}
+  ExtraBoundsExpansion: {x: 3, y: 3, z: 5}
   inboundConnectorTags:
   - FloatingPath
   - FloatingPath
@@ -209,10 +209,10 @@ MonoBehaviour:
   - {fileID: 114859542563478554}
   - {fileID: 114506183755563780}
   bounds:
-  - m_Center: {x: 0.00018429756, y: 0.6650635, z: 4.698557}
-    m_Extent: {x: 3.8496928, y: 3.6600633, z: 4.693557}
-  - m_Center: {x: -0.00018370152, y: 0.63000643, z: 4.649519}
-    m_Extent: {x: 3.8496928, y: 3.8649933, z: 4.644519}
+  - m_Center: {x: 0.00018429756, y: 0.6650635, z: 5.698557}
+    m_Extent: {x: 2.8496928, y: 3.6600633, z: 5.693557}
+  - m_Center: {x: -0.00018370152, y: 0.63000643, z: 5.649519}
+    m_Extent: {x: 2.8496928, y: 3.8649933, z: 5.644519}
 --- !u!114 &114506183755563780
 MonoBehaviour:
   m_ObjectHideFlags: 1

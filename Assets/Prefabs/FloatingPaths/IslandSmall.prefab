@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4646789605560094}
   - component: {fileID: 114255116603801204}
   m_Layer: 0
-  m_Name: DecoConnector
+  m_Name: ItemConnector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110ec76b530d3a245926d2d1d1158af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ConnectionTag: RoomItem
+  ConnectionTag: IslandItem
   AllowOutbound: 1
   AllowInbound: 0
   RandomRotation: 1
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PartName: IslandSmall
   SkipBoundsCheck: 0
-  ExtraBoundsExpansion: {x: 3, y: 3, z: 3}
+  ExtraBoundsExpansion: {x: 3, y: 3, z: 5}
   inboundConnectorTags:
   - FloatingPath
   - FloatingPath
@@ -272,12 +272,12 @@ MonoBehaviour:
   - {fileID: 114466234773975880}
   - {fileID: 114255116603801204}
   bounds:
-  - m_Center: {x: 0.051146746, y: -1.5907915, z: 4.5}
-    m_Extent: {x: 3.6379085, y: 3.0857913, z: 4.495}
-  - m_Center: {x: -0.05114627, y: -1.5907915, z: 4.5}
-    m_Extent: {x: 3.6379085, y: 3.0857913, z: 4.495}
-  - m_Center: {x: 0.051146507, y: 0.00000023841858, z: 3.0907912}
-    m_Extent: {x: 3.6379085, y: 4.495001, z: 3.0857918}
+  - m_Center: {x: 0.051146746, y: -1.5907915, z: 5.5}
+    m_Extent: {x: 3.6379085, y: 3.0857913, z: 5.495}
+  - m_Center: {x: -0.05114627, y: -1.5907915, z: 5.5}
+    m_Extent: {x: 3.6379085, y: 3.0857913, z: 5.495}
+  - m_Center: {x: 0.051146507, y: 0.00000023841858, z: 4.090791}
+    m_Extent: {x: 3.6379085, y: 4.495001, z: 4.0857916}
 --- !u!114 &114858623962693662
 MonoBehaviour:
   m_ObjectHideFlags: 1

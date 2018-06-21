@@ -233,7 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PartName: TwistLeft
   SkipBoundsCheck: 0
-  ExtraBoundsExpansion: {x: 5, y: 3, z: 2}
+  ExtraBoundsExpansion: {x: 3, y: 3, z: 5}
   inboundConnectorTags:
   - FloatingPath
   - FloatingPath
@@ -241,7 +241,7 @@ MonoBehaviour:
   - {fileID: 114424531840247418}
   - {fileID: 114012728916137412}
   bounds:
-  - m_Center: {x: 0.004885316, y: -0.6279546, z: 4}
-    m_Extent: {x: 3.6789823, y: 2.677017, z: 3.995}
-  - m_Center: {x: -0.027836204, y: -0.60683954, z: 4}
-    m_Extent: {x: 3.7058487, y: 2.6018393, z: 3.995}
+  - m_Center: {x: 0.004885316, y: -0.6279546, z: 5.5}
+    m_Extent: {x: 2.6789823, y: 2.677017, z: 5.495}
+  - m_Center: {x: -0.027836204, y: -0.60683954, z: 5.5}
+    m_Extent: {x: 2.7058487, y: 2.6018393, z: 5.495}

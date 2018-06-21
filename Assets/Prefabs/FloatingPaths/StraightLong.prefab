@@ -201,7 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PartName: StraightLong
   SkipBoundsCheck: 0
-  ExtraBoundsExpansion: {x: 5, y: 3, z: 5}
+  ExtraBoundsExpansion: {x: 3, y: 3, z: 5}
   inboundConnectorTags:
   - FloatingPath
   - FloatingPath
@@ -210,9 +210,9 @@ MonoBehaviour:
   - {fileID: 114764055840750596}
   bounds:
   - m_Center: {x: -0.23045826, y: -0.88813, z: 6.5}
-    m_Extent: {x: 4.186375, y: 2.3831298, z: 6.495}
+    m_Extent: {x: 3.1863751, y: 2.3831298, z: 6.495}
   - m_Center: {x: 0.23045886, y: -0.88813, z: 6.5}
-    m_Extent: {x: 4.186375, y: 2.3831298, z: 6.495}
+    m_Extent: {x: 3.1863751, y: 2.3831298, z: 6.495}
 --- !u!114 &114717297845586224
 MonoBehaviour:
   m_ObjectHideFlags: 1

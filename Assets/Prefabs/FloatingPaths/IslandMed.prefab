@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 4607367276335822}
   - component: {fileID: 114462581825456856}
   m_Layer: 0
-  m_Name: DecoConnector2
+  m_Name: ItemConnector2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 4060660120739038}
   - component: {fileID: 114282618849711902}
   m_Layer: 0
-  m_Name: DecoConnector1
+  m_Name: ItemConnector1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,7 +291,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PartName: IslandMed
   SkipBoundsCheck: 0
-  ExtraBoundsExpansion: {x: 3, y: 3, z: 3}
+  ExtraBoundsExpansion: {x: 3, y: 3, z: 5}
   inboundConnectorTags:
   - FloatingPath
   - FloatingPath
@@ -303,16 +303,16 @@ MonoBehaviour:
   - {fileID: 114282618849711902}
   - {fileID: 114462581825456856}
   bounds:
-  - m_Center: {x: 0.12059116, y: -2.188048, z: 6.368474}
-    m_Extent: {x: 6.8744097, y: 3.6830478, z: 6.363474}
-  - m_Center: {x: 0.50860643, y: -2.188048, z: 6.709536}
-    m_Extent: {x: 6.0657825, y: 3.6830478, z: 6.704536}
-  - m_Center: {x: 0.5620842, y: -2.188048, z: 6.847267}
-    m_Extent: {x: 6.3495345, y: 3.6830478, z: 6.842267}
-  - m_Center: {x: -0.8794093, y: -3.131526, z: 3.6880484}
-    m_Extent: {x: 6.8744097, y: 6.363475, z: 3.6830485}
-  - m_Center: {x: 2.1205907, y: -1.131526, z: 3.688047}
-    m_Extent: {x: 6.8744097, y: 6.3634725, z: 3.6830478}
+  - m_Center: {x: 0.12059116, y: -2.188048, z: 7.368474}
+    m_Extent: {x: 6.8744097, y: 3.6830478, z: 7.363474}
+  - m_Center: {x: 0.50860643, y: -2.188048, z: 7.709536}
+    m_Extent: {x: 6.0657825, y: 3.6830478, z: 7.704536}
+  - m_Center: {x: 0.5620842, y: -2.188048, z: 7.847267}
+    m_Extent: {x: 6.3495345, y: 3.6830478, z: 7.842267}
+  - m_Center: {x: -0.8794093, y: -3.131526, z: 4.6880484}
+    m_Extent: {x: 6.8744097, y: 6.363475, z: 4.6830482}
+  - m_Center: {x: 2.1205907, y: -1.131526, z: 4.688047}
+    m_Extent: {x: 6.8744097, y: 6.3634725, z: 4.683048}
 --- !u!114 &114282618849711902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -324,7 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110ec76b530d3a245926d2d1d1158af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ConnectionTag: RoomItem
+  ConnectionTag: IslandItem
   AllowOutbound: 1
   AllowInbound: 0
   RandomRotation: 1
@@ -340,7 +340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 110ec76b530d3a245926d2d1d1158af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ConnectionTag: RoomItem
+  ConnectionTag: IslandItem
   AllowOutbound: 1
   AllowInbound: 0
   RandomRotation: 1

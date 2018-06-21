@@ -8,12 +8,15 @@ public class TestController : MonoBehaviour {
     public float GenerationRate;
     public int BenchmarkIterations;
     public StarController Stars;
+    public OrbController Orbs;
 
 	void Start () {
-        Dungeon.OnGenerationComplete.AddListener(new UnityAction(PlacePlayerInDungeon));
+        Dungeon.OnGenerationComplete.AddListener(new UnityAction(OnDungeonGenComplete));
 
         Dungeon.Generate();
         Stars.RandomizeStarColors(Dungeon.Seed);
+        Orbs.Generate(Dungeon.Seed, Stars.Moon.color);
+        RenderSettings.ambientLight = Stars.Moon.color;
     }
 	
 	void Update () {
@@ -50,6 +53,7 @@ public class TestController : MonoBehaviour {
         Dungeon.Generate(sync);
 
         Stars.RandomizeStarColors(Dungeon.Seed);
+        RenderSettings.ambientLight = Stars.Moon.color;
 
         if (!sync) {
             float elapsed = 0;
@@ -66,6 +70,8 @@ public class TestController : MonoBehaviour {
                 }
             }
         }
+
+        Orbs.Generate(Dungeon.Seed, Stars.Moon.color);
     }
 
     private IEnumerator DoBenchmark(int iterations) {
@@ -106,13 +112,15 @@ public class TestController : MonoBehaviour {
         Debug.Log($"slowest seed {highestSeed}, fastest seed {lowestSeed}");
     }
 
+    private void OnDungeonGenComplete() {
+        PlacePlayerInDungeon();
+    }
+
     private void PlacePlayerInDungeon() {
         var player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) {
-            player.transform.position = Dungeon.transform.position;
-            player.transform.Translate(new Vector3(0, 0.5f, 0));
-
             player.GetComponent<PlayerStickyMovement>()?.Reset();
+            player.transform.position = Dungeon.transform.position;
         }
     }
 }

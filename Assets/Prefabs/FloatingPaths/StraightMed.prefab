@@ -217,7 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PartName: StraightMed
   SkipBoundsCheck: 0
-  ExtraBoundsExpansion: {x: 5, y: 3, z: 5}
+  ExtraBoundsExpansion: {x: 3, y: 3, z: 5}
   inboundConnectorTags:
   - FloatingPath
   - FloatingPath
@@ -226,9 +226,9 @@ MonoBehaviour:
   - {fileID: 114132108006512738}
   bounds:
   - m_Center: {x: -0.2606368, y: -1.0159405, z: 5.5}
-    m_Extent: {x: 3.9065328, y: 2.5109406, z: 5.495}
+    m_Extent: {x: 2.9065328, y: 2.5109406, z: 5.495}
   - m_Center: {x: 0.26063728, y: -1.0159405, z: 5.5}
-    m_Extent: {x: 3.9065328, y: 2.5109406, z: 5.495}
+    m_Extent: {x: 2.9065328, y: 2.5109406, z: 5.495}
 --- !u!114 &114908623159627466
 MonoBehaviour:
   m_ObjectHideFlags: 1

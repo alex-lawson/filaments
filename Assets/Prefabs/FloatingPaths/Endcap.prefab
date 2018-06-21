@@ -170,15 +170,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PartName: Endcap
-  SkipBoundsCheck: 0
-  ExtraBoundsExpansion: {x: 0, y: 3, z: 0}
+  SkipBoundsCheck: 1
+  ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
   inboundConnectorTags:
   - FloatingPath
   connectors:
   - {fileID: 114750369664266250}
   bounds:
   - m_Center: {x: 0, y: -0.75, z: 0.9108345}
-    m_Extent: {x: 0.995, y: 2.245, z: 0.90583456}
+    m_Extent: {x: 0.995, y: 0.745, z: 0.90583456}
 --- !u!114 &114750369664266250
 MonoBehaviour:
   m_ObjectHideFlags: 1

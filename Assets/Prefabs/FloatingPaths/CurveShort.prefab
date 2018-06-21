@@ -217,7 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PartName: CurveShort
   SkipBoundsCheck: 0
-  ExtraBoundsExpansion: {x: 5, y: 3, z: 5}
+  ExtraBoundsExpansion: {x: 3, y: 3, z: 5}
   inboundConnectorTags:
   - FloatingPath
   - FloatingPath
@@ -226,9 +226,9 @@ MonoBehaviour:
   - {fileID: 114290682445829106}
   bounds:
   - m_Center: {x: 0.5606601, y: -0.75, z: 4.9748735}
-    m_Extent: {x: 4.0556602, y: 2.245, z: 4.9698734}
+    m_Extent: {x: 3.0556602, y: 2.245, z: 4.9698734}
   - m_Center: {x: -0.8535534, y: -0.75, z: 4.853554}
-    m_Extent: {x: 4.348553, y: 2.245, z: 4.8485537}
+    m_Extent: {x: 3.3485532, y: 2.245, z: 4.8485537}
 --- !u!114 &114695158025646092
 MonoBehaviour:
   m_ObjectHideFlags: 1

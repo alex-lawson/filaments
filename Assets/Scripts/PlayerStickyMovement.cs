@@ -7,6 +7,7 @@ public class PlayerStickyMovement : MonoBehaviour {
     public bool AutoRun;
     public float WalkSpeed;
     public float RunSpeed;
+    public float AirSpeed;
     public float GroundAcceleration;
     public float AirAcceleration;
     public float JumpHeight;
@@ -18,7 +19,8 @@ public class PlayerStickyMovement : MonoBehaviour {
     public float AlignLerp;
 
     private Rigidbody body;
-    private bool onGround;
+    private bool groundCheck;
+    private bool collisionCheck;
     private Vector3 targetNormal;
 
     private void Awake () {
@@ -36,31 +38,30 @@ public class PlayerStickyMovement : MonoBehaviour {
     public void Reset() {
         transform.rotation = new Quaternion();
         targetNormal = transform.up;
-        onGround = false;
+        groundCheck = false;
+        collisionCheck = false;
         body.velocity = Vector3.zero;
     }
 
     private void AlignToGround() {
         Vector3 groundNormal = Vector3.zero;
-        RaycastHit groundCheck;
-        if (Physics.Raycast(GroundSensor.position, -GroundSensor.up, out groundCheck, 0.3f)) {
-            groundNormal = groundCheck.normal;
-            onGround = true;
+        RaycastHit groundHit;
+        if (Physics.Raycast(GroundSensor.position, -GroundSensor.up, out groundHit, 0.3f)) {
+            groundNormal = groundHit.normal;
+
+            if (Vector3.Angle(targetNormal, groundNormal) < AlignMinAngle) {
+                targetNormal = groundNormal;
+            } else {
+                targetNormal = targetNormal * (1 - AlignGroundFactor) + groundNormal * AlignGroundFactor;
+            }
+
+            groundCheck = true;
         } else {
-            // not on ground; don't align
-            onGround = false;
+            groundCheck = false;
+        }
+
+        if (!(groundCheck || collisionCheck))
             return;
-        }
-
-        Vector3 lastTN = targetNormal;
-
-        if (Vector3.Angle(targetNormal, groundNormal) < AlignMinAngle) {
-            targetNormal = groundNormal;
-        } else {
-            targetNormal = targetNormal * (1 - AlignGroundFactor) + groundNormal * AlignGroundFactor;
-        }
-
-        float tnc = Vector3.Angle(targetNormal, lastTN);
 
         float angleBetween = Vector3.Angle(transform.up, targetNormal);
         if (angleBetween > 0 && angleBetween <= AlignMaxAngle) {
@@ -71,23 +72,45 @@ public class PlayerStickyMovement : MonoBehaviour {
             else
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, AlignLerp);
         }
+
+        collisionCheck = false;
     }
 
     private void MovePlayer() {
+        bool onGround = groundCheck || collisionCheck;
+        
+
         // get normalized horizontal input direction in local space
         float inputLat = Input.GetAxis("Horizontal");
         float inputLon = Input.GetAxis("Vertical");
         Vector3 hControlDir = new Vector3(inputLat, 0, inputLon).normalized;
 
         // determine target horizontal velocity
-        bool running = !onGround || (Input.GetKey(KeyCode.LeftShift) ^ AutoRun);
-        hControlDir *= running ? RunSpeed : WalkSpeed;
+        Vector3 targetVelocity = hControlDir;
+        if (onGround) {
+            bool running = Input.GetKey(KeyCode.LeftShift) ^ AutoRun;
+            targetVelocity *= running ? RunSpeed : WalkSpeed;
+        } else {
+            targetVelocity *= AirSpeed;
+        }
 
-        Vector3 targetVelocity = new Vector3(hControlDir.x, 0, hControlDir.z);
+        Vector3 velocity = body.velocity;
+
+        // don't passively slow down in the air
+        if (!onGround) {
+            Vector3 relativeCurrent = transform.InverseTransformDirection(velocity);
+            Vector3 hCurrent = new Vector3(relativeCurrent.x, 0, relativeCurrent.z);
+            if (targetVelocity.sqrMagnitude < hCurrent.sqrMagnitude) {
+                if (targetVelocity.sqrMagnitude > 0)
+                    targetVelocity = targetVelocity.normalized * hCurrent.magnitude;
+                else
+                    targetVelocity = hCurrent;
+            }
+        }
+
         targetVelocity = transform.TransformDirection(targetVelocity);
 
         // include existing component vertical velocity in target velocity
-        Vector3 velocity = body.velocity;
         float verticalComponent = Vector3.Dot(velocity, transform.up);
         targetVelocity += transform.up * verticalComponent;
 
@@ -106,7 +129,7 @@ public class PlayerStickyMovement : MonoBehaviour {
         body.AddForce(velocityChange, ForceMode.VelocityChange);
 
         // handle jumps
-        if (onGround && Input.GetKeyDown(KeyCode.Space)) {
+        if (groundCheck && Input.GetKeyDown(KeyCode.Space)) {
             Vector3 jumpVelocity = transform.TransformDirection(Vector3.up * JumpSpeed());
             body.AddForce(jumpVelocity, ForceMode.VelocityChange);
         }
@@ -114,11 +137,33 @@ public class PlayerStickyMovement : MonoBehaviour {
         // apply gravity
         Vector3 gravityForce = transform.TransformDirection(Vector3.down * Gravity * body.mass);
         body.AddForce(gravityForce);
-
-        onGround = false;
     }
 
-    float JumpSpeed() {
+    private void OnCollisionStay(Collision collision) {
+        // use this as a secondary method of aligning to ground when we're
+        // e.g. hanging on ledges
+        if (!groundCheck) {
+            Vector3 collisionNormal = Vector3.zero;
+            foreach (var cp in collision.contacts) {
+                if (Vector3.Angle(transform.up, cp.normal) <= AlignMaxAngle)
+                    collisionNormal += cp.normal;
+            }
+
+            if (collisionNormal.sqrMagnitude > 0) {
+                collisionNormal.Normalize();
+
+                if (Vector3.Angle(targetNormal, collisionNormal) < AlignMinAngle) {
+                    targetNormal = collisionNormal;
+                } else {
+                    targetNormal = targetNormal * (1 - AlignGroundFactor) + collisionNormal * AlignGroundFactor;
+                }
+
+                collisionCheck = true;
+            }
+        }
+    }
+
+    private float JumpSpeed() {
         return Mathf.Sqrt(2 * JumpHeight * Gravity);
     }
 }

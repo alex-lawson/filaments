@@ -34,9 +34,9 @@ public class DungeonGenerator : MonoBehaviour {
     public List<DungeonPart> StartParts;
     public DungeonGenerationPhaseConfig[] Phases;
     public UnityEvent OnGenerationComplete;
+    public List<DungeonPart> CurrentDungeonPartInstances { get; private set; } = new List<DungeonPart>();
     [HideInInspector] public bool Generating { get; private set; }
-
-    private List<DungeonPart> currentDungeonPartInstances = new List<DungeonPart>();
+    
     private DungeonGenerationPhaseStatus currentPhaseStatus;
     private Random.State randomState;
 
@@ -49,10 +49,10 @@ public class DungeonGenerator : MonoBehaviour {
     /// until after the next physics update clears colliders for these destroyed objects
     /// </summary>
     public void Clear() {
-        for (var i = 0; i < currentDungeonPartInstances.Count; i++) {
-            Destroy(currentDungeonPartInstances[i].gameObject);
+        for (var i = 0; i < CurrentDungeonPartInstances.Count; i++) {
+            Destroy(CurrentDungeonPartInstances[i].gameObject);
         }
-        currentDungeonPartInstances.Clear();
+        CurrentDungeonPartInstances.Clear();
 
         Generating = false;
         currentPhaseStatus = null;
@@ -82,7 +82,7 @@ public class DungeonGenerator : MonoBehaviour {
 
         DungeonPart startPart = StartParts.RandomElement();
         var startPartInstance = Instantiate(startPart.gameObject, transform).GetComponent<DungeonPart>();
-        currentDungeonPartInstances.Add(startPartInstance);
+        CurrentDungeonPartInstances.Add(startPartInstance);
 
         currentPhaseStatus = new DungeonGenerationPhaseStatus(Phases[0]);
         currentPhaseStatus.OpenOutbound.AddRange(startPartInstance.OutboundConnectors());
@@ -194,15 +194,15 @@ public class DungeonGenerator : MonoBehaviour {
             return false;
 
         var partInstance = Instantiate(partPrefab.gameObject, transform).GetComponent<DungeonPart>();
-        currentDungeonPartInstances.Add(partInstance);
+        CurrentDungeonPartInstances.Add(partInstance);
 
         var inboundConnector = partInstance.GetConnector(inboundConnectorId.Value);
 
         // random rotation added separately from bounds check so that bounds check is deterministic
         if (inboundConnector.RandomRotation || outboundConnector.RandomRotation) {
             float rotateDegrees = Random.Range(0, 360);
-            targetOrientation = Quaternion.AngleAxis(180, outboundConnector.transform.up)
-                    * Quaternion.AngleAxis(rotateDegrees, outboundConnector.transform.forward)
+            targetOrientation = Quaternion.AngleAxis(rotateDegrees, outboundConnector.transform.forward)
+                    * Quaternion.AngleAxis(180, outboundConnector.transform.up)
                     * outboundConnector.transform.rotation
                     * Quaternion.Inverse(inboundConnector.transform.localRotation);
             targetPosition = outboundConnector.transform.position - targetOrientation * inboundConnector.transform.localPosition;

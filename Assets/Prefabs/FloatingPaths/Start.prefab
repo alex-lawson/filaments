@@ -217,7 +217,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PartName: Start
   SkipBoundsCheck: 0
-  ExtraBoundsExpansion: {x: 3, y: 3, z: 3}
+  ExtraBoundsExpansion: {x: 3, y: 3, z: 5}
   inboundConnectorTags:
   - FloatingPath
   - FloatingPath
@@ -225,10 +225,10 @@ MonoBehaviour:
   - {fileID: 114943966664615752}
   - {fileID: 114031654449208466}
   bounds:
-  - m_Center: {x: 0.051146746, y: -1.5907915, z: 4.5}
-    m_Extent: {x: 3.6379085, y: 3.0857913, z: 4.495}
-  - m_Center: {x: -0.05114627, y: -1.5907915, z: 4.5}
-    m_Extent: {x: 3.6379085, y: 3.0857913, z: 4.495}
+  - m_Center: {x: 0.051146746, y: -1.5907915, z: 5.5}
+    m_Extent: {x: 3.6379085, y: 3.0857913, z: 5.495}
+  - m_Center: {x: -0.05114627, y: -1.5907915, z: 5.5}
+    m_Extent: {x: 3.6379085, y: 3.0857913, z: 5.495}
 --- !u!114 &114943966664615752
 MonoBehaviour:
   m_ObjectHideFlags: 1
