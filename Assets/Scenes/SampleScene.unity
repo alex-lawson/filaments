@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.017333927, g: 0.05557242, b: 0.021789532, a: 1}
+  m_IndirectSpecularColor: {r: 0.033508345, g: 0.037322983, b: 0.05923477, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -512,6 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cef275b729f49240810997bc67244a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 383292556}
   Dungeon: {fileID: 2094193315}
   GenerationRate: 40
   BenchmarkIterations: 60
@@ -577,6 +578,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  CurrentDungeonBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  BoundsPadding: 0
 --- !u!4 &1574954116
 Transform:
   m_ObjectHideFlags: 0
@@ -687,11 +692,12 @@ MonoBehaviour:
   OrbMaterial: {fileID: 2100000, guid: 53c738b827ecdac45ae89ef8a38f2eaf, type: 2}
   Dungeon: {fileID: 2094193315}
   MoonHueOffset: 0.2
-  OrbDensity: 0.2
+  OrbMinDensity: 0.1
+  OrbMaxDensity: 0.6
   OrbMinDistance: 4
-  OrbMaxDistance: 8
+  OrbMaxDistance: 16
   OrbCollisionClearance: 3
-  MaxPlaceFails: 300
+  MaxPlaceFails: 1000
 --- !u!1 &2029386228
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,6 +793,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  CurrentDungeonBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  BoundsPadding: 200
 --- !u!4 &2094193316
 Transform:
   m_ObjectHideFlags: 0

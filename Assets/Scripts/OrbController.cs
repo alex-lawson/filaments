@@ -8,13 +8,23 @@ public class OrbController : MonoBehaviour {
     public Material OrbMaterial;
     public DungeonGenerator Dungeon;
     public float MoonHueOffset;
-    public float OrbDensity;
+    public float OrbMinDensity;
+    public float OrbMaxDensity;
     public float OrbMinDistance;
     public float OrbMaxDistance;
     public float OrbCollisionClearance;
     public int MaxPlaceFails;
 
     private List<GameObject> orbInstances = new List<GameObject>();
+    private Color orbOriginalColor;
+
+    private void Awake() {
+        orbOriginalColor = OrbMaterial.GetColor("_ReflectionColor");
+    }
+
+    private void OnDestroy() {
+        OrbMaterial.SetColor("_ReflectionColor", orbOriginalColor);
+    }
 
     public void Generate(int seed, Color moonColor) {
         Clear();
@@ -38,7 +48,8 @@ public class OrbController : MonoBehaviour {
         var dungeonParts = Dungeon.CurrentDungeonPartInstances;
         dungeonParts.Shuffle();
         int partCount = dungeonParts.Count;
-        int orbCount = Mathf.CeilToInt(partCount * OrbDensity);
+        float orbDensity = Random.Range(OrbMinDensity, OrbMaxDensity);
+        int orbCount = Mathf.CeilToInt(partCount * orbDensity);
         int i = 0;
         while (placed < orbCount && failsToAbort > 0) {
             Vector3 partPos = dungeonParts[i].transform.position;
@@ -71,7 +82,6 @@ public class OrbController : MonoBehaviour {
         float h = moonH + (Random.value - 0.5f) * MoonHueOffset;
         float s = Random.Range(0.6f, 0.8f);
         Color orbColor = Color.HSVToRGB(h, s, 1.0f);
-        OrbPrefab.GetComponent<Light>().color = orbColor;
         OrbMaterial.SetColor("_ReflectionColor", orbColor);
 
         Random.state = oldRandomState;

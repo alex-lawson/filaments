@@ -6,7 +6,17 @@ public class SkyController : MonoBehaviour {
 
     public Material SkyboxMaterial;
 
-	public void SetColor(Color color) {
+    private Color originalColor;
+
+    private void Awake() {
+        originalColor = SkyboxMaterial.GetColor("_Tint");
+    }
+
+    private void OnDestroy() {
+        SkyboxMaterial.SetColor("_Tint", originalColor);
+    }
+
+    public void SetColor(Color color) {
         SkyboxMaterial.SetColor("_Tint", color);
         RenderSettings.ambientLight = color;
     }

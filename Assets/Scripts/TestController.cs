@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 public class TestController : MonoBehaviour {
 
+    public GameObject Player;
     public DungeonGenerator Dungeon;
     public float GenerationRate;
     public int BenchmarkIterations;
@@ -13,13 +14,17 @@ public class TestController : MonoBehaviour {
 	void Start () {
         Dungeon.OnGenerationComplete.AddListener(new UnityAction(OnDungeonGenComplete));
 
-        Dungeon.Generate();
+        Dungeon.Generate(true);
         Stars.RandomizeStarColors(Dungeon.Seed);
         Orbs.Generate(Dungeon.Seed, Stars.Moon.color);
         RenderSettings.ambientLight = Stars.Moon.color;
     }
 	
 	void Update () {
+        if (!Dungeon.CurrentDungeonBounds.Contains(Player.transform.position)) {
+            PlacePlayerInDungeon();
+        }
+
         if (Input.GetKeyDown(KeyCode.Return)) {
             StopAllCoroutines();
 
@@ -43,7 +48,7 @@ public class TestController : MonoBehaviour {
             Application.Quit();
     }
 
-    private IEnumerator DoRegenerate(bool sync = true) {
+    private IEnumerator DoRegenerate(bool sync) {
         var wfeof = new WaitForEndOfFrame();
 
         Dungeon.Clear();
@@ -117,10 +122,8 @@ public class TestController : MonoBehaviour {
     }
 
     private void PlacePlayerInDungeon() {
-        var player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null) {
-            player.GetComponent<PlayerStickyMovement>()?.Reset();
-            player.transform.position = Dungeon.transform.position;
-        }
+        Player.GetComponent<PlayerStickyMovement>()?.Reset();
+        Player.GetComponentInChildren<PlayerStickyLook>()?.Reset();
+        Player.transform.position = Dungeon.transform.position;
     }
 }

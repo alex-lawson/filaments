@@ -15,6 +15,10 @@ public class PlayerStickyLook : MonoBehaviour {
         RotatePlayerBody();
     }
 
+    public void Reset() {
+        transform.rotation = new Quaternion();
+    }
+
     private void RotateCamera() {
         float mouseY = Input.GetAxis("Mouse Y");
         float rotateAmount = -mouseY * MouseSensitivity;

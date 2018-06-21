@@ -34,6 +34,8 @@ public class DungeonGenerator : MonoBehaviour {
     public List<DungeonPart> StartParts;
     public DungeonGenerationPhaseConfig[] Phases;
     public UnityEvent OnGenerationComplete;
+    [HideInInspector] public Bounds CurrentDungeonBounds;
+    public float BoundsPadding;
     public List<DungeonPart> CurrentDungeonPartInstances { get; private set; } = new List<DungeonPart>();
     [HideInInspector] public bool Generating { get; private set; }
     
@@ -41,6 +43,7 @@ public class DungeonGenerator : MonoBehaviour {
     private Random.State randomState;
 
     private void Awake() {
+        CurrentDungeonBounds = new Bounds(transform.position, Vector3.zero);
         OnGenerationComplete = new UnityEvent();
     }
 
@@ -49,6 +52,7 @@ public class DungeonGenerator : MonoBehaviour {
     /// until after the next physics update clears colliders for these destroyed objects
     /// </summary>
     public void Clear() {
+        CurrentDungeonBounds = new Bounds(transform.position, Vector3.zero);
         for (var i = 0; i < CurrentDungeonPartInstances.Count; i++) {
             Destroy(CurrentDungeonPartInstances[i].gameObject);
         }
@@ -135,8 +139,12 @@ public class DungeonGenerator : MonoBehaviour {
             randomState = Random.state;
             Random.state = oldRandomState;
 
-            if (!Generating && OnGenerationComplete != null)
-                OnGenerationComplete.Invoke();
+            if (!Generating) {
+                if (OnGenerationComplete != null)
+                    OnGenerationComplete.Invoke();
+
+                CurrentDungeonBounds.Expand(BoundsPadding);
+            }
         }
 
         return Generating;
@@ -210,6 +218,8 @@ public class DungeonGenerator : MonoBehaviour {
 
         partInstance.transform.localRotation = targetOrientation;
         partInstance.transform.position = targetPosition;
+
+        CurrentDungeonBounds.Encapsulate(targetPosition);
 
         //Debug.Log($"Connected {outboundConnector.gameObject.name} (outbound) to {partPrefab.PartName} {inboundConnector.gameObject.name} (inbound)");
 
