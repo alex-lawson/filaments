@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SmallShrineAnchor
+  - LargeShrineAnchor
   layers:
   - Default
   - TransparentFX
@@ -14,8 +16,8 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - Glow
-  - 
+  - Terrain
+  - Shrines
   - 
   - 
   - 

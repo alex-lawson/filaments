@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 33499662715856958}
   - component: {fileID: 23842109660754970}
   - component: {fileID: 64684169654047272}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PathSegment
   m_TagString: Untagged
   m_Icon: {fileID: 0}

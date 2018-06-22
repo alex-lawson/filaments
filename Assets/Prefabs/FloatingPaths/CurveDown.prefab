@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 33826869519275280}
   - component: {fileID: 23049169286295528}
   - component: {fileID: 64752003598205106}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PathSegment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
