@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 170076734}
   m_IndirectSpecularColor: {r: 0.064636156, g: 0.017272905, b: 0.04714977, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -157,7 +157,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 4294966271
   m_Lightmapping: 1
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -222,7 +222,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 4294966271
   m_Lightmapping: 1
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -600,7 +600,7 @@ GameObject:
   - component: {fileID: 1650761481}
   - component: {fileID: 1650761480}
   m_Layer: 0
-  m_Name: Stars
+  m_Name: DirectionalLights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -674,7 +674,7 @@ MonoBehaviour:
       Min: 0.07
       Max: 0.1
   - TargetMaterial: {fileID: 2100000, guid: 53c738b827ecdac45ae89ef8a38f2eaf, type: 2}
-    ColorParameterName: _ReflectionColor
+    ColorParameterName: _Color
     BaseHueIndex: 1
     SaturationRange:
       Min: 0.6
@@ -691,6 +691,15 @@ MonoBehaviour:
     ValueRange:
       Min: 0.15
       Max: 0.3
+  - TargetMaterial: {fileID: 2100000, guid: 90f2cb8e83fcefd4990752ee8b7a46d5, type: 2}
+    ColorParameterName: _EmissionColor
+    BaseHueIndex: 0
+    SaturationRange:
+      Min: 0.3
+      Max: 0.3
+    ValueRange:
+      Min: 0.1
+      Max: 0.1
   - TargetMaterial: {fileID: 2100000, guid: af3f9935474e4da47bbb9af9a1a4086a, type: 2}
     ColorParameterName: _Color
     BaseHueIndex: 1
@@ -700,6 +709,15 @@ MonoBehaviour:
     ValueRange:
       Min: 0.8
       Max: 1
+  - TargetMaterial: {fileID: 2100000, guid: af3f9935474e4da47bbb9af9a1a4086a, type: 2}
+    ColorParameterName: _EmissionColor
+    BaseHueIndex: 1
+    SaturationRange:
+      Min: 0.8
+      Max: 0.8
+    ValueRange:
+      Min: 0.35
+      Max: 0.35
   LightColors:
   - TargetLight: {fileID: 134005043}
     BaseHueIndex: 0
