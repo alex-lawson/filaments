@@ -145,8 +145,17 @@ public class PlayerStickyMovement : MonoBehaviour {
         if (!groundCheck) {
             Vector3 collisionNormal = Vector3.zero;
             foreach (var cp in collision.contacts) {
-                if (Vector3.Angle(transform.up, cp.normal) <= AlignMaxAngle)
-                    collisionNormal += cp.normal;
+                // to (imperfectly) get the normal of the surface we're colliding with,
+                // take the collision normal and raycast just below it (in local space)
+                // so that we get the surface *below* sharp lips
+                Vector3 checkRayOrigin = cp.point + cp.normal - transform.up * 0.1f;
+                Ray checkRay = new Ray(cp.point, -cp.normal);
+                RaycastHit hit;
+                if (cp.otherCollider.Raycast(checkRay, out hit, 2f)) {
+                    Vector3 surfaceNormal = hit.normal;
+                    if (Vector3.Angle(Vector3.up, surfaceNormal) < AlignMaxAngle)
+                        collisionNormal += surfaceNormal;
+                }
             }
 
             if (collisionNormal.sqrMagnitude > 0) {
