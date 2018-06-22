@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7632d7998ba5f441ba202c2048159c5, type: 3}
   m_Name: SmallShrineConfig
   m_EditorClassIdentifier: 
-  FinalScale: 0.4
+  FinalScale: 0.35
   AccentChanceMid: 0.3
   AccentChanceEnd: 0.6
   RotationalSymmetry:
