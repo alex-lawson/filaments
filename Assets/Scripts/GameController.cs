@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
@@ -9,11 +10,18 @@ public class GameController : MonoBehaviour {
     public ColorSchemer Colors;
     public ShrineGenerator Shrines;
     public OrbGenerator Orbs;
+    public Image ScreenFadeOverlay;
+    public float ScreenFadeOutTime;
+    public float ScreenFadePauseTime;
+    public float ScreenFadeInTime;
     public float GenerationRate;
     public int BenchmarkIterations;
     public int CurrentSeed { get; private set; }
 
-	private void Start () {
+    private Coroutine generatingCoroutine;
+    private bool reviving = false;
+
+    private void Start() {
         Dungeon.OnGenerationComplete.AddListener(new UnityAction(OnDungeonGenComplete));
 
         RandomizeSeed();
@@ -24,38 +32,82 @@ public class GameController : MonoBehaviour {
         Orbs.Generate(CurrentSeed);
     }
 
+    private void Reset() {
+        Clear();
+        ScreenFadeOverlay.enabled = false;
+        reviving = false;
+    }
+
     private void Clear() {
         Dungeon.Clear();
         Shrines.Clear();
         Orbs.Clear();
     }
-	
-	private void Update () {
-        if (!Dungeon.CurrentDungeonBounds.Contains(Player.transform.position)) {
-            PlacePlayerInDungeon();
+
+    private void Update() {
+        if (!reviving && !Dungeon.CurrentDungeonBounds.Contains(Player.transform.position)) {
+            StartCoroutine(DoPlayerRevive());
         }
 
         if (Input.GetKeyDown(KeyCode.Return)) {
-            StopAllCoroutines();
+            StopCoroutine(generatingCoroutine);
 
             bool sync = !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
-            StartCoroutine(DoRegenerate(sync));
+            generatingCoroutine = StartCoroutine(DoRegenerate(sync));
         }
 
         if (Input.GetKeyDown(KeyCode.B)) {
-            StopAllCoroutines();
+            StopCoroutine(generatingCoroutine);
 
-            StartCoroutine(DoBenchmark(BenchmarkIterations));
+            generatingCoroutine = StartCoroutine(DoBenchmark(BenchmarkIterations));
         }
 
         if (Input.GetKeyDown(KeyCode.C)) {
-            StopAllCoroutines();
+            StopCoroutine(generatingCoroutine);
 
             Clear();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
+    }
+
+    private IEnumerator DoPlayerRevive() {
+        var wfeof = new WaitForEndOfFrame();
+
+        Color fadeColor = RenderSettings.skybox.GetColor("_Tint");
+
+        ScreenFadeOverlay.enabled = true;
+        reviving = true;
+
+        float outTimer = 0;
+        while (outTimer < ScreenFadeOutTime) {
+            float alphaRatio = outTimer / ScreenFadeOutTime;
+            ScreenFadeOverlay.color = new Color(fadeColor.r, fadeColor.g, fadeColor.b, alphaRatio);
+
+            outTimer += Time.deltaTime;
+
+            yield return wfeof;
+        }
+
+        ScreenFadeOverlay.color = fadeColor;
+
+        PlacePlayerInDungeon();
+
+        yield return new WaitForSeconds(ScreenFadePauseTime);
+
+        float inTimer = 0;
+        while (inTimer < ScreenFadeInTime) {
+            float alphaRatio = 1 - inTimer / ScreenFadeInTime;
+            ScreenFadeOverlay.color = new Color(fadeColor.r, fadeColor.g, fadeColor.b, alphaRatio);
+
+            inTimer += Time.deltaTime;
+
+            yield return wfeof;
+        }
+
+        ScreenFadeOverlay.enabled = false;
+        reviving = false;
     }
 
     private IEnumerator DoRegenerate(bool sync) {
@@ -125,7 +177,7 @@ public class GameController : MonoBehaviour {
         }
 
         float avg = elapsed / iterations;
-        Debug.Log($"completed {iterations} iterations in {elapsed:F5}s ({avg * 1000:F1}ms avg, {highest*1000:F1}ms max, {lowest*1000:F1}ms min)");
+        Debug.Log($"completed {iterations} iterations in {elapsed:F5}s ({avg * 1000:F1}ms avg, {highest * 1000:F1}ms max, {lowest * 1000:F1}ms min)");
         Debug.Log($"slowest seed {highestSeed}, fastest seed {lowestSeed}");
     }
 
