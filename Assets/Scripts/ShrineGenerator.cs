@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 public class ShrineGenerationTarget {
     public string AnchorTag;
     public ShrineGenerationConfig Config;
+    public bool BeaconEnabled;
 }
 
 public class ShrineGenerator : MonoBehaviour {
@@ -24,7 +25,12 @@ public class ShrineGenerator : MonoBehaviour {
 
         foreach (var target in Targets) {
             var prototype = Instantiate(ShrinePrefab, transform);
-            GenerateShrine(target.Config, seed, prototype);
+
+            Bounds shrineBounds = GenerateShrine(target.Config, seed, prototype);
+
+            var protoShrine = prototype.GetComponent<Shrine>();
+            protoShrine.SetShrineHeight(shrineBounds.size.y);
+            protoShrine.BeaconEnabled = target.BeaconEnabled;
 
             var anchorPoints = GameObject.FindGameObjectsWithTag(target.AnchorTag);
             foreach (var anchorPoint in anchorPoints) {
@@ -42,7 +48,7 @@ public class ShrineGenerator : MonoBehaviour {
         currentShrineInstances.Clear();
     }
 
-    public void GenerateShrine(ShrineGenerationConfig config, int seed, GameObject targetObject) {
+    public Bounds GenerateShrine(ShrineGenerationConfig config, int seed, GameObject targetObject) {
         var oldState = Random.state;
         Random.InitState(seed);
 
@@ -178,9 +184,12 @@ public class ShrineGenerator : MonoBehaviour {
             mesh.SetTriangles(triangles[meshId].ToArray(), meshId);
         }
         mesh.RecalculateNormals();
+        mesh.RecalculateBounds();
         targetObject.GetComponent<MeshFilter>().sharedMesh = mesh;
 
         Random.state = oldState;
+
+        return mesh.bounds;
     }
 
     private Vector3 RadialPoint(float angle, float radius, float y) {

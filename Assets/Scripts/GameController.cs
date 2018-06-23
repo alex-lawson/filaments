@@ -50,20 +50,23 @@ public class GameController : MonoBehaviour {
         }
 
         if (Input.GetKeyDown(KeyCode.Return)) {
-            StopCoroutine(generatingCoroutine);
+            if (generatingCoroutine != null)
+                StopCoroutine(generatingCoroutine);
 
             bool sync = !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
             generatingCoroutine = StartCoroutine(DoRegenerate(sync));
         }
 
         if (Input.GetKeyDown(KeyCode.B)) {
-            StopCoroutine(generatingCoroutine);
+            if (generatingCoroutine != null)
+                StopCoroutine(generatingCoroutine);
 
             generatingCoroutine = StartCoroutine(DoBenchmark(BenchmarkIterations));
         }
 
         if (Input.GetKeyDown(KeyCode.C)) {
-            StopCoroutine(generatingCoroutine);
+            if (generatingCoroutine != null)
+                StopCoroutine(generatingCoroutine);
 
             Clear();
         }
