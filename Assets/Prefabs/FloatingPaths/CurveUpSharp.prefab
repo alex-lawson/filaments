@@ -173,7 +173,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1817128531118852}
-  m_Mesh: {fileID: 4300000, guid: dbf692d98bce36e4cb1f533b84d5a82e, type: 3}
+  m_Mesh: {fileID: 4300000, guid: ba0cacd9f7049c54b9fb6c81168e0a5f, type: 3}
 --- !u!64 &64451961560433884
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -187,7 +187,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: dbf692d98bce36e4cb1f533b84d5a82e, type: 3}
+  m_Mesh: {fileID: 4300000, guid: ba0cacd9f7049c54b9fb6c81168e0a5f, type: 3}
 --- !u!114 &114321477156845334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -209,9 +209,9 @@ MonoBehaviour:
   - {fileID: 114859542563478554}
   - {fileID: 114506183755563780}
   bounds:
-  - m_Center: {x: 0.00018429756, y: 0.6650635, z: 5.698557}
-    m_Extent: {x: 2.8496928, y: 3.6600633, z: 5.693557}
-  - m_Center: {x: -0.00018370152, y: 0.63000643, z: 5.649519}
+  - m_Center: {x: 0.00018417835, y: 0.6650635, z: 5.698557}
+    m_Extent: {x: 2.849693, y: 3.6600637, z: 5.6935573}
+  - m_Center: {x: -0.0001835823, y: 0.6300067, z: 5.649519}
     m_Extent: {x: 2.8496928, y: 3.8649933, z: 5.644519}
 --- !u!114 &114506183755563780
 MonoBehaviour:
