@@ -170,9 +170,8 @@ Transform:
   - {fileID: 296632319}
   - {fileID: 308896235}
   - {fileID: 918352433}
-  - {fileID: 1347380382}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &113889323
 GameObject:
@@ -185,7 +184,7 @@ GameObject:
   - component: {fileID: 113889324}
   - component: {fileID: 113889325}
   m_Layer: 0
-  m_Name: ShrineAnchor
+  m_Name: LargeShrineAnchor
   m_TagString: LargeShrineAnchor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,12 +197,12 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 113889323}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1087539824}
-  m_RootOrder: 4
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &113889325
 MonoBehaviour:
@@ -554,7 +553,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 1024
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
@@ -715,7 +714,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294966271
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
@@ -784,9 +783,8 @@ Transform:
   - {fileID: 1377608190}
   - {fileID: 850209178}
   - {fileID: 435019190}
-  - {fileID: 113889324}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1347380381
 GameObject:
@@ -799,7 +797,7 @@ GameObject:
   - component: {fileID: 1347380382}
   - component: {fileID: 1347380383}
   m_Layer: 0
-  m_Name: ShrineAnchor
+  m_Name: SmallShrineAnchor
   m_TagString: SmallShrineAnchor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -812,12 +810,12 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1347380381}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 73967901}
-  m_RootOrder: 3
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1347380383
 MonoBehaviour:
@@ -1060,7 +1058,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294966271
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570

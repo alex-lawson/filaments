@@ -243,8 +243,7 @@ public class ShrineGenerator : MonoBehaviour {
         //if (bilateralSymmetry)
         //    AddMirrored(vertices, triangles);
 
-        for (int i = 1; i < rotationalSymmetry; i++)
-            AddRotations(sectionAngle * i);
+        AddRotations(sectionAngle, rotationalSymmetry);
 
         Mesh mesh = new Mesh();
         mesh.subMeshCount = triangles.Length;
@@ -356,50 +355,56 @@ public class ShrineGenerator : MonoBehaviour {
         triangles[currentMeshId].Add(c);
     }
 
-    // copy the specified vertices and triangles, mirrored across the x axis
-    private void AddMirrored() {
-        for (int meshId = 0; meshId < triangles.Length; meshId++) {
-            currentMeshId = meshId;
-            List<Vector3> vList = new List<Vector3>(vertices);
-            List<int> tList = new List<int>(triangles[meshId]);
+    //// copy the specified vertices and triangles, mirrored across the x axis
+    //private void AddMirrored() {
+    //    for (int meshId = 0; meshId < triangles.Length; meshId++) {
+    //        currentMeshId = meshId;
+    //        List<Vector3> vList = new List<Vector3>(vertices);
+    //        List<int> tList = new List<int>(triangles[meshId]);
 
-            int vertexCount = vList.Count;
-            int triCount = tList.Count / 3;
+    //        int vertexCount = vList.Count;
+    //        int triCount = tList.Count / 3;
 
-            List<int> newIds = new List<int>();
-            for (var i = 0; i < vertexCount; i++) {
-                var v = vList[i];
-                newIds.Add(AddVertex(new Vector3(v.x, v.y, -v.z)));
-            }
+    //        List<int> newIds = new List<int>();
+    //        for (var i = 0; i < vertexCount; i++) {
+    //            var v = vList[i];
+    //            newIds.Add(AddVertex(new Vector3(v.x, v.y, -v.z)));
+    //        }
 
-            for (var i = 0; i < triCount; i++) {
-                int j = i * 3;
-                AddTriangle(newIds[tList[j]], newIds[tList[j + 2]], newIds[tList[j + 1]]);
-            }
-        }
-    }
+    //        for (var i = 0; i < triCount; i++) {
+    //            int j = i * 3;
+    //            AddTriangle(newIds[tList[j]], newIds[tList[j + 2]], newIds[tList[j + 1]]);
+    //        }
+    //    }
+    //}
 
     // copy the specified vertices and triangles, rotated by angle around the y axis
-    private void AddRotations(float angle) {
-        Quaternion rotation = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, Vector3.up);
+    private void AddRotations(float angle, int iterations) {
+        // set aside copies of the original lists to be rotated
+        List<Vector3> copyVertices = new List<Vector3>(vertices);
+        List<int>[] copyTriangles = new List<int>[triangles.Length];
+        for (var i = 0; i < triangles.Length; i++)
+            copyTriangles[i] = new List<int>(triangles[i]);
 
-        List<int> newVertexIds = new List<int>();
+        for (var ri = 0; ri < iterations; ri++) {
+            Quaternion rotation = Quaternion.AngleAxis(angle * ri * Mathf.Rad2Deg, Vector3.up);
 
-        List<Vector3> vList = new List<Vector3>(vertices);
-        int vertexCount = vList.Count;
-        for (var i = 0; i < vertexCount; i++) {
-            var v = vList[i];
-            newVertexIds.Add(AddVertex(rotation * v));
-        }
+            // copy and rotate vertices
+            List<int> newVertexIds = new List<int>();
+            for (var i = 0; i < copyVertices.Count; i++) {
+                var v = copyVertices[i];
+                newVertexIds.Add(AddVertex(rotation * v));
+            }
 
-        for (int meshId = 0; meshId < triangles.Length; meshId++) {
-            currentMeshId = meshId;
-            
-            List<int> tList = new List<int>(triangles[meshId]);
-            int triCount = tList.Count / 3;
-            for (var i = 0; i < triCount; i++) {
-                int j = i * 3;
-                AddTriangle(newVertexIds[tList[j]], newVertexIds[tList[j + 1]], newVertexIds[tList[j + 2]]);
+            // copy triangles corresponding to new vertices
+            for (int meshId = 0; meshId < triangles.Length; meshId++) {
+                currentMeshId = meshId;
+
+                int triCount = copyTriangles[meshId].Count / 3;
+                for (var i = 0; i < triCount; i++) {
+                    int j = i * 3;
+                    AddTriangle(newVertexIds[copyTriangles[meshId][j]], newVertexIds[copyTriangles[meshId][j + 1]], newVertexIds[copyTriangles[meshId][j + 2]]);
+                }
             }
         }
     }

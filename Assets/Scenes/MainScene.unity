@@ -382,7 +382,7 @@ MonoBehaviour:
   JumpHeight: 2
   Gravity: 15
   GroundSensor: {fileID: 2029386229}
-  AlignMaxAngle: 70
+  AlignMaxAngle: 90
   AlignMinAngle: 0.1
   AlignGroundFactor: 0.1
   AlignLerp: 0.2
