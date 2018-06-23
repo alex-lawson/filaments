@@ -28,9 +28,13 @@ public class ShrineGenerator : MonoBehaviour {
 
             Bounds shrineBounds = GenerateShrine(target.Config, seed, prototype);
 
-            var protoShrine = prototype.GetComponent<Shrine>();
-            protoShrine.SetShrineHeight(shrineBounds.size.y);
-            protoShrine.BeaconEnabled = target.BeaconEnabled;
+            var protoShrine = prototype.GetComponentInChildren<ShrineBeacon>();
+            if (target.BeaconEnabled) {
+                protoShrine.gameObject.SetActive(true);
+                protoShrine.SetupBeacon(shrineBounds.size.y);
+            } else {
+                protoShrine.gameObject.SetActive(false);
+            }
 
             var anchorPoints = GameObject.FindGameObjectsWithTag(target.AnchorTag);
             foreach (var anchorPoint in anchorPoints) {

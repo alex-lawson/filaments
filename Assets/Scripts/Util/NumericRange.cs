@@ -14,7 +14,11 @@ public class FloatRange {
 
     public float RandomValue() {
         float val = Random.value;
-        return Mathf.Lerp(Min, Max, val);
+        return Lerp(val);
+    }
+
+    public float Lerp(float lerpValue) {
+        return Mathf.Lerp(Min, Max, lerpValue);
     }
 }
 
@@ -30,6 +34,10 @@ public class IntRange {
 
     public int RandomValue() {
         float val = Random.value;
-        return Mathf.FloorToInt(Mathf.Lerp(Min, Max + 0.999f, val));
+        return Lerp(val);
+    }
+
+    public int Lerp(float lerpValue) {
+        return Mathf.FloorToInt(Mathf.Lerp(Min, Max + 0.999f, lerpValue));
     }
 }

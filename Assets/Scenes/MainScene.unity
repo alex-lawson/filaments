@@ -355,6 +355,7 @@ GameObject:
   - component: {fileID: 383292559}
   - component: {fileID: 383292558}
   - component: {fileID: 383292557}
+  - component: {fileID: 383292561}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -431,6 +432,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &383292561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 383292556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3136b3e35444ce449ef4a196b2e4a30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &755112851
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,7 +731,7 @@ GameObject:
   - component: {fileID: 1817441886}
   m_Layer: 0
   m_Name: ColorSchemer
-  m_TagString: Untagged
+  m_TagString: ColorSchemer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -817,15 +829,6 @@ MonoBehaviour:
     ValueRange:
       Min: 0.8
       Max: 0.8
-  - TargetLight: {fileID: 108613776882504116, guid: f950633477305674d82ed7b1119be5e1,
-      type: 2}
-    BaseHueIndex: 0
-    SaturationRange:
-      Min: 0.5
-      Max: 0.8
-    ValueRange:
-      Min: 1
-      Max: 1
   AmbientSaturationRange:
     Min: 0.4
     Max: 0.8

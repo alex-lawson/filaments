@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4933257997303598}
   - component: {fileID: 33697611281140126}
   - component: {fileID: 23612614314512462}
-  - component: {fileID: 114818105742827572}
   m_Layer: 10
   m_Name: Shrine
   m_TagString: Untagged
@@ -38,6 +37,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4666251326332486}
   - component: {fileID: 108613776882504116}
+  - component: {fileID: 123358950996788382}
+  - component: {fileID: 114136833886446786}
   m_Layer: 10
   m_Name: Beacon
   m_TagString: Untagged
@@ -124,7 +125,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 0.28467822, g: 0.65311116, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.22984093, b: 0.73033863, a: 1}
   m_Intensity: 1
   m_Range: 20
   m_SpotAngle: 30
@@ -151,17 +152,73 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114818105742827572
+--- !u!114 &114136833886446786
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1147789703197144}
+  m_GameObject: {fileID: 1171491470537720}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6925d0c930b99747bd3b9a4da2a79a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Beacon: {fileID: 108613776882504116}
   BeaconDistance: 0.2
-  BeaconEnabled: 1
+  ColorBaseHueIndex: 1
+  ColorSaturation: 0.8
+  ColorValue: 0.8
+  BeaconActive: 0
+  ActivationDistance: 7
+  InactiveLightIntensity: 0.4
+  ActiveLightIntensity: 1
+  InactiveFlareBrightness: 0
+  ActiveFlareBrightness: 0.6
+  ActivateTime: 0.75
+  ActivateCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.00000027474016
+      inSlope: 0.06142169
+      outSlope: 0.06142169
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.30244824
+    - serializedVersion: 3
+      time: 0.33654922
+      value: 1.5825772
+      inSlope: -0.051830117
+      outSlope: -0.051830117
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.47521517
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!123 &123358950996788382
+LensFlare:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1171491470537720}
+  m_Enabled: 1
+  m_Flare: {fileID: 12100000, guid: 09ebe82dbd1113c3d000dc0b8d76c639, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Brightness: 0.38
+  m_FadeSpeed: 3
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 6
+  m_Directional: 0
