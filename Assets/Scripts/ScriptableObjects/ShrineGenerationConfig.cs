@@ -3,6 +3,11 @@
 [CreateAssetMenu(fileName = "ShrineGenerationConfig", menuName = "Shrine Generation Config")]
 public class ShrineGenerationConfig : ScriptableObject {
     public float FinalScale = 1;
+    public IntRange PlinthTierCount;
+    public FloatRange PlinthNarrowRadius;
+    public FloatRange PlinthWideRadius;
+    public FloatRange PlinthTierHeight;
+    public float PlinthNarrowChance;
     public float AccentChanceMid;
     public float AccentChanceEnd;
     public IntRange RotationalSymmetry;

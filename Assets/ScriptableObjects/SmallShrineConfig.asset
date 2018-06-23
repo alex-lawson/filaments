@@ -12,6 +12,19 @@ MonoBehaviour:
   m_Name: SmallShrineConfig
   m_EditorClassIdentifier: 
   FinalScale: 0.35
+  PlinthTierCount:
+    Min: 1
+    Max: 2
+  PlinthNarrowRadius:
+    Min: 0.5
+    Max: 1
+  PlinthWideRadius:
+    Min: 1.5
+    Max: 2
+  PlinthTierHeight:
+    Min: 0.4
+    Max: 0.6
+  PlinthNarrowChance: 0.5
   AccentChanceMid: 0.3
   AccentChanceEnd: 0.6
   RotationalSymmetry:

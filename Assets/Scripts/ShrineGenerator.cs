@@ -52,6 +52,13 @@ public class ShrineGenerator : MonoBehaviour {
         var oldState = Random.state;
         Random.InitState(seed);
 
+        // start of setup stage
+
+        // create seeds to isolate static generation of various stages
+        int plinthSeed = Random.Range(int.MinValue, int.MaxValue);
+        int mainSeed = Random.Range(int.MinValue, int.MaxValue);
+        int capSeed = Random.Range(int.MinValue, int.MaxValue);
+
         var targetMeshRenderer = targetObject.GetComponent<MeshRenderer>();
 
         vertices = new List<Vector3>();
@@ -65,29 +72,88 @@ public class ShrineGenerator : MonoBehaviour {
 
         float sectionAngle = (Mathf.PI * 2) / rotationalSymmetry;
         float faceAngle = bilateralSymmetry ? sectionAngle * 0.5f : sectionAngle;
-        float tierAngle = 0;
+        float currentAngle = 0;
 
         float twistAngle = 0;
         if (Random.value < config.GlobalTwistChance)
             twistAngle = config.TwistAngle.RandomValue() * (Random.value > 0.5 ? 1 : -1);
         //Debug.Log($"twistAngle {twistAngle}");
 
-        float tierHeight = config.TierHeight.RandomValue();
-        float baseY = 0f;
-        float topY = tierHeight;
+        float tierRadius = 0f;
+        float tierHeight = 0;
+        float topY = 0;
 
-        float tierRadius = config.Radius.RandomValue();
-        Vector3 lr = RadialPoint(tierAngle + faceAngle, tierRadius, 0);
-        Vector3 ll = RadialPoint(tierAngle, tierRadius, 0);
+        Vector3 lr = Vector3.zero;
+        Vector3 ll = Vector3.zero;
+        Vector3 ul = Vector3.zero;
+        Vector3 ur = Vector3.zero;
+
+        // end of setup stage, start of plinth stage
+
+        Random.InitState(plinthSeed);
+
+        currentMeshId = 0;
+
+        tierRadius = config.PlinthWideRadius.RandomValue();
+
+        ul = RadialPoint(currentAngle, tierRadius, topY);
+        ur = RadialPoint(currentAngle + faceAngle, tierRadius, topY);
+
+        bool narrow = false;
+        tierHeight = config.PlinthTierHeight.RandomValue();
+        int plinthTierCount = config.PlinthTierCount.RandomValue();
+        for (var pti = 0; pti < plinthTierCount; pti++) {
+            // add vertical face
+
+            bool twist = narrow && pti < plinthTierCount - 2 && Random.value < config.SegmentTwistChance;
+            if (twist)
+                currentAngle += twistAngle;
+
+            topY += tierHeight;
+
+            lr = ur;
+            ll = ul;
+
+            ul = RadialPoint(currentAngle, tierRadius, topY);
+            ur = RadialPoint(currentAngle + faceAngle, tierRadius, topY);
+
+            AddFace(new Vector3[] { lr, ll, ul, ur });
+
+            // add horizontal face
+            if (pti < plinthTierCount - 1) {
+                narrow = !narrow && pti > 0 && Random.value < config.PlinthNarrowChance;
+
+                if (narrow) {
+                    tierRadius = config.PlinthNarrowRadius.RandomValue();
+                }  else {
+                    tierRadius = config.PlinthWideRadius.RandomValue();
+                }
+
+                tierRadius *= config.PlinthWideRadius.RandomValue();
+
+                lr = ur;
+                ll = ul;
+
+                ul = RadialPoint(currentAngle, tierRadius, topY);
+                ur = RadialPoint(currentAngle + faceAngle, tierRadius, topY);
+
+                AddFace(new Vector3[] { lr, ll, ul, ur });
+            }
+        }
+
+        Vector3 plinthTopVertex = new Vector3(0, topY, 0);
+
+        AddFace(new Vector3[] { ur, ul, plinthTopVertex });
+
+        // end of plinth stage, start of main stage
+
+        Random.InitState(mainSeed);
 
         tierRadius = config.Radius.RandomValue();
-        Vector3 ul = RadialPoint(tierAngle, tierRadius, topY);
-        Vector3 ur = RadialPoint(tierAngle + faceAngle, tierRadius, topY);
 
-        currentMeshId = RandomMeshId(config, false);
-
-        AddFace(new Vector3[] { lr, ll, ul, ur });
-
+        ul = RadialPoint(currentAngle, tierRadius, topY);
+        ur = RadialPoint(currentAngle + faceAngle, tierRadius, topY);
+        
         int tierCount = config.TierCount.RandomValue();
         for (var ti = 1; ti < tierCount; ti++) {
             bool offsetTier = Random.value < config.OffsetTierChance;
@@ -99,7 +165,6 @@ public class ShrineGenerator : MonoBehaviour {
                 tierHeight = config.TierHeight.RandomValue();
             }
 
-            baseY = topY;
             topY += tierHeight;
 
             lr = ur;
@@ -108,20 +173,20 @@ public class ShrineGenerator : MonoBehaviour {
             currentMeshId = RandomMeshId(config, ti == tierCount);
 
             if (offsetTier) {
-                tierAngle += sectionAngle * 0.5f;
+                currentAngle += sectionAngle * 0.5f;
 
-                ul = RadialPoint(tierAngle, tierRadius, topY);
-                ur = RadialPoint(tierAngle + faceAngle, tierRadius, topY);
+                ul = RadialPoint(currentAngle, tierRadius, topY);
+                ur = RadialPoint(currentAngle + faceAngle, tierRadius, topY);
 
                 AddFace(new Vector3[] { lr, ul, ur });
                 AddFace(new Vector3[] { ul, lr, ll });
             } else {
                 // twist
                 if (Random.value < config.SegmentTwistChance)
-                    tierAngle += twistAngle;
+                    currentAngle += twistAngle;
                 
-                ul = RadialPoint(tierAngle, tierRadius, topY);
-                ur = RadialPoint(tierAngle + faceAngle, tierRadius, topY);
+                ul = RadialPoint(currentAngle, tierRadius, topY);
+                ur = RadialPoint(currentAngle + faceAngle, tierRadius, topY);
 
                 Vector3[] facePoints = new Vector3[] { lr, ll, ul, ur };
 
@@ -164,8 +229,14 @@ public class ShrineGenerator : MonoBehaviour {
             }
         }
 
+        // end of main stage, start of cap stage
+
+        Random.InitState(capSeed);
+
         float peakHeight = config.PeakSize.RandomValue();
         Vector3 peakVertex = new Vector3(0, topY + peakHeight, 0);
+
+        // end of cap stage, all randomization should be finished
 
         AddFace(new Vector3[] { ur, ul, peakVertex });
 

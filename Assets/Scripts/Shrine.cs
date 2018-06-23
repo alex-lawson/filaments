@@ -17,6 +17,6 @@ public class Shrine : MonoBehaviour {
 	}
 
     public void SetShrineHeight(float height) {
-        Beacon.transform.position = new Vector3(0, height + BeaconDistance, 0);
+        Beacon.transform.localPosition = new Vector3(0, height + BeaconDistance, 0);
     }
 }

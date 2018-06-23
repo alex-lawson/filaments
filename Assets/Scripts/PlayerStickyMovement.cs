@@ -149,7 +149,7 @@ public class PlayerStickyMovement : MonoBehaviour {
                 // take the collision normal and raycast just below it (in local space)
                 // so that we get the surface *below* sharp lips
                 Vector3 checkRayOrigin = cp.point + cp.normal - transform.up * 0.1f;
-                Ray checkRay = new Ray(cp.point, -cp.normal);
+                Ray checkRay = new Ray(checkRayOrigin, -cp.normal);
                 RaycastHit hit;
                 if (cp.otherCollider.Raycast(checkRay, out hit, 2f)) {
                     Vector3 surfaceNormal = hit.normal;
