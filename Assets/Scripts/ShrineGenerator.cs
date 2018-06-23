@@ -72,6 +72,7 @@ public class ShrineGenerator : MonoBehaviour {
 
         float sectionAngle = (Mathf.PI * 2) / rotationalSymmetry;
         float faceAngle = bilateralSymmetry ? sectionAngle * 0.5f : sectionAngle;
+        Quaternion faceRotation = Quaternion.AngleAxis(faceAngle * Mathf.Rad2Deg, Vector3.up);
         float currentAngle = 0;
 
         float twistAngle = 0;
@@ -79,7 +80,7 @@ public class ShrineGenerator : MonoBehaviour {
             twistAngle = config.TwistAngle.RandomValue() * (Random.value > 0.5 ? 1 : -1);
         //Debug.Log($"twistAngle {twistAngle}");
 
-        float tierRadius = 0f;
+        float tierRadius = 0;
         float tierHeight = 0;
         float topY = 0;
 
@@ -117,7 +118,7 @@ public class ShrineGenerator : MonoBehaviour {
             ul = RadialPoint(currentAngle, tierRadius, topY);
             ur = RadialPoint(currentAngle + faceAngle, tierRadius, topY);
 
-            AddFace(new Vector3[] { lr, ll, ul, ur });
+            AddFace(new Vector3[] { ul, ur, lr, ll });
 
             // add horizontal face
             if (pti < plinthTierCount - 1) {
@@ -137,9 +138,12 @@ public class ShrineGenerator : MonoBehaviour {
                 ul = RadialPoint(currentAngle, tierRadius, topY);
                 ur = RadialPoint(currentAngle + faceAngle, tierRadius, topY);
 
-                AddFace(new Vector3[] { lr, ll, ul, ur });
+                AddFace(new Vector3[] { ul, ur, lr, ll });
             }
         }
+
+        ul = RadialPoint(currentAngle, tierRadius, topY);
+        ur = RadialPoint(currentAngle + faceAngle, tierRadius, topY);
 
         Vector3 plinthTopVertex = new Vector3(0, topY, 0);
 
@@ -181,16 +185,14 @@ public class ShrineGenerator : MonoBehaviour {
                 AddFace(new Vector3[] { lr, ul, ur });
                 AddFace(new Vector3[] { ul, lr, ll });
             } else {
-                // twist
                 if (Random.value < config.SegmentTwistChance)
                     currentAngle += twistAngle;
                 
                 ul = RadialPoint(currentAngle, tierRadius, topY);
                 ur = RadialPoint(currentAngle + faceAngle, tierRadius, topY);
 
-                Vector3[] facePoints = new Vector3[] { lr, ll, ul, ur };
+                Vector3[] facePoints = new Vector3[] { ul, ur, lr, ll };
 
-                // extrude
                 int extrudeCount = 0;
                 if (Random.value < config.ExtrudeChance)
                     extrudeCount = config.ExtrudeSteps.RandomValue();
@@ -211,7 +213,6 @@ public class ShrineGenerator : MonoBehaviour {
                     float scaleAmount = config.BranchSegmentScale.RandomValue();
                     newFacePoints = ScalePoints(newFacePoints, scaleAmount, newFaceCenter);
 
-                    // twist
                     if (Random.value < config.SegmentTwistChance)
                         newFacePoints = RotatePoints(newFacePoints, twistAngle, extrudeVec, newFaceCenter);
 
@@ -235,26 +236,34 @@ public class ShrineGenerator : MonoBehaviour {
 
         float peakHeight = config.PeakSize.RandomValue();
         Vector3 peakVertex = new Vector3(0, topY + peakHeight, 0);
+        AddFace(new Vector3[] { ur, ul, peakVertex });
 
         // end of cap stage, all randomization should be finished
 
-        AddFace(new Vector3[] { ur, ul, peakVertex });
+        // copy mirrored / rotated segments to complete model
 
         //if (bilateralSymmetry)
-        //    AddMirrored(vertices, triangles);
+        //    AddMirrored();
 
         AddRotations(sectionAngle, rotationalSymmetry);
 
+        // create final mesh
+
         Mesh mesh = new Mesh();
-        mesh.subMeshCount = triangles.Length;
+        
         for (int i = 0; i < vertices.Count; i++)
             vertices[i] *= config.FinalScale;
-        mesh.vertices = vertices.ToArray();
+        mesh.SetVertices(vertices);
+
+        mesh.subMeshCount = triangles.Length;
         for (int meshId = 0; meshId < triangles.Length; meshId++) {
             mesh.SetTriangles(triangles[meshId].ToArray(), meshId);
         }
+
         mesh.RecalculateNormals();
+        mesh.RecalculateTangents();
         mesh.RecalculateBounds();
+
         targetObject.GetComponent<MeshFilter>().sharedMesh = mesh;
 
         Random.state = oldState;
@@ -316,6 +325,14 @@ public class ShrineGenerator : MonoBehaviour {
         return newIndex;
     }
 
+    private int[] AddVertices(Vector3[] toAdd) {
+        int[] vIds = new int[toAdd.Length];
+        for (int i = 0; i < toAdd.Length; i++) {
+            vIds[i] = AddVertex(toAdd[i]);
+        }
+        return vIds;
+    }
+
     // given a list of vertex positions in a clockwise convex ring aligned
     // on a single plane, create a surface and add it to the mesh
     private void AddFace(Vector3[] facePoints) {
@@ -341,42 +358,34 @@ public class ShrineGenerator : MonoBehaviour {
         }
     }
 
-    private int[] AddVertices(Vector3[] toAdd) {
-        int[] vIds = new int[toAdd.Length];
-        for (int i = 0; i < toAdd.Length; i++) {
-            vIds[i] = AddVertex(toAdd[i]);
-        }
-        return vIds;
-    }
-
     private void AddTriangle(int a, int b, int c) {
         triangles[currentMeshId].Add(a);
         triangles[currentMeshId].Add(b);
         triangles[currentMeshId].Add(c);
     }
 
-    //// copy the specified vertices and triangles, mirrored across the x axis
-    //private void AddMirrored() {
-    //    for (int meshId = 0; meshId < triangles.Length; meshId++) {
-    //        currentMeshId = meshId;
-    //        List<Vector3> vList = new List<Vector3>(vertices);
-    //        List<int> tList = new List<int>(triangles[meshId]);
+    // copy the specified vertices and triangles, mirrored across the x axis
+    private void AddMirrored() {
+        for (int meshId = 0; meshId < triangles.Length; meshId++) {
+            currentMeshId = meshId;
+            List<Vector3> copyVertices = new List<Vector3>(vertices);
+            List<int> copyTriangles = new List<int>(triangles[meshId]);
 
-    //        int vertexCount = vList.Count;
-    //        int triCount = tList.Count / 3;
+            int vertexCount = copyVertices.Count;
+            int triCount = copyTriangles.Count / 3;
 
-    //        List<int> newIds = new List<int>();
-    //        for (var i = 0; i < vertexCount; i++) {
-    //            var v = vList[i];
-    //            newIds.Add(AddVertex(new Vector3(v.x, v.y, -v.z)));
-    //        }
+            List<int> newVertexIds = new List<int>();
+            for (var i = 0; i < vertexCount; i++) {
+                var v = copyVertices[i];
+                newVertexIds.Add(AddVertex(new Vector3(v.x, v.y, -v.z)));
+            }
 
-    //        for (var i = 0; i < triCount; i++) {
-    //            int j = i * 3;
-    //            AddTriangle(newIds[tList[j]], newIds[tList[j + 2]], newIds[tList[j + 1]]);
-    //        }
-    //    }
-    //}
+            for (var i = 0; i < triCount; i++) {
+                int j = i * 3;
+                AddTriangle(newVertexIds[copyTriangles[j]], newVertexIds[copyTriangles[j + 2]], newVertexIds[copyTriangles[j + 1]]);
+            }
+        }
+    }
 
     // copy the specified vertices and triangles, rotated by angle around the y axis
     private void AddRotations(float angle, int iterations) {
@@ -386,7 +395,7 @@ public class ShrineGenerator : MonoBehaviour {
         for (var i = 0; i < triangles.Length; i++)
             copyTriangles[i] = new List<int>(triangles[i]);
 
-        for (var ri = 0; ri < iterations; ri++) {
+        for (var ri = 1; ri < iterations; ri++) {
             Quaternion rotation = Quaternion.AngleAxis(angle * ri * Mathf.Rad2Deg, Vector3.up);
 
             // copy and rotate vertices
