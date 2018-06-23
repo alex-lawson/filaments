@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShrineTestController : MonoBehaviour {
 
     public ShrineGenerator Shrines;
+    public ColorSchemer Colors;
 
     public int CurrentSeed { get; private set; }
 
@@ -19,6 +20,7 @@ public class ShrineTestController : MonoBehaviour {
 
     public void Generate() {
         RandomizeSeed();
+        Colors.GenerateColors(CurrentSeed);
         Shrines.Generate(CurrentSeed);
     }
 
