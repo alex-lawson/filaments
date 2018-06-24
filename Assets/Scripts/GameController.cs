@@ -31,7 +31,7 @@ public class GameController : MonoBehaviour {
         Shrines.Generate(CurrentSeed);
         Orbs.Generate(CurrentSeed);
 
-        StartCoroutine(DoFadeIn());
+        StartCoroutine(DoFadeIn(Color.black));
     }
 
     private void Reset() {
@@ -56,7 +56,7 @@ public class GameController : MonoBehaviour {
                 StopCoroutine(generatingCoroutine);
 
             bool sync = !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
-            generatingCoroutine = StartCoroutine(DoRegenerate(sync, true));
+            generatingCoroutine = StartCoroutine(DoRegenerate(sync, Color.black));
         }
 
         if (Input.GetKeyDown(KeyCode.B)) {
@@ -77,10 +77,8 @@ public class GameController : MonoBehaviour {
             Application.Quit();
     }
 
-    private IEnumerator DoFadeIn() {
+    private IEnumerator DoFadeIn(Color fadeColor) {
         var wfeof = new WaitForEndOfFrame();
-
-        Color fadeColor = RenderSettings.skybox.GetColor("_Tint");
 
         ScreenFadeOverlay.enabled = true;
         ScreenFadeOverlay.color = fadeColor;
@@ -139,18 +137,18 @@ public class GameController : MonoBehaviour {
         reviving = false;
     }
 
-    private IEnumerator DoRegenerate(bool sync, bool withFade) {
+    private IEnumerator DoRegenerate(bool sync, Color? fadeColor) {
         var wfeof = new WaitForEndOfFrame();
 
         reviving = true;
 
-        if (withFade) {
+        if (fadeColor.HasValue) {
             ScreenFadeOverlay.enabled = true;
 
             float outTimer = 0;
             while (outTimer < ScreenFadeOutTime) {
                 float alphaRatio = outTimer / ScreenFadeOutTime;
-                ScreenFadeOverlay.color = new Color(0, 0, 0, alphaRatio);
+                ScreenFadeOverlay.color = new Color(fadeColor.Value.r, fadeColor.Value.g, fadeColor.Value.b, alphaRatio);
 
                 outTimer += Time.deltaTime;
 
@@ -193,11 +191,11 @@ public class GameController : MonoBehaviour {
 
         PlacePlayerInDungeon();
 
-        if (withFade) {
+        if (fadeColor.HasValue) {
             float inTimer = 0;
             while (inTimer < ScreenFadeInTime) {
                 float alphaRatio = 1 - inTimer / ScreenFadeInTime;
-                ScreenFadeOverlay.color = new Color(0, 0, 0, alphaRatio);
+                ScreenFadeOverlay.color = new Color(fadeColor.Value.r, fadeColor.Value.g, fadeColor.Value.b, alphaRatio);
 
                 inTimer += Time.deltaTime;
 

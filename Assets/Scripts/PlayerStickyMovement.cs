@@ -17,6 +17,11 @@ public class PlayerStickyMovement : MonoBehaviour {
     public float AlignMinAngle;
     public float AlignGroundFactor;
     public float AlignLerp;
+    public bool OnGround {
+        get {
+            return groundCheck || collisionCheck;
+        }
+    }
 
     private Rigidbody body;
     private bool groundCheck;
@@ -77,9 +82,6 @@ public class PlayerStickyMovement : MonoBehaviour {
     }
 
     private void MovePlayer() {
-        bool onGround = groundCheck || collisionCheck;
-        
-
         // get normalized horizontal input direction in local space
         float inputLat = Input.GetAxis("Horizontal");
         float inputLon = Input.GetAxis("Vertical");
@@ -87,7 +89,7 @@ public class PlayerStickyMovement : MonoBehaviour {
 
         // determine target horizontal velocity
         Vector3 targetVelocity = hControlDir;
-        if (onGround) {
+        if (OnGround) {
             bool running = Input.GetKey(KeyCode.LeftShift) ^ AutoRun;
             targetVelocity *= running ? RunSpeed : WalkSpeed;
         } else {
@@ -97,7 +99,7 @@ public class PlayerStickyMovement : MonoBehaviour {
         Vector3 velocity = body.velocity;
 
         // don't passively slow down in the air
-        if (!onGround) {
+        if (!OnGround) {
             Vector3 relativeCurrent = transform.InverseTransformDirection(velocity);
             Vector3 hCurrent = new Vector3(relativeCurrent.x, 0, relativeCurrent.z);
             if (targetVelocity.sqrMagnitude < hCurrent.sqrMagnitude) {
@@ -118,7 +120,7 @@ public class PlayerStickyMovement : MonoBehaviour {
         Vector3 velocityChange = (targetVelocity - velocity);
 
         // limit acceleration
-        float acceleration = onGround ? GroundAcceleration : AirAcceleration;
+        float acceleration = OnGround ? GroundAcceleration : AirAcceleration;
         acceleration *= Time.deltaTime;
         if (velocityChange.magnitude > acceleration) {
             velocityChange.Normalize();

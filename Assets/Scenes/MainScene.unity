@@ -376,14 +376,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutoRun: 1
   WalkSpeed: 1
-  RunSpeed: 4
-  AirSpeed: 4
+  RunSpeed: 5
+  AirSpeed: 5
   GroundAcceleration: 200
   AirAcceleration: 20
-  JumpHeight: 2
-  Gravity: 15
+  JumpHeight: 3
+  Gravity: 12
   GroundSensor: {fileID: 2029386229}
-  AlignMaxAngle: 90
+  AlignMaxAngle: 75
   AlignMinAngle: 0.1
   AlignGroundFactor: 0.1
   AlignLerp: 0.2
@@ -1049,7 +1049,7 @@ MonoBehaviour:
   Seed: 0
   UseRandomSeed: 0
   StartParts:
-  - {fileID: 114585190761954588, guid: 10a1ddd37b2e7a34bb00be63588c4350, type: 2}
+  - {fileID: 114901549734168518, guid: b171d5410f183ce4b82bd9d4c6d60bac, type: 2}
   Phases:
   - PhaseName: Twisting Paths
     PartLimit: 100

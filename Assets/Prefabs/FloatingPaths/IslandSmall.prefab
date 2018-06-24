@@ -249,7 +249,7 @@ MonoBehaviour:
   SkipBoundsCheck: 0
   ExtraBoundsExpansion: {x: 3, y: 3, z: 5}
   DoNotCombineWith:
-  - Start
+  - IslandStart
   - IslandMed
   - IslandSmall
   inboundConnectorTags:
