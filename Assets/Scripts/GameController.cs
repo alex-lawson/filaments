@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour {
 
     private Coroutine generatingCoroutine;
     private bool reviving = false;
+    private PortalPool portalPool;
 
     private void Start() {
         StartCoroutine(DoRegenerate(Color.white, false));
@@ -78,11 +79,13 @@ public class GameController : MonoBehaviour {
             //Debug.Log($"placed {beaconCount} beacons");
         }
 
-        Orbs.Generate(CurrentSeed);
+        portalPool = FindObjectOfType<PortalPool>() as PortalPool;
+        if (portalPool == null)
+            return false;
 
-        var pp = FindObjectOfType<PortalPool>() as PortalPool;
-        if (pp != null)
-            pp.Generate(CurrentSeed);
+        portalPool.Generate(CurrentSeed);
+
+        Orbs.Generate(CurrentSeed);
 
         return true;
     }

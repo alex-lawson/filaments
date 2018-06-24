@@ -6,6 +6,7 @@ public class ShrineBeacon : MonoBehaviour {
 
     public static Vector3 ActivatorPosition = Vector3.zero;
 
+    public LensFlare ExtraFlare;
     public float BeaconDistance;
     public int ColorBaseHueIndex;
     public float ColorSaturation;
@@ -16,6 +17,7 @@ public class ShrineBeacon : MonoBehaviour {
     public float ActiveLightIntensity;
     public float InactiveFlareBrightness;
     public float ActiveFlareBrightness;
+    public float ExtraInactiveFlareBrightness;
     public float ActivateTime;
     public AnimationCurve ActivateCurve;
 
@@ -50,6 +52,7 @@ public class ShrineBeacon : MonoBehaviour {
         color = Color.HSVToRGB(colors.BaseHues[ColorBaseHueIndex], ColorSaturation, ColorValue);
         beaconLight.color = color;
         beaconFlare.color = color;
+        ExtraFlare.color = color;
 
         DeactivateBeacon();
     }
@@ -63,6 +66,7 @@ public class ShrineBeacon : MonoBehaviour {
         BeaconActive = false;
         beaconLight.intensity = InactiveLightIntensity;
         beaconFlare.brightness = InactiveFlareBrightness;
+        ExtraFlare.brightness = ExtraInactiveFlareBrightness;
     }
 
     private IEnumerator DoActivate() {
@@ -75,6 +79,7 @@ public class ShrineBeacon : MonoBehaviour {
 
             beaconLight.intensity = Mathf.LerpUnclamped(InactiveLightIntensity, ActiveLightIntensity, curved);
             beaconFlare.brightness = Mathf.LerpUnclamped(InactiveFlareBrightness, ActiveFlareBrightness, curved);
+            ExtraFlare.brightness = Mathf.LerpUnclamped(ExtraInactiveFlareBrightness, ActiveFlareBrightness, curved);
 
             timer += Time.deltaTime;
 
@@ -83,5 +88,6 @@ public class ShrineBeacon : MonoBehaviour {
 
         beaconLight.intensity = ActiveLightIntensity;
         beaconFlare.brightness = ActiveFlareBrightness;
+        ExtraFlare.brightness = ActiveFlareBrightness;
     }
 }
