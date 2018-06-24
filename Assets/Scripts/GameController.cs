@@ -46,8 +46,14 @@ public class GameController : MonoBehaviour {
             generatingCoroutine = StartCoroutine(DoRegenerate(null));
         }
 #endif
+        if (Input.GetButtonDown("Level Skip")) {
+            if (generatingCoroutine != null)
+                StopCoroutine(generatingCoroutine);
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+            generatingCoroutine = StartCoroutine(DoRegenerate(Color.white));
+        }
+
+        if (Input.GetButtonDown("Cancel"))
             Application.Quit();
     }
 

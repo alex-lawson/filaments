@@ -93,7 +93,7 @@ public class PlayerStickyMovement : MonoBehaviour {
         // determine target horizontal velocity
         Vector3 targetVelocity = hControlDir;
         if (OnGround) {
-            bool running = Input.GetKey(KeyCode.LeftShift) ^ AutoRun;
+            bool running = Input.GetButton("Walk") ^ AutoRun;
             targetVelocity *= running ? RunSpeed : WalkSpeed;
         } else {
             targetVelocity *= AirSpeed;
@@ -134,7 +134,7 @@ public class PlayerStickyMovement : MonoBehaviour {
         body.AddForce(velocityChange, ForceMode.VelocityChange);
 
         // handle jumps
-        if (groundCheck && Input.GetKeyDown(KeyCode.Space)) {
+        if (groundCheck && Input.GetButtonDown("Jump")) {
             Vector3 jumpVelocity = transform.TransformDirection(Vector3.up * JumpSpeed());
             body.AddForce(jumpVelocity, ForceMode.VelocityChange);
         }
