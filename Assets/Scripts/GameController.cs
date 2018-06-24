@@ -79,6 +79,8 @@ public class GameController : MonoBehaviour {
     private bool GenerateAll() {
         RandomizeSeed();
 
+        Player.GetComponent<CapsuleCollider>().enabled = false;
+
         Colors.GenerateColors(CurrentSeed);
         Dungeon.Seed = CurrentSeed;
         Dungeon.Generate(true);
@@ -99,6 +101,8 @@ public class GameController : MonoBehaviour {
         portalPool.Generate(CurrentSeed);
 
         Orbs.Generate(CurrentSeed);
+
+        Player.GetComponent<CapsuleCollider>().enabled = true;
 
         return true;
     }
