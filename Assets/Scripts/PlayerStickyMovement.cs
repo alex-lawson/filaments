@@ -12,11 +12,13 @@ public class PlayerStickyMovement : MonoBehaviour {
     public float AirAcceleration;
     public float JumpHeight;
     public float Gravity;
+    public float TerminalVelocity;
     public Transform GroundSensor;
     public float AlignMaxAngle;
     public float AlignMinAngle;
     public float AlignGroundFactor;
     public float AlignLerp;
+    public float CollisionCheckDamping;
     public bool OnGround {
         get {
             return groundCheck || collisionCheck;
@@ -27,6 +29,7 @@ public class PlayerStickyMovement : MonoBehaviour {
     private bool groundCheck;
     private bool collisionCheck;
     private Vector3 targetNormal;
+    private List<Ray> gizRays = new List<Ray>();
 
     private void Awake () {
         body = GetComponent<Rigidbody>();
@@ -55,7 +58,12 @@ public class PlayerStickyMovement : MonoBehaviour {
         Vector3 groundNormal = Vector3.zero;
         RaycastHit groundHit;
         if (Physics.Raycast(GroundSensor.position, -GroundSensor.up, out groundHit, 0.3f)) {
-            groundNormal = groundHit.normal;
+            // align to shrines
+            if (groundHit.collider.gameObject.layer == 10) {
+                groundNormal = groundHit.collider.transform.up;
+            } else {
+                groundNormal = groundHit.normal;
+            }
 
             if (Vector3.Angle(targetNormal, groundNormal) < AlignMinAngle) {
                 targetNormal = groundNormal;
@@ -117,6 +125,7 @@ public class PlayerStickyMovement : MonoBehaviour {
 
         // include existing component vertical velocity in target velocity
         float verticalComponent = Vector3.Dot(velocity, transform.up);
+        verticalComponent = Mathf.Max(verticalComponent, -TerminalVelocity);
         targetVelocity += transform.up * verticalComponent;
 
         // calculate change needed to reach target horizontal velocity
@@ -150,16 +159,23 @@ public class PlayerStickyMovement : MonoBehaviour {
         if (!groundCheck) {
             Vector3 collisionNormal = Vector3.zero;
             foreach (var cp in collision.contacts) {
-                // to (imperfectly) get the normal of the surface we're colliding with,
-                // take the collision normal and raycast just below it (in local space)
-                // so that we get the surface *below* sharp lips
-                Vector3 checkRayOrigin = cp.point + cp.normal - transform.up * 0.1f;
-                Ray checkRay = new Ray(checkRayOrigin, -cp.normal);
-                RaycastHit hit;
-                if (cp.otherCollider.Raycast(checkRay, out hit, 2f)) {
-                    Vector3 surfaceNormal = hit.normal;
-                    if (Vector3.Angle(Vector3.up, surfaceNormal) < AlignMaxAngle)
-                        collisionNormal += surfaceNormal;
+                // when hitting shrines, align to their orientation
+                if (cp.otherCollider.gameObject.layer == 10) {
+                    collisionNormal = cp.otherCollider.transform.up;
+                    break;
+                } else {
+                    // to (imperfectly) get the normal of the surface we're colliding with,
+                    // take the collision normal and raycast just below it (in local space)
+                    // so that we get the surface *below* sharp lips
+                    Vector3 checkRayOrigin = cp.point + cp.normal - transform.up * 0.1f;
+                    Ray checkRay = new Ray(checkRayOrigin, -cp.normal);
+                    RaycastHit hit;
+                    if (cp.otherCollider.Raycast(checkRay, out hit, 2f)) {
+                        gizRays.Add(new Ray(hit.point, hit.normal * 3));
+                        Vector3 surfaceNormal = hit.normal;
+                        if (Vector3.Angle(Vector3.up, surfaceNormal) < AlignMaxAngle)
+                            collisionNormal += surfaceNormal;
+                    }
                 }
             }
 
@@ -173,11 +189,24 @@ public class PlayerStickyMovement : MonoBehaviour {
                 }
 
                 collisionCheck = true;
+
+                if (body.velocity.y < 0) {
+                    float verticalComponent = Vector3.Dot(body.velocity, transform.up);
+                    Vector3 damping = new Vector3(0, -verticalComponent * CollisionCheckDamping, 0);
+                    body.AddRelativeForce(damping, ForceMode.VelocityChange);
+                }
             }
         }
     }
 
     private float JumpSpeed() {
         return Mathf.Sqrt(2 * JumpHeight * Gravity);
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.cyan;
+        foreach (var r in gizRays) {
+            Gizmos.DrawRay(r);
+        }
     }
 }
