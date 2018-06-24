@@ -46,12 +46,14 @@ public class GameController : MonoBehaviour {
             StartCoroutine(DoRegenerate(fadeColor));
         }
 
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Return)) {
             if (generatingCoroutine != null)
                 StopCoroutine(generatingCoroutine);
 
             generatingCoroutine = StartCoroutine(DoRegenerate(null));
         }
+#endif
 
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
