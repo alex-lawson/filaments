@@ -940,6 +940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5776abe81c1ef2640a6e651afda6f6ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PoolLight: {fileID: 0}
   RotationalSymmetry:
     Min: 3
     Max: 6

@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 [Serializable]
 public class DungeonGenerationPhaseConfig {
     public string PhaseName;
-    public int PartLimit;
+    public IntRange TargetPartCount;
     public DungeonPart[] PartPool;
 }
 
@@ -21,7 +21,7 @@ public class DungeonGenerator : MonoBehaviour {
 
         public DungeonGenerationPhaseStatus(DungeonGenerationPhaseConfig config) {
             Config = config;
-            RemainingPartCount = config.PartLimit;
+            RemainingPartCount = config.TargetPartCount.RandomValue();
             // copy the part pool so that we can safely shuffle without disrupting static randomization
             PartPool = new List<DungeonPart>(config.PartPool);
             OpenOutbound = new List<DungeonConnector>();

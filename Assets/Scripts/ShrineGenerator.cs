@@ -20,7 +20,8 @@ public class ShrineGenerator : MonoBehaviour {
     private List<Vector3> vertices;
     private List<int>[] triangles;
 
-    public void Generate(int seed) {
+    // returns number of beacons placed
+    public int Generate(int seed) {
         Clear();
 
         int beaconsPlaced = 0;
@@ -52,6 +53,8 @@ public class ShrineGenerator : MonoBehaviour {
         }
 
         //Debug.Log($"placed {beaconsPlaced} beacons");
+
+        return beaconsPlaced;
     }
 
     public void Clear() {
@@ -107,20 +110,16 @@ public class ShrineGenerator : MonoBehaviour {
 
         currentMeshId = 0;
 
-        tierRadius = config.PlinthWideRadius.RandomValue();
+        tierRadius = config.PlinthBaseRadius.RandomValue();
 
         ul = RadialPoint(currentAngle, tierRadius, topY);
         ur = RadialPoint(currentAngle + faceAngle, tierRadius, topY);
 
-        bool narrow = false;
+        float tierRadiusFactor = config.PlinthRadiusFactor.RandomValue();
         tierHeight = config.PlinthTierHeight.RandomValue();
         int plinthTierCount = config.PlinthTierCount.RandomValue();
         for (var pti = 0; pti < plinthTierCount; pti++) {
             // add vertical face
-
-            bool twist = narrow && pti < plinthTierCount - 2 && Random.value < config.SegmentTwistChance;
-            if (twist)
-                currentAngle += twistAngle;
 
             topY += tierHeight;
 
@@ -134,15 +133,18 @@ public class ShrineGenerator : MonoBehaviour {
 
             // add horizontal face
             if (pti < plinthTierCount - 1) {
-                narrow = !narrow && pti > 0 && Random.value < config.PlinthNarrowChance;
+                if (twistAngle != 0) {
+                    // find the minimum radius with twists
+                    float apotheum = tierRadius * Mathf.Cos(Mathf.PI / rotationalSymmetry);
+                    float innerAngle = Mathf.PI / rotationalSymmetry - Mathf.Abs(twistAngle);
+                    float radiusRatio = 1 / Mathf.Cos(innerAngle);
+                    float minRadius = apotheum * radiusRatio;
+                    tierRadius = Mathf.Min(minRadius, tierRadius * tierRadiusFactor);
 
-                if (narrow) {
-                    tierRadius = config.PlinthNarrowRadius.RandomValue();
-                }  else {
-                    tierRadius = config.PlinthWideRadius.RandomValue();
+                    currentAngle += twistAngle;
+                } else {
+                    tierRadius *= tierRadiusFactor;
                 }
-
-                tierRadius *= config.PlinthWideRadius.RandomValue();
 
                 lr = ur;
                 ll = ul;

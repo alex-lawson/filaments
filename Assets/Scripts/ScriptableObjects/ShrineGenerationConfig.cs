@@ -4,8 +4,8 @@
 public class ShrineGenerationConfig : ScriptableObject {
     public float FinalScale = 1;
     public IntRange PlinthTierCount;
-    public FloatRange PlinthNarrowRadius;
-    public FloatRange PlinthWideRadius;
+    public FloatRange PlinthBaseRadius;
+    public FloatRange PlinthRadiusFactor;
     public FloatRange PlinthTierHeight;
     public float PlinthNarrowChance;
     public float AccentChanceMid;

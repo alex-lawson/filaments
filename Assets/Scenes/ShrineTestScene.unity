@@ -202,10 +202,10 @@ MonoBehaviour:
   - {fileID: 308896234}
   - {fileID: 918352432}
   bounds:
-  - m_Center: {x: 0.051147223, y: -1.5907913, z: 5.5}
-    m_Extent: {x: 3.6379085, y: 3.0857916, z: 5.495}
-  - m_Center: {x: -0.051146746, y: -1.5907913, z: 5.5}
-    m_Extent: {x: 3.6379085, y: 3.0857916, z: 5.495}
+  - m_Center: {x: 0.051146746, y: -1.5907913, z: 5.5}
+    m_Extent: {x: 3.637908, y: 3.0857916, z: 5.495}
+  - m_Center: {x: -0.051146507, y: -1.5907913, z: 5.5}
+    m_Extent: {x: 3.637908, y: 3.0857916, z: 5.495}
 --- !u!4 &73967901
 Transform:
   m_ObjectHideFlags: 0
@@ -1052,6 +1052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5776abe81c1ef2640a6e651afda6f6ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PoolLight: {fileID: 569137118}
   RotationalSymmetry:
     Min: 3
     Max: 6
@@ -1439,12 +1440,12 @@ MonoBehaviour:
   - {fileID: 850209177}
   - {fileID: 435019189}
   bounds:
-  - m_Center: {x: 0.12059116, y: -2.188048, z: 7.368474}
-    m_Extent: {x: 6.874409, y: 3.6830478, z: 7.363474}
-  - m_Center: {x: 0.50860643, y: -2.188048, z: 7.7095356}
+  - m_Center: {x: 0.12059069, y: -2.188048, z: 7.368474}
+    m_Extent: {x: 6.8744087, y: 3.6830478, z: 7.363474}
+  - m_Center: {x: 0.5086069, y: -2.188048, z: 7.7095356}
     m_Extent: {x: 6.0657825, y: 3.6830478, z: 7.7045355}
   - m_Center: {x: 0.5620842, y: -2.188048, z: 7.847267}
-    m_Extent: {x: 6.3495345, y: 3.6830478, z: 7.842267}
+    m_Extent: {x: 6.349534, y: 3.6830478, z: 7.842267}
 --- !u!4 &1087539824
 Transform:
   m_ObjectHideFlags: 0
@@ -1926,14 +1927,14 @@ MonoBehaviour:
   - {fileID: 5267769}
   - {fileID: 381323434}
   bounds:
-  - m_Center: {x: -1.8619709, y: -3.6333265, z: 11.799707}
-    m_Extent: {x: 10.757385, y: 5.6283264, z: 11.794707}
+  - m_Center: {x: -1.8619719, y: -3.6333265, z: 11.799706}
+    m_Extent: {x: 10.757384, y: 5.6283264, z: 11.794706}
   - m_Center: {x: -3.06139, y: -3.6333265, z: 11.663194}
     m_Extent: {x: 11.420351, y: 5.6283264, z: 11.975402}
-  - m_Center: {x: 1.4914217, y: -3.6333265, z: 11.668159}
-    m_Extent: {x: 10.714774, y: 5.6283264, z: 11.663158}
+  - m_Center: {x: 1.4914207, y: -3.6333265, z: 11.66816}
+    m_Extent: {x: 10.714774, y: 5.6283264, z: 11.663159}
   - m_Center: {x: -0.5676546, y: -3.6333265, z: 11.762382}
-    m_Extent: {x: 10.794705, y: 5.6283264, z: 11.757381}
+    m_Extent: {x: 10.7947035, y: 5.6283264, z: 11.7573805}
 --- !u!4 &1570801498
 Transform:
   m_ObjectHideFlags: 0
@@ -2329,6 +2330,15 @@ MonoBehaviour:
     ValueRange:
       Min: 0.35
       Max: 0.35
+  - TargetMaterial: {fileID: 2100000, guid: 32bcd2ff96cd88742ab58179170e66bf, type: 2}
+    ColorParameterName: _EmissionColor
+    BaseHueIndex: 0
+    SaturationRange:
+      Min: 1
+      Max: 1
+    ValueRange:
+      Min: 0.75
+      Max: 0.75
   LightColors:
   - TargetLight: {fileID: 999666559}
     BaseHueIndex: 0

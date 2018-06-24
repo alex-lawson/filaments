@@ -20,14 +20,9 @@ public class GameController : MonoBehaviour {
 
     private Coroutine generatingCoroutine;
     private bool reviving = false;
-    private Bounds currentPortalBounds = new Bounds();
 
     private void Start() {
-        GenerateAll();
-
-        PlacePlayerInDungeon();
-
-        StartCoroutine(DoFadeIn(Color.white));
+        StartCoroutine(DoRegenerate(Color.white, false));
     }
 
     private void Reset() {
@@ -39,11 +34,6 @@ public class GameController : MonoBehaviour {
     private void Update() {
         if (!reviving && !Dungeon.CurrentDungeonBounds.Contains(Player.transform.position)) {
             StartCoroutine(DoPlayerRevive());
-        }
-
-        if (!reviving && currentPortalBounds.Contains(Player.transform.position)) {
-            Color fadeColor = Color.HSVToRGB(Colors.BaseHues[0], 0.2f, 1.0f);
-            StartCoroutine(DoRegenerate(fadeColor));
         }
 
 #if UNITY_EDITOR
@@ -59,31 +49,42 @@ public class GameController : MonoBehaviour {
             Application.Quit();
     }
 
+    public void PlayerEnteredPortal() {
+        if (!reviving) {
+            Color fadeColor = Color.HSVToRGB(Colors.BaseHues[0], 0.2f, 1.0f);
+            StartCoroutine(DoRegenerate(fadeColor));
+        }
+    }
+
     private void ClearAll() {
         Dungeon.Clear();
         Shrines.Clear();
         Orbs.Clear();
     }
 
-    private void GenerateAll() {
+    private bool GenerateAll() {
         RandomizeSeed();
 
         Colors.GenerateColors(CurrentSeed);
         Dungeon.Seed = CurrentSeed;
         Dungeon.Generate(true);
-        Shrines.Generate(CurrentSeed);
+
+        int beaconCount = Shrines.Generate(CurrentSeed);
+
+        if (beaconCount == 0) {
+            //Debug.Log("generation failed, no beacons placed!");
+            return false;
+        } else {
+            //Debug.Log($"placed {beaconCount} beacons");
+        }
+
         Orbs.Generate(CurrentSeed);
 
         var pp = FindObjectOfType<PortalPool>() as PortalPool;
         if (pp != null)
-            pp.GenerateMesh(CurrentSeed);
+            pp.Generate(CurrentSeed);
 
-        // TODO: fix this super gross hack when I'm less tired
-        var portal = GameObject.FindGameObjectWithTag("Portal");
-        if (portal != null) {
-            var portalMesh = portal.GetComponent<MeshRenderer>();
-            currentPortalBounds = portalMesh.bounds;
-        }
+        return true;
     }
 
     private IEnumerator DoFadeIn(Color fadeColor) {
@@ -146,7 +147,7 @@ public class GameController : MonoBehaviour {
         reviving = false;
     }
 
-    private IEnumerator DoRegenerate(Color? fadeColor) {
+    private IEnumerator DoRegenerate(Color? fadeColor, bool doFadeOut = true) {
         var wfeof = new WaitForEndOfFrame();
 
         reviving = true;
@@ -154,26 +155,31 @@ public class GameController : MonoBehaviour {
         if (fadeColor.HasValue) {
             ScreenFadeOverlay.enabled = true;
 
-            float outTimer = 0;
-            while (outTimer < FadeTimeFast) {
-                float alphaRatio = outTimer / FadeTimeFast;
-                ScreenFadeOverlay.color = new Color(fadeColor.Value.r, fadeColor.Value.g, fadeColor.Value.b, alphaRatio);
+            if (doFadeOut) {
+                float outTimer = 0;
+                while (outTimer < FadeTimeFast) {
+                    float alphaRatio = outTimer / FadeTimeFast;
+                    ScreenFadeOverlay.color = new Color(fadeColor.Value.r, fadeColor.Value.g, fadeColor.Value.b, alphaRatio);
 
-                outTimer += Time.deltaTime;
+                    outTimer += Time.deltaTime;
 
-                yield return wfeof;
+                    yield return wfeof;
+                }
             }
 
             ScreenFadeOverlay.color = fadeColor.Value;
         }
 
-        ClearAll();
+        bool succeeded = false;
+        while (!succeeded) {
+            ClearAll();
 
-        yield return wfeof;
+            yield return wfeof;
 
-        GenerateAll();
+            succeeded = GenerateAll();
 
-        yield return wfeof;
+            yield return wfeof;
+        }
 
         PlacePlayerInDungeon();
 

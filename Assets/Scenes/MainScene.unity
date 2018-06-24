@@ -611,197 +611,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1477059797
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: connectors.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: inboundConnectorTags.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481288887144028, guid: bc67ab7f3c60aea488de528843876623, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481288887144028, guid: bc67ab7f3c60aea488de528843876623, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481288887144028, guid: bc67ab7f3c60aea488de528843876623, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481288887144028, guid: bc67ab7f3c60aea488de528843876623, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481288887144028, guid: bc67ab7f3c60aea488de528843876623, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481288887144028, guid: bc67ab7f3c60aea488de528843876623, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481288887144028, guid: bc67ab7f3c60aea488de528843876623, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4481288887144028, guid: bc67ab7f3c60aea488de528843876623, type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: inboundConnectorTags.Array.data[1]
-      value: FloatingPath
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: inboundConnectorTags.Array.data[2]
-      value: FloatingPath
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: inboundConnectorTags.Array.data[3]
-      value: FloatingPath
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[0].m_Center.x
-      value: 0.035622597
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[0].m_Center.y
-      value: -3.633326
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[0].m_Center.z
-      value: 12.291708
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[0].m_Extent.x
-      value: 9.743564
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[0].m_Extent.z
-      value: 12.286708
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[1].m_Center.x
-      value: -3.06139
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[1].m_Center.y
-      value: -3.6333265
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[1].m_Center.z
-      value: 11.663194
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[1].m_Extent.x
-      value: 11.420351
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[1].m_Extent.y
-      value: 5.6283264
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[1].m_Extent.z
-      value: 11.975402
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[2].m_Center.x
-      value: 1.4914217
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[2].m_Center.y
-      value: -3.6333265
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[2].m_Center.z
-      value: 11.668159
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[2].m_Extent.x
-      value: 10.714774
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[2].m_Extent.y
-      value: 5.6283264
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[2].m_Extent.z
-      value: 11.663158
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[3].m_Center.x
-      value: -0.5676546
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[3].m_Center.y
-      value: -3.6333265
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[3].m_Center.z
-      value: 11.762382
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[3].m_Extent.x
-      value: 10.794705
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[3].m_Extent.y
-      value: 5.6283264
-      objectReference: {fileID: 0}
-    - target: {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623,
-        type: 2}
-      propertyPath: bounds.Array.data[3].m_Extent.z
-      value: 11.757381
-      objectReference: {fileID: 0}
-    - target: {fileID: 1335841812050004, guid: bc67ab7f3c60aea488de528843876623, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: bc67ab7f3c60aea488de528843876623, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1650761479
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,15 +764,6 @@ MonoBehaviour:
     ValueRange:
       Min: 0.7
       Max: 0.9
-  - TargetLight: {fileID: 108822849640157850, guid: bc67ab7f3c60aea488de528843876623,
-      type: 2}
-    BaseHueIndex: 0
-    SaturationRange:
-      Min: 0.8
-      Max: 0.8
-    ValueRange:
-      Min: 1
-      Max: 1
   AmbientSaturationRange:
     Min: 0.4
     Max: 0.8
@@ -1186,47 +986,87 @@ MonoBehaviour:
   StartParts:
   - {fileID: 114765692317063630, guid: bc67ab7f3c60aea488de528843876623, type: 2}
   Phases:
-  - PhaseName: Twisting Paths
-    PartLimit: 150
+  - PhaseName: Initial Paths
+    TargetPartCount:
+      Min: 30
+      Max: 40
     PartPool:
-    - {fileID: 114109536043682402, guid: eef57e7288be240418b6aa9edd27ca60, type: 2}
     - {fileID: 114109536043682402, guid: eef57e7288be240418b6aa9edd27ca60, type: 2}
     - {fileID: 114555743993952880, guid: 2ae39bc014d6e664f990296e5052cfaa, type: 2}
-    - {fileID: 114370572783874512, guid: 6779c1b8a80bd8f48bb8f8cc762adc05, type: 2}
     - {fileID: 114633379156060108, guid: 6df5fd0fb55c32f45997d31e9af49ef4, type: 2}
-    - {fileID: 114633379156060108, guid: 6df5fd0fb55c32f45997d31e9af49ef4, type: 2}
-    - {fileID: 114546768277475412, guid: 46e134dcaf3fe7f4ead1d9562f32a7e1, type: 2}
     - {fileID: 114546768277475412, guid: 46e134dcaf3fe7f4ead1d9562f32a7e1, type: 2}
     - {fileID: 114526426063364460, guid: 21e1a1cddbd1f2c43854f0481a3cf6d3, type: 2}
-    - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
-    - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
-    - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
-    - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
-    - {fileID: 114734477128249530, guid: c17909b5d86efd648b61c5926f0f99d5, type: 2}
-    - {fileID: 114734477128249530, guid: c17909b5d86efd648b61c5926f0f99d5, type: 2}
-    - {fileID: 114734477128249530, guid: c17909b5d86efd648b61c5926f0f99d5, type: 2}
+    - {fileID: 114869173933547752, guid: 2be075ccdd7f0d54fb6abfb5de1245d1, type: 2}
+    - {fileID: 114421531187903978, guid: e5ecac22ea13d3140ab5a8e8fd31a9cc, type: 2}
     - {fileID: 114734477128249530, guid: c17909b5d86efd648b61c5926f0f99d5, type: 2}
     - {fileID: 114321477156845334, guid: 2dbde76fd82bdca48912e0a27812dc3a, type: 2}
-    - {fileID: 114321477156845334, guid: 2dbde76fd82bdca48912e0a27812dc3a, type: 2}
     - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
-    - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
-    - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
-    - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
-    - {fileID: 114869173933547752, guid: 2be075ccdd7f0d54fb6abfb5de1245d1, type: 2}
-    - {fileID: 114869173933547752, guid: 2be075ccdd7f0d54fb6abfb5de1245d1, type: 2}
-    - {fileID: 114869173933547752, guid: 2be075ccdd7f0d54fb6abfb5de1245d1, type: 2}
-    - {fileID: 114421531187903978, guid: e5ecac22ea13d3140ab5a8e8fd31a9cc, type: 2}
-    - {fileID: 114421531187903978, guid: e5ecac22ea13d3140ab5a8e8fd31a9cc, type: 2}
-    - {fileID: 114421531187903978, guid: e5ecac22ea13d3140ab5a8e8fd31a9cc, type: 2}
-    - {fileID: 114568419619401376, guid: f3220c1fa83ba8045a1decc9c58c4f73, type: 2}
-    - {fileID: 114568419619401376, guid: f3220c1fa83ba8045a1decc9c58c4f73, type: 2}
-    - {fileID: 114136778205516538, guid: 82d993698284b5f4d9037ef7ba453f76, type: 2}
-  - PhaseName: ExtraShrineIslands
-    PartLimit: 2
+    - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
+    - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
+  - PhaseName: Near Shrines
+    TargetPartCount:
+      Min: 1
+      Max: 2
     PartPool:
     - {fileID: 114136778205516538, guid: 82d993698284b5f4d9037ef7ba453f76, type: 2}
+  - PhaseName: Twisting Paths
+    TargetPartCount:
+      Min: 60
+      Max: 80
+    PartPool:
+    - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
+    - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
+    - {fileID: 114546768277475412, guid: 46e134dcaf3fe7f4ead1d9562f32a7e1, type: 2}
+    - {fileID: 114526426063364460, guid: 21e1a1cddbd1f2c43854f0481a3cf6d3, type: 2}
+    - {fileID: 114633379156060108, guid: 6df5fd0fb55c32f45997d31e9af49ef4, type: 2}
+    - {fileID: 114734477128249530, guid: c17909b5d86efd648b61c5926f0f99d5, type: 2}
+    - {fileID: 114734477128249530, guid: c17909b5d86efd648b61c5926f0f99d5, type: 2}
+    - {fileID: 114321477156845334, guid: 2dbde76fd82bdca48912e0a27812dc3a, type: 2}
+    - {fileID: 114321477156845334, guid: 2dbde76fd82bdca48912e0a27812dc3a, type: 2}
+    - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
+    - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
+    - {fileID: 114568419619401376, guid: f3220c1fa83ba8045a1decc9c58c4f73, type: 2}
+    - {fileID: 114568419619401376, guid: f3220c1fa83ba8045a1decc9c58c4f73, type: 2}
+    - {fileID: 114370572783874512, guid: 6779c1b8a80bd8f48bb8f8cc762adc05, type: 2}
+    - {fileID: 114555743993952880, guid: 2ae39bc014d6e664f990296e5052cfaa, type: 2}
+    - {fileID: 114109536043682402, guid: eef57e7288be240418b6aa9edd27ca60, type: 2}
+    - {fileID: 114869173933547752, guid: 2be075ccdd7f0d54fb6abfb5de1245d1, type: 2}
+    - {fileID: 114869173933547752, guid: 2be075ccdd7f0d54fb6abfb5de1245d1, type: 2}
+    - {fileID: 114421531187903978, guid: e5ecac22ea13d3140ab5a8e8fd31a9cc, type: 2}
+    - {fileID: 114421531187903978, guid: e5ecac22ea13d3140ab5a8e8fd31a9cc, type: 2}
+  - PhaseName: Far Shrines
+    TargetPartCount:
+      Min: 2
+      Max: 6
+    PartPool:
+    - {fileID: 114136778205516538, guid: 82d993698284b5f4d9037ef7ba453f76, type: 2}
+  - PhaseName: More Twisting Paths
+    TargetPartCount:
+      Min: 20
+      Max: 30
+    PartPool:
+    - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
+    - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
+    - {fileID: 114546768277475412, guid: 46e134dcaf3fe7f4ead1d9562f32a7e1, type: 2}
+    - {fileID: 114526426063364460, guid: 21e1a1cddbd1f2c43854f0481a3cf6d3, type: 2}
+    - {fileID: 114526426063364460, guid: 21e1a1cddbd1f2c43854f0481a3cf6d3, type: 2}
+    - {fileID: 114633379156060108, guid: 6df5fd0fb55c32f45997d31e9af49ef4, type: 2}
+    - {fileID: 114734477128249530, guid: c17909b5d86efd648b61c5926f0f99d5, type: 2}
+    - {fileID: 114734477128249530, guid: c17909b5d86efd648b61c5926f0f99d5, type: 2}
+    - {fileID: 114321477156845334, guid: 2dbde76fd82bdca48912e0a27812dc3a, type: 2}
+    - {fileID: 114321477156845334, guid: 2dbde76fd82bdca48912e0a27812dc3a, type: 2}
+    - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
+    - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
+    - {fileID: 114568419619401376, guid: f3220c1fa83ba8045a1decc9c58c4f73, type: 2}
+    - {fileID: 114370572783874512, guid: 6779c1b8a80bd8f48bb8f8cc762adc05, type: 2}
+    - {fileID: 114555743993952880, guid: 2ae39bc014d6e664f990296e5052cfaa, type: 2}
+    - {fileID: 114109536043682402, guid: eef57e7288be240418b6aa9edd27ca60, type: 2}
+    - {fileID: 114869173933547752, guid: 2be075ccdd7f0d54fb6abfb5de1245d1, type: 2}
+    - {fileID: 114421531187903978, guid: e5ecac22ea13d3140ab5a8e8fd31a9cc, type: 2}
   - PhaseName: Endcaps
-    PartLimit: 2000
+    TargetPartCount:
+      Min: 1000
+      Max: 1000
     PartPool:
     - {fileID: 114051029141262594, guid: c2d6bac971dd4544f9fc629363e899d9, type: 2}
   OnGenerationComplete:

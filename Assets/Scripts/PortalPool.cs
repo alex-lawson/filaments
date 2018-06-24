@@ -5,6 +5,7 @@ using Random = UnityEngine.Random;
 
 public class PortalPool : MonoBehaviour {
 
+    public Light PoolLight;
     public IntRange RotationalSymmetry;
     public float outerRadius;
     public float InnerRadius;
@@ -13,14 +14,20 @@ public class PortalPool : MonoBehaviour {
 
     private List<Vector3> vertices;
     private List<int> triangles;
+
+    public void Generate(int seed) {
+        GenerateMesh(seed);
+
+        var cs = GameObject.FindGameObjectWithTag("ColorSchemer").GetComponent<ColorSchemer>();
+        Color poolLightColor = Color.HSVToRGB(cs.BaseHues[0], 0.8f, 1.0f);
+        PoolLight.color = poolLightColor;
+    }
     
-    public void GenerateMesh(int seed) {
+    private void GenerateMesh(int seed) {
         var oldState = Random.state;
         Random.InitState(seed);
 
         int rotationalSymmetry = RotationalSymmetry.RandomValue() * 2;
-
-        var meshRenderer = GetComponent<MeshRenderer>();
 
         vertices = new List<Vector3>();
         triangles = new List<int>();
