@@ -209,7 +209,7 @@ Light:
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -884,8 +884,8 @@ MonoBehaviour:
     ValueRange:
       Min: 0.07
       Max: 0.1
-  - TargetMaterial: {fileID: 2100000, guid: 53c738b827ecdac45ae89ef8a38f2eaf, type: 2}
-    ColorParameterName: _Color
+  - TargetMaterial: {fileID: 2100000, guid: d5ca7ad51c6872e458aaf4859018084e, type: 2}
+    ColorParameterName: _ReflectionColor
     BaseHueIndex: 1
     SaturationRange:
       Min: 0.6
@@ -955,7 +955,7 @@ MonoBehaviour:
     ValueRange:
       Min: 0.7
       Max: 0.9
-  - TargetLight: {fileID: 108893855027538592, guid: b171d5410f183ce4b82bd9d4c6d60bac,
+  - TargetLight: {fileID: 108822849640157850, guid: bc67ab7f3c60aea488de528843876623,
       type: 2}
     BaseHueIndex: 0
     SaturationRange:
