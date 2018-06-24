@@ -11,39 +11,29 @@ public class GameController : MonoBehaviour {
     public ShrineGenerator Shrines;
     public OrbGenerator Orbs;
     public Image ScreenFadeOverlay;
-    public float ScreenFadeOutTime;
-    public float ScreenFadePauseTime;
-    public float ScreenFadeInTime;
+    public float FadeTimeSlow;
+    public float FadePauseTime;
+    public float FadeTimeFast;
     public float GenerationRate;
     public int BenchmarkIterations;
     public int CurrentSeed { get; private set; }
 
     private Coroutine generatingCoroutine;
     private bool reviving = false;
+    private Bounds currentPortalBounds = new Bounds();
 
     private void Start() {
-        //Dungeon.OnGenerationComplete.AddListener(new UnityAction(OnDungeonGenComplete));
+        GenerateAll();
 
-        RandomizeSeed();
-        Colors.GenerateColors(CurrentSeed);
-        Dungeon.Seed = CurrentSeed;
-        Dungeon.Generate(true);
-        Shrines.Generate(CurrentSeed);
-        Orbs.Generate(CurrentSeed);
+        PlacePlayerInDungeon();
 
-        StartCoroutine(DoFadeIn(Color.black));
+        StartCoroutine(DoFadeIn(Color.white));
     }
 
     private void Reset() {
-        Clear();
+        ClearAll();
         ScreenFadeOverlay.enabled = false;
         reviving = false;
-    }
-
-    private void Clear() {
-        Dungeon.Clear();
-        Shrines.Clear();
-        Orbs.Clear();
     }
 
     private void Update() {
@@ -51,30 +41,47 @@ public class GameController : MonoBehaviour {
             StartCoroutine(DoPlayerRevive());
         }
 
+        if (!reviving && currentPortalBounds.Contains(Player.transform.position)) {
+            Color fadeColor = Color.HSVToRGB(Colors.BaseHues[0], 0.8f, 1.0f);
+            StartCoroutine(DoRegenerate(fadeColor));
+        }
+
         if (Input.GetKeyDown(KeyCode.Return)) {
             if (generatingCoroutine != null)
                 StopCoroutine(generatingCoroutine);
 
-            bool sync = !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
-            generatingCoroutine = StartCoroutine(DoRegenerate(sync, Color.black));
-        }
-
-        if (Input.GetKeyDown(KeyCode.B)) {
-            if (generatingCoroutine != null)
-                StopCoroutine(generatingCoroutine);
-
-            generatingCoroutine = StartCoroutine(DoBenchmark(BenchmarkIterations));
-        }
-
-        if (Input.GetKeyDown(KeyCode.C)) {
-            if (generatingCoroutine != null)
-                StopCoroutine(generatingCoroutine);
-
-            Clear();
+            generatingCoroutine = StartCoroutine(DoRegenerate(Color.white));
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
+    }
+
+    private void ClearAll() {
+        Dungeon.Clear();
+        Shrines.Clear();
+        Orbs.Clear();
+    }
+
+    private void GenerateAll() {
+        RandomizeSeed();
+
+        Colors.GenerateColors(CurrentSeed);
+        Dungeon.Seed = CurrentSeed;
+        Dungeon.Generate(true);
+        Shrines.Generate(CurrentSeed);
+        Orbs.Generate(CurrentSeed);
+
+        var pp = FindObjectOfType<PortalPool>() as PortalPool;
+        if (pp != null)
+            pp.GenerateMesh(CurrentSeed);
+
+        // TODO: fix this super gross hack when I'm less tired
+        var portal = GameObject.FindGameObjectWithTag("Portal");
+        if (portal != null) {
+            var portalMesh = portal.GetComponent<MeshRenderer>();
+            currentPortalBounds = portalMesh.bounds;
+        }
     }
 
     private IEnumerator DoFadeIn(Color fadeColor) {
@@ -86,8 +93,8 @@ public class GameController : MonoBehaviour {
         reviving = true;
 
         float inTimer = 0;
-        while (inTimer < ScreenFadeInTime) {
-            float alphaRatio = 1 - inTimer / ScreenFadeInTime;
+        while (inTimer < FadeTimeFast) {
+            float alphaRatio = 1 - inTimer / FadeTimeFast;
             ScreenFadeOverlay.color = new Color(fadeColor.r, fadeColor.g, fadeColor.b, alphaRatio);
 
             inTimer += Time.deltaTime;
@@ -108,8 +115,8 @@ public class GameController : MonoBehaviour {
         reviving = true;
 
         float outTimer = 0;
-        while (outTimer < ScreenFadeOutTime) {
-            float alphaRatio = outTimer / ScreenFadeOutTime;
+        while (outTimer < FadeTimeSlow) {
+            float alphaRatio = outTimer / FadeTimeSlow;
             ScreenFadeOverlay.color = new Color(fadeColor.r, fadeColor.g, fadeColor.b, alphaRatio);
 
             outTimer += Time.deltaTime;
@@ -121,11 +128,11 @@ public class GameController : MonoBehaviour {
 
         PlacePlayerInDungeon();
 
-        yield return new WaitForSeconds(ScreenFadePauseTime);
+        yield return new WaitForSeconds(FadePauseTime);
 
         float inTimer = 0;
-        while (inTimer < ScreenFadeInTime) {
-            float alphaRatio = 1 - inTimer / ScreenFadeInTime;
+        while (inTimer < FadeTimeFast) {
+            float alphaRatio = 1 - inTimer / FadeTimeFast;
             ScreenFadeOverlay.color = new Color(fadeColor.r, fadeColor.g, fadeColor.b, alphaRatio);
 
             inTimer += Time.deltaTime;
@@ -137,7 +144,7 @@ public class GameController : MonoBehaviour {
         reviving = false;
     }
 
-    private IEnumerator DoRegenerate(bool sync, Color? fadeColor) {
+    private IEnumerator DoRegenerate(Color? fadeColor) {
         var wfeof = new WaitForEndOfFrame();
 
         reviving = true;
@@ -146,8 +153,8 @@ public class GameController : MonoBehaviour {
             ScreenFadeOverlay.enabled = true;
 
             float outTimer = 0;
-            while (outTimer < ScreenFadeOutTime) {
-                float alphaRatio = outTimer / ScreenFadeOutTime;
+            while (outTimer < FadeTimeFast) {
+                float alphaRatio = outTimer / FadeTimeFast;
                 ScreenFadeOverlay.color = new Color(fadeColor.Value.r, fadeColor.Value.g, fadeColor.Value.b, alphaRatio);
 
                 outTimer += Time.deltaTime;
@@ -155,46 +162,25 @@ public class GameController : MonoBehaviour {
                 yield return wfeof;
             }
 
-            ScreenFadeOverlay.color = Color.black;
+            ScreenFadeOverlay.color = fadeColor.Value;
         }
 
-        Clear();
+        ClearAll();
 
         yield return wfeof;
 
-        RandomizeSeed();
-
-        Colors.GenerateColors(CurrentSeed);
-        Dungeon.Seed = CurrentSeed;
-        Dungeon.Generate(sync);
-
-        if (!sync) {
-            float elapsed = 0;
-            int steps = 0;
-            while (Dungeon.Generating) {
-                yield return wfeof;
-
-                elapsed += Time.deltaTime;
-                int targetSteps = Mathf.CeilToInt(elapsed * GenerationRate);
-
-                while (steps < targetSteps) {
-                    Dungeon.StepGeneration();
-                    steps++;
-                }
-            }
-        }
-
-        Shrines.Generate(CurrentSeed);
-        Orbs.Generate(CurrentSeed);
+        GenerateAll();
 
         yield return wfeof;
 
         PlacePlayerInDungeon();
 
         if (fadeColor.HasValue) {
+            yield return new WaitForSeconds(FadePauseTime);
+
             float inTimer = 0;
-            while (inTimer < ScreenFadeInTime) {
-                float alphaRatio = 1 - inTimer / ScreenFadeInTime;
+            while (inTimer < FadeTimeFast) {
+                float alphaRatio = 1 - inTimer / FadeTimeFast;
                 ScreenFadeOverlay.color = new Color(fadeColor.Value.r, fadeColor.Value.g, fadeColor.Value.b, alphaRatio);
 
                 inTimer += Time.deltaTime;
@@ -208,52 +194,9 @@ public class GameController : MonoBehaviour {
         reviving = false;
     }
 
-    private IEnumerator DoBenchmark(int iterations) {
-        float elapsed = 0;
-        float highest = 0;
-        float lowest = float.MaxValue;
-        int highestSeed = -1;
-        int lowestSeed = -1;
-
-        Dungeon.UseRandomSeed = false;
-
-        for (var i = 0; i < iterations; i++) {
-            Clear();
-
-            yield return new WaitForEndOfFrame();
-
-            float startTime = Time.realtimeSinceStartup;
-
-            Dungeon.Seed = i;
-            Dungeon.Generate(true);
-
-            float thisTime = Time.realtimeSinceStartup - startTime;
-            if (thisTime > highest) {
-                highest = thisTime;
-                highestSeed = Dungeon.Seed;
-            }
-            if (thisTime < lowest) {
-                lowest = thisTime;
-                lowestSeed = Dungeon.Seed;
-            }
-            elapsed += thisTime;
-
-            yield return new WaitForEndOfFrame();
-        }
-
-        float avg = elapsed / iterations;
-        Debug.Log($"completed {iterations} iterations in {elapsed:F5}s ({avg * 1000:F1}ms avg, {highest * 1000:F1}ms max, {lowest * 1000:F1}ms min)");
-        Debug.Log($"slowest seed {highestSeed}, fastest seed {lowestSeed}");
-    }
-
-    private void OnDungeonGenComplete() {
-        PlacePlayerInDungeon();
-    }
-
     private void PlacePlayerInDungeon() {
-        Player.GetComponent<PlayerStickyMovement>()?.Reset();
+        Player.GetComponent<PlayerStickyMovement>()?.Reset(Dungeon.transform);
         Player.GetComponentInChildren<PlayerStickyLook>()?.Reset();
-        Player.transform.position = Dungeon.transform.position;
     }
 
     private void RandomizeSeed() {

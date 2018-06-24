@@ -490,7 +490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -622,9 +622,9 @@ MonoBehaviour:
   Shrines: {fileID: 1171530486}
   Orbs: {fileID: 1981046875}
   ScreenFadeOverlay: {fileID: 755112853}
-  ScreenFadeOutTime: 1.5
-  ScreenFadePauseTime: 0.5
-  ScreenFadeInTime: 0.5
+  FadeTimeSlow: 1.5
+  FadePauseTime: 0.25
+  FadeTimeFast: 0.5
   GenerationRate: 40
   BenchmarkIterations: 60
 --- !u!1 &1171530485
@@ -804,6 +804,15 @@ MonoBehaviour:
     ValueRange:
       Min: 0.35
       Max: 0.35
+  - TargetMaterial: {fileID: 2100000, guid: 32bcd2ff96cd88742ab58179170e66bf, type: 2}
+    ColorParameterName: _EmissionColor
+    BaseHueIndex: 0
+    SaturationRange:
+      Min: 1
+      Max: 1
+    ValueRange:
+      Min: 0.75
+      Max: 0.75
   LightColors:
   - TargetLight: {fileID: 134005043}
     BaseHueIndex: 0
@@ -829,6 +838,15 @@ MonoBehaviour:
     ValueRange:
       Min: 0.8
       Max: 0.8
+  - TargetLight: {fileID: 108893855027538592, guid: b171d5410f183ce4b82bd9d4c6d60bac,
+      type: 2}
+    BaseHueIndex: 0
+    SaturationRange:
+      Min: 0.8
+      Max: 0.8
+    ValueRange:
+      Min: 1
+      Max: 1
   AmbientSaturationRange:
     Min: 0.4
     Max: 0.8
@@ -1049,7 +1067,7 @@ MonoBehaviour:
   Seed: 0
   UseRandomSeed: 0
   StartParts:
-  - {fileID: 114901549734168518, guid: b171d5410f183ce4b82bd9d4c6d60bac, type: 2}
+  - {fileID: 114362529023371638, guid: b171d5410f183ce4b82bd9d4c6d60bac, type: 2}
   Phases:
   - PhaseName: Twisting Paths
     PartLimit: 100

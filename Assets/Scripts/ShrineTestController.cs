@@ -22,6 +22,10 @@ public class ShrineTestController : MonoBehaviour {
         RandomizeSeed();
         Colors.GenerateColors(CurrentSeed);
         Shrines.Generate(CurrentSeed);
+
+        var pp = FindObjectOfType<PortalPool>() as PortalPool;
+        if (pp != null)
+            pp.GenerateMesh(CurrentSeed);
     }
 
     private void RandomizeSeed() {

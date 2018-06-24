@@ -33,6 +33,7 @@ public class PlayerStickyMovement : MonoBehaviour {
         body.freezeRotation = true;
         body.useGravity = false;
         targetNormal = transform.up;
+        body.Sleep();
     }
 
     private void FixedUpdate () {
@@ -40,12 +41,14 @@ public class PlayerStickyMovement : MonoBehaviour {
         MovePlayer();
     }
 
-    public void Reset() {
-        transform.rotation = new Quaternion();
-        targetNormal = transform.up;
+    public void Reset(Transform target) {
+        transform.rotation = target.rotation;
+        transform.position = target.position;
+        targetNormal = target.up;
         groundCheck = false;
         collisionCheck = false;
         body.velocity = Vector3.zero;
+        body.Sleep();
     }
 
     private void AlignToGround() {
