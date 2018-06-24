@@ -10,6 +10,7 @@ public class DungeonConnector : MonoBehaviour {
 
     // auto-assigned by DungeonPart
     public int ConnectorId;
+    public DungeonPart ParentPart;
 
     public bool CanConnectTo(DungeonConnector other) {
         return other != this

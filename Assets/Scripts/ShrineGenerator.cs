@@ -23,6 +23,7 @@ public class ShrineGenerator : MonoBehaviour {
     public void Generate(int seed) {
         Clear();
 
+        int beaconsPlaced = 0;
         foreach (var target in Targets) {
             var prototype = Instantiate(ShrinePrefab, transform);
 
@@ -36,14 +37,20 @@ public class ShrineGenerator : MonoBehaviour {
                 protoShrine.gameObject.SetActive(false);
             }
 
+            
             var anchorPoints = GameObject.FindGameObjectsWithTag(target.AnchorTag);
             foreach (var anchorPoint in anchorPoints) {
                 var newInstance = Instantiate(prototype, anchorPoint.transform);
                 currentShrineInstances.Add(newInstance);
+
+                if (target.BeaconEnabled)
+                    beaconsPlaced++;
             }
 
             Destroy(prototype);
         }
+
+        //Debug.Log($"placed {beaconsPlaced} beacons");
     }
 
     public void Clear() {
@@ -58,6 +65,11 @@ public class ShrineGenerator : MonoBehaviour {
 
         // start of setup stage
 
+        // choose symmetry before anything else so that it can be shared by other generators
+        int rotationalSymmetry = config.RotationalSymmetry.RandomValue();
+
+        bool bilateralSymmetry = false;
+
         // create seeds to isolate static generation of various stages
         int plinthSeed = Random.Range(int.MinValue, int.MaxValue);
         int mainSeed = Random.Range(int.MinValue, int.MaxValue);
@@ -70,13 +82,8 @@ public class ShrineGenerator : MonoBehaviour {
         for (int i = 0; i < triangles.Length; i++)
             triangles[i] = new List<int>();
 
-        int rotationalSymmetry = config.RotationalSymmetry.RandomValue();
-        bool bilateralSymmetry = false;
-        //bilateralSymmetry = Random.value < 0.5f;
-
         float sectionAngle = (Mathf.PI * 2) / rotationalSymmetry;
         float faceAngle = bilateralSymmetry ? sectionAngle * 0.5f : sectionAngle;
-        Quaternion faceRotation = Quaternion.AngleAxis(faceAngle * Mathf.Rad2Deg, Vector3.up);
         float currentAngle = 0;
 
         float twistAngle = 0;

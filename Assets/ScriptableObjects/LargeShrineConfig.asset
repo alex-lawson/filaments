@@ -22,8 +22,8 @@ MonoBehaviour:
     Min: 1.5
     Max: 2
   PlinthTierHeight:
-    Min: 0.3
-    Max: 0.6
+    Min: 0.5
+    Max: 1
   PlinthNarrowChance: 0.5
   AccentChanceMid: 0.3
   AccentChanceEnd: 0.6

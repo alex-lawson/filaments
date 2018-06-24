@@ -117,7 +117,7 @@ public class DungeonGenerator : MonoBehaviour {
                 currentPhaseStatus.PartPool.Shuffle();
 
                 foreach (var candPart in currentPhaseStatus.PartPool) {
-                    if (candPart.HasInboundConnector(outboundConnector.ConnectionTag)) {
+                    if (candPart.HasInboundConnector(outboundConnector.ConnectionTag) && candPart.CanCombineWith(outboundConnector.ParentPart)) {
                         if (TryPlacePart(candPart, outboundConnector)) {
                             currentPhaseStatus.RemainingPartCount--;
                             break;

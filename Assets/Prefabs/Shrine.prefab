@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BeaconDistance: 0.2
-  ColorBaseHueIndex: 1
+  ColorBaseHueIndex: 0
   ColorSaturation: 0.8
   ColorValue: 0.8
   BeaconActive: 0

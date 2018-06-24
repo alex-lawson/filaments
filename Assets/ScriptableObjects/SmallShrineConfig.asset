@@ -14,10 +14,10 @@ MonoBehaviour:
   FinalScale: 0.35
   PlinthTierCount:
     Min: 1
-    Max: 2
+    Max: 1
   PlinthNarrowRadius:
     Min: 0.5
-    Max: 1
+    Max: 0.75
   PlinthWideRadius:
     Min: 1.5
     Max: 2
@@ -34,8 +34,8 @@ MonoBehaviour:
     Min: 0.25
     Max: 1
   TierCount:
-    Min: 4
-    Max: 6
+    Min: 3
+    Max: 4
   TierHeight:
     Min: 0.5
     Max: 1.5

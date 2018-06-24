@@ -10,6 +10,7 @@ public class DungeonPart : MonoBehaviour {
     public string PartName;
     public bool SkipBoundsCheck = false;
     public Vector3 ExtraBoundsExpansion;
+    public List<string> DoNotCombineWith;
 
     [SerializeField] private List<string> inboundConnectorTags;
     [SerializeField] private DungeonConnector[] connectors;
@@ -41,6 +42,10 @@ public class DungeonPart : MonoBehaviour {
         return !Physics.CheckBox(boundsCheckPosition, connectorBounds.extents, outboundConnector.rotation);
     }
 
+    public bool CanCombineWith(DungeonPart other) {
+        return !DoNotCombineWith.Contains(other.PartName) && !other.DoNotCombineWith.Contains(PartName);
+    }
+
 #if UNITY_EDITOR
     // When part is changed in the editor, compute and cache a set of connectable inbound tags,
     // a list of connectors, and the combined bounds of the object group
@@ -57,6 +62,7 @@ public class DungeonPart : MonoBehaviour {
         connectors = GetComponentsInChildren<DungeonConnector>().ToArray();
         for (int i = 0; i < connectors.Length; i++) {
             connectors[i].ConnectorId = i;
+            connectors[i].ParentPart = this;
             if (connectors[i].AllowInbound)
                 inboundConnectorTags.Add(connectors[i].ConnectionTag);
         }

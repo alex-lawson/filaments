@@ -290,7 +290,7 @@ MonoBehaviour:
   Targets:
   - AnchorTag: SmallShrineAnchor
     Config: {fileID: 11400000, guid: e542f263d3e2d854ca29445a916452a6, type: 2}
-    BeaconEnabled: 1
+    BeaconEnabled: 0
   - AnchorTag: LargeShrineAnchor
     Config: {fileID: 11400000, guid: 9b94605a88e6fe94aa5a74a9724eeb48, type: 2}
     BeaconEnabled: 1

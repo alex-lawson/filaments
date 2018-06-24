@@ -261,6 +261,10 @@ MonoBehaviour:
   PartName: IslandMed
   SkipBoundsCheck: 0
   ExtraBoundsExpansion: {x: 3, y: 3, z: 5}
+  DoNotCombineWith:
+  - Start
+  - IslandMed
+  - IslandSmall
   inboundConnectorTags:
   - FloatingPath
   - FloatingPath
@@ -292,6 +296,7 @@ MonoBehaviour:
   AllowInbound: 1
   RandomRotation: 0
   ConnectorId: 2
+  ParentPart: {fileID: 114136778205516538}
 --- !u!114 &114528352242395580
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -308,6 +313,7 @@ MonoBehaviour:
   AllowInbound: 1
   RandomRotation: 0
   ConnectorId: 0
+  ParentPart: {fileID: 114136778205516538}
 --- !u!114 &114592133164349264
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -324,3 +330,4 @@ MonoBehaviour:
   AllowInbound: 1
   RandomRotation: 0
   ConnectorId: 1
+  ParentPart: {fileID: 114136778205516538}

@@ -234,6 +234,7 @@ MonoBehaviour:
   AllowInbound: 1
   RandomRotation: 0
   ConnectorId: 0
+  ParentPart: {fileID: 114482359780507040}
 --- !u!114 &114243613098421746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,6 +251,7 @@ MonoBehaviour:
   AllowInbound: 1
   RandomRotation: 0
   ConnectorId: 1
+  ParentPart: {fileID: 114482359780507040}
 --- !u!114 &114316913989034194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -266,6 +268,7 @@ MonoBehaviour:
   AllowInbound: 1
   RandomRotation: 0
   ConnectorId: 2
+  ParentPart: {fileID: 114482359780507040}
 --- !u!114 &114482359780507040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -280,6 +283,7 @@ MonoBehaviour:
   PartName: Fork
   SkipBoundsCheck: 0
   ExtraBoundsExpansion: {x: 3, y: 3, z: 5}
+  DoNotCombineWith: []
   inboundConnectorTags:
   - FloatingPath
   - FloatingPath

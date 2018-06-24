@@ -172,6 +172,7 @@ MonoBehaviour:
   PartName: Endcap
   SkipBoundsCheck: 1
   ExtraBoundsExpansion: {x: 0, y: 0, z: 0}
+  DoNotCombineWith: []
   inboundConnectorTags:
   - FloatingPath
   connectors:
@@ -195,3 +196,4 @@ MonoBehaviour:
   AllowInbound: 1
   RandomRotation: 0
   ConnectorId: 0
+  ParentPart: {fileID: 114051029141262594}

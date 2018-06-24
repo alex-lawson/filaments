@@ -204,6 +204,7 @@ MonoBehaviour:
   AllowInbound: 1
   RandomRotation: 0
   ConnectorId: 0
+  ParentPart: {fileID: 114526426063364460}
 --- !u!114 &114422418482908928
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -220,6 +221,7 @@ MonoBehaviour:
   AllowInbound: 1
   RandomRotation: 0
   ConnectorId: 1
+  ParentPart: {fileID: 114526426063364460}
 --- !u!114 &114526426063364460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -234,6 +236,7 @@ MonoBehaviour:
   PartName: CurveSharp
   SkipBoundsCheck: 0
   ExtraBoundsExpansion: {x: 3, y: 3, z: 5}
+  DoNotCombineWith: []
   inboundConnectorTags:
   - FloatingPath
   - FloatingPath
