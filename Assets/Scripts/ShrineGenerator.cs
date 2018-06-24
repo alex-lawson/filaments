@@ -46,6 +46,8 @@ public class ShrineGenerator : MonoBehaviour {
                     beaconsPlaced++;
             }
 
+            prototype.SetActive(false);
+
             Destroy(prototype);
         }
 

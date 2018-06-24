@@ -42,8 +42,8 @@ public class PlayerStickyMovement : MonoBehaviour {
     }
 
     public void Reset(Transform target) {
-        transform.rotation = target.rotation;
-        transform.position = target.position;
+        body.MoveRotation(target.rotation);
+        body.MovePosition(target.position);
         targetNormal = target.up;
         groundCheck = false;
         collisionCheck = false;
@@ -76,9 +76,9 @@ public class PlayerStickyMovement : MonoBehaviour {
             Quaternion targetRotation = Quaternion.FromToRotation(transform.up, targetNormal) * transform.rotation;
 
             if (angleBetween < AlignMinAngle)
-                transform.rotation = targetRotation;
+                body.MoveRotation(targetRotation);
             else
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, AlignLerp);
+                body.MoveRotation(Quaternion.Slerp(transform.rotation, targetRotation, AlignLerp));
         }
 
         collisionCheck = false;
