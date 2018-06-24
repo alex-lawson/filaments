@@ -176,7 +176,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1650761481}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &170076733
 GameObject:
@@ -222,7 +222,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294966271
+    m_Bits: 4294967295
   m_Lightmapping: 1
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -241,7 +241,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1650761481}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &378941088
 GameObject:
@@ -511,71 +511,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 755112851}
---- !u!1 &771281825
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 771281826}
-  - component: {fileID: 771281827}
-  m_Layer: 0
-  m_Name: ShrineLight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &771281826
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771281825}
-  m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1.0000005, z: 1.0000005}
-  m_Children: []
-  m_Father: {fileID: 1650761481}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
---- !u!108 &771281827
-Light:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 771281825}
-  m_Enabled: 1
-  serializedVersion: 8
-  m_Type: 1
-  m_Color: {r: 0.8117647, g: 0.5019608, b: 0.37254903, a: 1}
-  m_Intensity: 3
-  m_Range: 10
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  m_Lightmapping: 1
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
 --- !u!1 &1134215148
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,7 +649,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 771281826}
   - {fileID: 170076735}
   - {fileID: 134005044}
   m_Father: {fileID: 0}
@@ -830,14 +764,6 @@ MonoBehaviour:
     ValueRange:
       Min: 0.7
       Max: 0.9
-  - TargetLight: {fileID: 771281827}
-    BaseHueIndex: 1
-    SaturationRange:
-      Min: 0.2
-      Max: 0.2
-    ValueRange:
-      Min: 0.8
-      Max: 0.8
   - TargetLight: {fileID: 108893855027538592, guid: b171d5410f183ce4b82bd9d4c6d60bac,
       type: 2}
     BaseHueIndex: 0
@@ -1070,17 +996,22 @@ MonoBehaviour:
   - {fileID: 114362529023371638, guid: b171d5410f183ce4b82bd9d4c6d60bac, type: 2}
   Phases:
   - PhaseName: Twisting Paths
-    PartLimit: 100
+    PartLimit: 150
     PartPool:
+    - {fileID: 114109536043682402, guid: eef57e7288be240418b6aa9edd27ca60, type: 2}
     - {fileID: 114109536043682402, guid: eef57e7288be240418b6aa9edd27ca60, type: 2}
     - {fileID: 114555743993952880, guid: 2ae39bc014d6e664f990296e5052cfaa, type: 2}
     - {fileID: 114370572783874512, guid: 6779c1b8a80bd8f48bb8f8cc762adc05, type: 2}
     - {fileID: 114633379156060108, guid: 6df5fd0fb55c32f45997d31e9af49ef4, type: 2}
+    - {fileID: 114633379156060108, guid: 6df5fd0fb55c32f45997d31e9af49ef4, type: 2}
+    - {fileID: 114546768277475412, guid: 46e134dcaf3fe7f4ead1d9562f32a7e1, type: 2}
     - {fileID: 114546768277475412, guid: 46e134dcaf3fe7f4ead1d9562f32a7e1, type: 2}
     - {fileID: 114526426063364460, guid: 21e1a1cddbd1f2c43854f0481a3cf6d3, type: 2}
     - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
     - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
     - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
+    - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
+    - {fileID: 114734477128249530, guid: c17909b5d86efd648b61c5926f0f99d5, type: 2}
     - {fileID: 114734477128249530, guid: c17909b5d86efd648b61c5926f0f99d5, type: 2}
     - {fileID: 114734477128249530, guid: c17909b5d86efd648b61c5926f0f99d5, type: 2}
     - {fileID: 114734477128249530, guid: c17909b5d86efd648b61c5926f0f99d5, type: 2}
@@ -1089,11 +1020,14 @@ MonoBehaviour:
     - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
     - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
     - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
+    - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
     - {fileID: 114869173933547752, guid: 2be075ccdd7f0d54fb6abfb5de1245d1, type: 2}
     - {fileID: 114869173933547752, guid: 2be075ccdd7f0d54fb6abfb5de1245d1, type: 2}
+    - {fileID: 114869173933547752, guid: 2be075ccdd7f0d54fb6abfb5de1245d1, type: 2}
     - {fileID: 114421531187903978, guid: e5ecac22ea13d3140ab5a8e8fd31a9cc, type: 2}
     - {fileID: 114421531187903978, guid: e5ecac22ea13d3140ab5a8e8fd31a9cc, type: 2}
     - {fileID: 114421531187903978, guid: e5ecac22ea13d3140ab5a8e8fd31a9cc, type: 2}
+    - {fileID: 114568419619401376, guid: f3220c1fa83ba8045a1decc9c58c4f73, type: 2}
     - {fileID: 114568419619401376, guid: f3220c1fa83ba8045a1decc9c58c4f73, type: 2}
     - {fileID: 114136778205516538, guid: 82d993698284b5f4d9037ef7ba453f76, type: 2}
   - PhaseName: ExtraShrineIslands

@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 23997855470402428}
   - component: {fileID: 64245871027245008}
   - component: {fileID: 114797996723668890}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PortalPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -814,7 +814,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
-  m_Color: {r: 1, g: 0.2668438, b: 0.19999999, a: 1}
+  m_Color: {r: 1, g: 0.27211952, b: 0.19999999, a: 1}
   m_Intensity: 10
   m_Range: 8
   m_SpotAngle: 30

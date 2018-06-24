@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour {
         }
 
         if (!reviving && currentPortalBounds.Contains(Player.transform.position)) {
-            Color fadeColor = Color.HSVToRGB(Colors.BaseHues[0], 0.8f, 1.0f);
+            Color fadeColor = Color.HSVToRGB(Colors.BaseHues[0], 0.2f, 1.0f);
             StartCoroutine(DoRegenerate(fadeColor));
         }
 
@@ -50,7 +50,7 @@ public class GameController : MonoBehaviour {
             if (generatingCoroutine != null)
                 StopCoroutine(generatingCoroutine);
 
-            generatingCoroutine = StartCoroutine(DoRegenerate(Color.white));
+            generatingCoroutine = StartCoroutine(DoRegenerate(null));
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
