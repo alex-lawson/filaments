@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4933257997303598}
   - component: {fileID: 33697611281140126}
   - component: {fileID: 23612614314512462}
+  - component: {fileID: 64455944202528034}
   m_Layer: 10
   m_Name: Shrine
   m_TagString: Untagged
@@ -116,6 +117,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1147789703197144}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &64455944202528034
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1147789703197144}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!108 &108613776882504116
 Light:
   m_ObjectHideFlags: 1
@@ -172,7 +187,7 @@ MonoBehaviour:
   InactiveLightIntensity: 0.4
   ActiveLightIntensity: 1
   InactiveFlareBrightness: 0
-  ActiveFlareBrightness: 0.6
+  ActiveFlareBrightness: 0.7
   ActivateTime: 0.75
   ActivateCurve:
     serializedVersion: 2

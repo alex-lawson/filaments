@@ -36,7 +36,6 @@ public class ShrineGenerator : MonoBehaviour {
             } else {
                 protoShrine.gameObject.SetActive(false);
             }
-
             
             var anchorPoints = GameObject.FindGameObjectsWithTag(target.AnchorTag);
             foreach (var anchorPoint in anchorPoints) {
@@ -276,6 +275,12 @@ public class ShrineGenerator : MonoBehaviour {
         mesh.RecalculateBounds();
 
         targetObject.GetComponent<MeshFilter>().sharedMesh = mesh;
+
+        var collider = targetObject.GetComponent<MeshCollider>();
+        if (collider != null) {
+            collider.sharedMesh = null;
+            collider.sharedMesh = mesh;
+        }
 
         Random.state = oldState;
 
