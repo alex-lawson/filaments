@@ -941,10 +941,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PoolLight: {fileID: 0}
+  PoolCover: {fileID: 0}
+  UncoverTime: 0
   RotationalSymmetry:
     Min: 3
     Max: 6
-  outerRadius: 4
+  OuterRadius: 0
   InnerRadius: 1.9
   LipHeight: 0.1
   PoolDepth: 6

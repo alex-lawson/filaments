@@ -1037,7 +1037,7 @@ MonoBehaviour:
   - PhaseName: Far Shrines
     TargetPartCount:
       Min: 2
-      Max: 6
+      Max: 5
     PartPool:
     - {fileID: 114136778205516538, guid: 82d993698284b5f4d9037ef7ba453f76, type: 2}
   - PhaseName: More Twisting Paths

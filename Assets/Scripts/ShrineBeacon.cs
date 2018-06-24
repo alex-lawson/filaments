@@ -60,6 +60,8 @@ public class ShrineBeacon : MonoBehaviour {
     private void ActivateBeacon() {
         BeaconActive = true;
         StartCoroutine(DoActivate());
+        var gameController = FindObjectOfType<GameController>();
+        gameController.BeaconActivated();
     }
 
     private void DeactivateBeacon() {

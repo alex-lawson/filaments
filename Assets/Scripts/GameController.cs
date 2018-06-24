@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour {
     private Coroutine generatingCoroutine;
     private bool reviving = false;
     private PortalPool portalPool;
+    private float beaconsRemaining = 0;
 
     private void Start() {
         StartCoroutine(DoRegenerate(Color.white, false));
@@ -57,6 +58,12 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    public void BeaconActivated() {
+        beaconsRemaining--;
+        if (beaconsRemaining <= 0)
+            portalPool.Uncover();
+    }
+
     private void ClearAll() {
         Dungeon.Clear();
         Shrines.Clear();
@@ -70,13 +77,13 @@ public class GameController : MonoBehaviour {
         Dungeon.Seed = CurrentSeed;
         Dungeon.Generate(true);
 
-        int beaconCount = Shrines.Generate(CurrentSeed);
+        beaconsRemaining = Shrines.Generate(CurrentSeed);
 
-        if (beaconCount == 0) {
+        if (beaconsRemaining == 0) {
             //Debug.Log("generation failed, no beacons placed!");
             return false;
         } else {
-            //Debug.Log($"placed {beaconCount} beacons");
+            //Debug.Log($"placed {beaconsRemaining} beacons");
         }
 
         portalPool = FindObjectOfType<PortalPool>() as PortalPool;
