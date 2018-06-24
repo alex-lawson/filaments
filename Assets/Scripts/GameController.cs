@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour {
     private bool reviving = false;
 
     private void Start() {
-        Dungeon.OnGenerationComplete.AddListener(new UnityAction(OnDungeonGenComplete));
+        //Dungeon.OnGenerationComplete.AddListener(new UnityAction(OnDungeonGenComplete));
 
         RandomizeSeed();
         Colors.GenerateColors(CurrentSeed);
@@ -30,6 +30,8 @@ public class GameController : MonoBehaviour {
         Dungeon.Generate(true);
         Shrines.Generate(CurrentSeed);
         Orbs.Generate(CurrentSeed);
+
+        StartCoroutine(DoFadeIn());
     }
 
     private void Reset() {
@@ -54,7 +56,7 @@ public class GameController : MonoBehaviour {
                 StopCoroutine(generatingCoroutine);
 
             bool sync = !(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift));
-            generatingCoroutine = StartCoroutine(DoRegenerate(sync));
+            generatingCoroutine = StartCoroutine(DoRegenerate(sync, true));
         }
 
         if (Input.GetKeyDown(KeyCode.B)) {
@@ -73,6 +75,30 @@ public class GameController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
+    }
+
+    private IEnumerator DoFadeIn() {
+        var wfeof = new WaitForEndOfFrame();
+
+        Color fadeColor = RenderSettings.skybox.GetColor("_Tint");
+
+        ScreenFadeOverlay.enabled = true;
+        ScreenFadeOverlay.color = fadeColor;
+
+        reviving = true;
+
+        float inTimer = 0;
+        while (inTimer < ScreenFadeInTime) {
+            float alphaRatio = 1 - inTimer / ScreenFadeInTime;
+            ScreenFadeOverlay.color = new Color(fadeColor.r, fadeColor.g, fadeColor.b, alphaRatio);
+
+            inTimer += Time.deltaTime;
+
+            yield return wfeof;
+        }
+
+        ScreenFadeOverlay.enabled = false;
+        reviving = false;
     }
 
     private IEnumerator DoPlayerRevive() {
@@ -113,8 +139,26 @@ public class GameController : MonoBehaviour {
         reviving = false;
     }
 
-    private IEnumerator DoRegenerate(bool sync) {
+    private IEnumerator DoRegenerate(bool sync, bool withFade) {
         var wfeof = new WaitForEndOfFrame();
+
+        reviving = true;
+
+        if (withFade) {
+            ScreenFadeOverlay.enabled = true;
+
+            float outTimer = 0;
+            while (outTimer < ScreenFadeOutTime) {
+                float alphaRatio = outTimer / ScreenFadeOutTime;
+                ScreenFadeOverlay.color = new Color(0, 0, 0, alphaRatio);
+
+                outTimer += Time.deltaTime;
+
+                yield return wfeof;
+            }
+
+            ScreenFadeOverlay.color = Color.black;
+        }
 
         Clear();
 
@@ -144,6 +188,26 @@ public class GameController : MonoBehaviour {
 
         Shrines.Generate(CurrentSeed);
         Orbs.Generate(CurrentSeed);
+
+        yield return wfeof;
+
+        PlacePlayerInDungeon();
+
+        if (withFade) {
+            float inTimer = 0;
+            while (inTimer < ScreenFadeInTime) {
+                float alphaRatio = 1 - inTimer / ScreenFadeInTime;
+                ScreenFadeOverlay.color = new Color(0, 0, 0, alphaRatio);
+
+                inTimer += Time.deltaTime;
+
+                yield return wfeof;
+            }
+
+            ScreenFadeOverlay.enabled = false;
+        }
+
+        reviving = false;
     }
 
     private IEnumerator DoBenchmark(int iterations) {

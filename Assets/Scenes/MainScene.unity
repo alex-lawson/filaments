@@ -490,7 +490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -748,7 +748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BaseHueCount: 2
-  BaseHueVariance: 0.2
+  BaseHueVariance: 0.3
   MaterialColors:
   - TargetMaterial: {fileID: 2100000, guid: a513a3b96f0952f41b1cfab4b228a70b, type: 2}
     ColorParameterName: _Tint
