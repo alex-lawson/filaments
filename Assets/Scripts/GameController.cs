@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -14,13 +15,17 @@ public class GameController : MonoBehaviour {
     public float FadeTimeSlow;
     public float FadePauseTime;
     public float FadeTimeFast;
-    public float GenerationRate;
-    public int BenchmarkIterations;
+    public float LevelCompleteTime;
+    public AnimationCurve BeaconFlightCurve;
+    public float BeaconRingHeight;
+    public float BeaconRingRadius;
     public int CurrentSeed { get; private set; }
 
     private Coroutine generatingCoroutine;
-    private bool reviving = false;
     private PortalPool portalPool;
+    private bool reviving = false;
+    bool levelComplete = false;
+
     private float beaconsRemaining = 0;
 
     private void Start() {
@@ -31,6 +36,7 @@ public class GameController : MonoBehaviour {
         ClearAll();
         ScreenFadeOverlay.enabled = false;
         reviving = false;
+        levelComplete = false;
     }
 
     private void Update() {
@@ -44,6 +50,12 @@ public class GameController : MonoBehaviour {
                 StopCoroutine(generatingCoroutine);
 
             generatingCoroutine = StartCoroutine(DoRegenerate(null));
+        }
+
+        if (Input.GetKeyDown(KeyCode.T)) {
+            var beacons = FindObjectsOfType<ShrineBeacon>();
+            foreach (var b in beacons)
+                b.GetComponent<ShrineBeacon>().ActivateBeacon();
         }
 #endif
         if (Input.GetButtonDown("Level Skip")) {
@@ -66,8 +78,51 @@ public class GameController : MonoBehaviour {
 
     public void BeaconActivated() {
         beaconsRemaining--;
-        if (beaconsRemaining <= 0)
-            portalPool.Uncover();
+        if (beaconsRemaining <= 0 && !levelComplete) {
+            StartCoroutine(DoCompleteLevel());
+        }
+    }
+
+    private IEnumerator DoCompleteLevel() {
+        var wfeof = new WaitForEndOfFrame();
+
+        levelComplete = true;
+
+        var beacons = FindObjectsOfType<ShrineBeacon>();
+        List<Vector3> beaconBasePositions = new List<Vector3>();
+        foreach (var b in beacons)
+            beaconBasePositions.Add(b.transform.position);
+
+        List<Vector3> beaconRingPositions = new List<Vector3>();
+        float angle = 2 * Mathf.PI / beacons.Length;
+        for (var i = 0; i < beacons.Length; i++) {
+            float thisAngle = angle * i;
+            beaconRingPositions.Add(new Vector3(Mathf.Cos(thisAngle) * BeaconRingRadius, BeaconRingHeight, Mathf.Sin(thisAngle) * BeaconRingRadius));
+        }
+
+        Transform beaconRig = portalPool.gameObject.GetComponentInChildren<Spin>().transform;
+
+        float timer = 0;
+        while (timer < LevelCompleteTime) {
+            float ratio = timer / LevelCompleteTime;
+            float curved = BeaconFlightCurve.Evaluate(ratio);
+
+            for (var i = 0; i < beacons.Length; i++) {
+                Vector3 endPoint = beaconRig.TransformPoint(beaconRingPositions[i]);
+                beacons[i].transform.position = Vector3.Lerp(beaconBasePositions[i], endPoint, curved);
+            }
+
+            timer += Time.deltaTime;
+
+            yield return wfeof;
+        }
+
+        for (var i = 0; i < beacons.Length; i++) {
+            beacons[i].transform.SetParent(beaconRig);
+            beacons[i].transform.localPosition = beaconRingPositions[i];
+        }
+
+        portalPool.Uncover();
     }
 
     private void ClearAll() {
@@ -84,6 +139,8 @@ public class GameController : MonoBehaviour {
         Colors.GenerateColors(CurrentSeed);
         Dungeon.Seed = CurrentSeed;
         Dungeon.Generate(true);
+
+        levelComplete = false;
 
         beaconsRemaining = Shrines.Generate(CurrentSeed);
 

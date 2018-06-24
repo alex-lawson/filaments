@@ -57,14 +57,14 @@ public class ShrineBeacon : MonoBehaviour {
         DeactivateBeacon();
     }
 
-    private void ActivateBeacon() {
+    public void ActivateBeacon() {
         BeaconActive = true;
         StartCoroutine(DoActivate());
         var gameController = FindObjectOfType<GameController>();
         gameController.BeaconActivated();
     }
 
-    private void DeactivateBeacon() {
+    public void DeactivateBeacon() {
         BeaconActive = false;
         beaconLight.intensity = InactiveLightIntensity;
         beaconFlare.brightness = InactiveFlareBrightness;

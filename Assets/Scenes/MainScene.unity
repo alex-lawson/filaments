@@ -563,8 +563,33 @@ MonoBehaviour:
   FadeTimeSlow: 1.5
   FadePauseTime: 0.25
   FadeTimeFast: 0.5
-  GenerationRate: 40
-  BenchmarkIterations: 60
+  LevelCompleteTime: 5
+  BeaconFlightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  BeaconRingHeight: 4
+  BeaconRingRadius: 5
 --- !u!1 &1171530485
 GameObject:
   m_ObjectHideFlags: 0
