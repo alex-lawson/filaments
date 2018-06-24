@@ -1063,8 +1063,8 @@ MonoBehaviour:
   Phases:
   - PhaseName: Initial Paths
     TargetPartCount:
-      Min: 30
-      Max: 40
+      Min: 15
+      Max: 30
     PartPool:
     - {fileID: 114109536043682402, guid: eef57e7288be240418b6aa9edd27ca60, type: 2}
     - {fileID: 114555743993952880, guid: 2ae39bc014d6e664f990296e5052cfaa, type: 2}
@@ -1078,6 +1078,7 @@ MonoBehaviour:
     - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
     - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
     - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
+    - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
   - PhaseName: Near Shrines
     TargetPartCount:
       Min: 1
@@ -1086,8 +1087,8 @@ MonoBehaviour:
     - {fileID: 114136778205516538, guid: 82d993698284b5f4d9037ef7ba453f76, type: 2}
   - PhaseName: Twisting Paths
     TargetPartCount:
-      Min: 60
-      Max: 80
+      Min: 50
+      Max: 70
     PartPool:
     - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
     - {fileID: 114874671756052610, guid: d2b368ec914941d408c17630155d9137, type: 2}
@@ -1098,6 +1099,7 @@ MonoBehaviour:
     - {fileID: 114734477128249530, guid: c17909b5d86efd648b61c5926f0f99d5, type: 2}
     - {fileID: 114321477156845334, guid: 2dbde76fd82bdca48912e0a27812dc3a, type: 2}
     - {fileID: 114321477156845334, guid: 2dbde76fd82bdca48912e0a27812dc3a, type: 2}
+    - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
     - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
     - {fileID: 114482359780507040, guid: b6280b2a3be156242895be3eca0b663d, type: 2}
     - {fileID: 114568419619401376, guid: f3220c1fa83ba8045a1decc9c58c4f73, type: 2}
