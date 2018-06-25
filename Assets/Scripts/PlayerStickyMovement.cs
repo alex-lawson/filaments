@@ -13,7 +13,8 @@ public class PlayerStickyMovement : MonoBehaviour {
     public float JumpHeight;
     public float Gravity;
     public float TerminalVelocity;
-    public Transform GroundSensor;
+    public Transform[] GroundSensors;
+    public float GroundCheckDistance;
     public float AlignMaxAngle;
     public float AlignMinAngle;
     public float AlignGroundFactor;
@@ -29,7 +30,9 @@ public class PlayerStickyMovement : MonoBehaviour {
     private bool groundCheck;
     private bool collisionCheck;
     private Vector3 targetNormal;
+#if UNITY_EDITOR
     private List<Ray> gizRays = new List<Ray>();
+#endif
 
     private void Awake () {
         body = GetComponent<Rigidbody>();
@@ -56,15 +59,22 @@ public class PlayerStickyMovement : MonoBehaviour {
 
     private void AlignToGround() {
         Vector3 groundNormal = Vector3.zero;
-        RaycastHit groundHit;
-        if (Physics.Raycast(GroundSensor.position, -GroundSensor.up, out groundHit, 0.3f)) {
-            // align to shrines
-            if (groundHit.collider.gameObject.layer == 10) {
-                groundNormal = groundHit.collider.transform.up;
-            } else {
-                groundNormal = groundHit.normal;
-            }
 
+        RaycastHit groundHit;
+        foreach (var sensor in GroundSensors) {
+            if (Physics.Raycast(sensor.position, -sensor.up, out groundHit, GroundCheckDistance)) {
+                // always align to shrines
+                if (groundHit.collider.gameObject.layer == 10) {
+                    groundNormal += groundHit.collider.transform.up;
+                    break;
+                } else {
+                    groundNormal += groundHit.normal;
+                }
+            }
+        }
+        
+        if (groundNormal.sqrMagnitude > 0) {
+            groundNormal.Normalize();
             if (Vector3.Angle(targetNormal, groundNormal) < AlignMinAngle) {
                 targetNormal = groundNormal;
             } else {
@@ -171,7 +181,9 @@ public class PlayerStickyMovement : MonoBehaviour {
                     Ray checkRay = new Ray(checkRayOrigin, -cp.normal);
                     RaycastHit hit;
                     if (cp.otherCollider.Raycast(checkRay, out hit, 2f)) {
+#if UNITY_EDITOR
                         gizRays.Add(new Ray(hit.point, hit.normal * 3));
+#endif
                         Vector3 surfaceNormal = hit.normal;
                         if (Vector3.Angle(Vector3.up, surfaceNormal) < AlignMaxAngle)
                             collisionNormal += surfaceNormal;
@@ -207,6 +219,18 @@ public class PlayerStickyMovement : MonoBehaviour {
         Gizmos.color = Color.cyan;
         foreach (var r in gizRays) {
             Gizmos.DrawRay(r);
+        }
+        
+        RaycastHit groundHit;
+        foreach (var sensor in GroundSensors) {
+            Gizmos.color = Color.red;
+            var r = new Ray(sensor.position, sensor.up * -GroundCheckDistance);
+            Gizmos.DrawRay(r);
+
+            if (Physics.Raycast(r, out groundHit, GroundCheckDistance)) {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawRay(groundHit.point, groundHit.normal);
+            }
         }
     }
 }
