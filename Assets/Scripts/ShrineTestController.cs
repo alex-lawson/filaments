@@ -23,7 +23,7 @@ public class ShrineTestController : MonoBehaviour {
         Colors.GenerateColors(CurrentSeed);
         Shrines.Generate(CurrentSeed);
 
-        var pp = FindObjectOfType<PortalPool>() as PortalPool;
+        var pp = FindObjectOfType<PortalPool>();
         if (pp != null)
             pp.Generate(CurrentSeed);
         pp.Uncover();

@@ -20,6 +20,7 @@ public class ShrineBeacon : MonoBehaviour {
     public float ExtraInactiveFlareBrightness;
     public float ActivateTime;
     public AnimationCurve ActivateCurve;
+    public float LightFadeTime;
 
     private Light beaconLight;
     private LensFlare beaconFlare;
@@ -71,6 +72,10 @@ public class ShrineBeacon : MonoBehaviour {
         ExtraFlare.brightness = ExtraInactiveFlareBrightness;
     }
 
+    public void FadeLight() {
+        StartCoroutine(DoFadeLight());
+    }
+
     private IEnumerator DoActivate() {
         var wfeof = new WaitForEndOfFrame();
 
@@ -91,5 +96,22 @@ public class ShrineBeacon : MonoBehaviour {
         beaconLight.intensity = ActiveLightIntensity;
         beaconFlare.brightness = ActiveFlareBrightness;
         ExtraFlare.brightness = ActiveFlareBrightness;
+    }
+
+    private IEnumerator DoFadeLight() {
+        var wfeof = new WaitForEndOfFrame();
+
+        float timer = 0;
+        while (timer < LightFadeTime) {
+            float ratio = timer / LightFadeTime;
+
+            beaconLight.intensity = Mathf.Lerp(ActiveLightIntensity, 0, ratio);
+
+            timer += Time.deltaTime;
+
+            yield return wfeof;
+        }
+
+        beaconLight.intensity = 0;
     }
 }

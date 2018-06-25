@@ -254,6 +254,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  LightFadeTime: 4
 --- !u!123 &123358950996788382
 LensFlare:
   m_ObjectHideFlags: 1

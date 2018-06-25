@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour {
     public float FadeTimeSlow;
     public float FadePauseTime;
     public float FadeTimeFast;
+    public float LevelCompleteDelay;
     public float LevelCompleteTime;
     public AnimationCurve BeaconFlightCurve;
     public float BeaconRingHeight;
@@ -55,7 +56,7 @@ public class GameController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.T)) {
             var beacons = FindObjectsOfType<ShrineBeacon>();
             foreach (var b in beacons)
-                b.GetComponent<ShrineBeacon>().ActivateBeacon();
+                b.ActivateBeacon();
         }
 #endif
         if (Input.GetButtonDown("Level Skip")) {
@@ -88,10 +89,14 @@ public class GameController : MonoBehaviour {
 
         levelComplete = true;
 
+        yield return new WaitForSeconds(LevelCompleteDelay);
+
         var beacons = FindObjectsOfType<ShrineBeacon>();
         List<Vector3> beaconBasePositions = new List<Vector3>();
-        foreach (var b in beacons)
+        foreach (var b in beacons) {
+            b.FadeLight();
             beaconBasePositions.Add(b.transform.position);
+        }
 
         List<Vector3> beaconRingPositions = new List<Vector3>();
         float angle = 2 * Mathf.PI / beacons.Length;
@@ -151,7 +156,7 @@ public class GameController : MonoBehaviour {
             //Debug.Log($"placed {beaconsRemaining} beacons");
         }
 
-        portalPool = FindObjectOfType<PortalPool>() as PortalPool;
+        portalPool = FindObjectOfType<PortalPool>();
         if (portalPool == null)
             return false;
 

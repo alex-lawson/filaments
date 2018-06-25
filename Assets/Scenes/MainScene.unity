@@ -563,6 +563,7 @@ MonoBehaviour:
   FadeTimeSlow: 1.5
   FadePauseTime: 0.25
   FadeTimeFast: 0.5
+  LevelCompleteDelay: 1.5
   LevelCompleteTime: 5
   BeaconFlightCurve:
     serializedVersion: 2
