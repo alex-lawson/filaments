@@ -23,6 +23,13 @@ public class PlayerStickyLook : MonoBehaviour {
         float mouseY = Input.GetAxis("Mouse Y");
         float rotateAmount = -mouseY * MouseSensitivity;
 
+        float toUp = Vector3.Angle(PlayerBody.up, transform.forward);
+        if (rotateAmount < 0) {
+            rotateAmount = Mathf.Max(-toUp + 0.1f, rotateAmount);
+        } else if (rotateAmount > 0) {
+            rotateAmount = Mathf.Min(179.9f - toUp, rotateAmount);
+        }
+
         transform.rotation = Quaternion.AngleAxis(rotateAmount, transform.right) * transform.rotation;
     }
 
