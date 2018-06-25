@@ -181,12 +181,13 @@ public class PlayerStickyMovement : MonoBehaviour {
                     Ray checkRay = new Ray(checkRayOrigin, -cp.normal);
                     RaycastHit hit;
                     if (cp.otherCollider.Raycast(checkRay, out hit, 2f)) {
-#if UNITY_EDITOR
-                        gizRays.Add(new Ray(hit.point, hit.normal * 3));
-#endif
                         Vector3 surfaceNormal = hit.normal;
-                        if (Vector3.Angle(Vector3.up, surfaceNormal) < AlignMaxAngle)
+                        if (Vector3.Angle(Vector3.up, surfaceNormal) < AlignMaxAngle) {
                             collisionNormal += surfaceNormal;
+#if UNITY_EDITOR
+                            gizRays.Add(new Ray(hit.point, hit.normal * 3));
+#endif
+                        }
                     }
                 }
             }
