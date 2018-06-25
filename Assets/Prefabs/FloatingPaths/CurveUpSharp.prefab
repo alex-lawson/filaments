@@ -202,7 +202,8 @@ MonoBehaviour:
   PartName: CurveUpSharp
   SkipBoundsCheck: 0
   ExtraBoundsExpansion: {x: 3, y: 3, z: 5}
-  DoNotCombineWith: []
+  DoNotCombineWith:
+  - CurveUpSharp
   inboundConnectorTags:
   - FloatingPath
   - FloatingPath
