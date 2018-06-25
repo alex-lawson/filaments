@@ -216,6 +216,7 @@ public class PlayerStickyMovement : MonoBehaviour {
         return Mathf.Sqrt(2 * JumpHeight * Gravity);
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos() {
         Gizmos.color = Color.cyan;
         foreach (var r in gizRays) {
@@ -234,4 +235,5 @@ public class PlayerStickyMovement : MonoBehaviour {
             }
         }
     }
+#endif
 }
