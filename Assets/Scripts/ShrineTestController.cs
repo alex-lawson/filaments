@@ -24,9 +24,10 @@ public class ShrineTestController : MonoBehaviour {
         Shrines.Generate(CurrentSeed);
 
         var pp = FindObjectOfType<PortalPool>();
-        if (pp != null)
+        if (pp != null) {
             pp.Generate(CurrentSeed);
-        pp.Uncover();
+            pp.Uncover();
+        }
     }
 
     private void RandomizeSeed() {

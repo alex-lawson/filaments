@@ -178,7 +178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &73967900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,7 +506,7 @@ MonoBehaviour:
     BeaconEnabled: 0
   - AnchorTag: LargeShrineAnchor
     Config: {fileID: 11400000, guid: 9b94605a88e6fe94aa5a74a9724eeb48, type: 2}
-    BeaconEnabled: 1
+    BeaconEnabled: 0
 --- !u!4 &230463057
 Transform:
   m_ObjectHideFlags: 0
@@ -1512,7 +1512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1087539823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1994,7 +1994,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1570801497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2296,7 +2296,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.10132608, g: 0.14630303, b: 0.21698111, a: 0}
+  m_BackGroundColor: {r: 0.023163639, g: 0.03296364, b: 0.049000002, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
